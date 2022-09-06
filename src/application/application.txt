@@ -1,0 +1,10 @@
+Application describes use cases, i.e. user scenarios. They are responsible for what happens after some event occurs.
+
+For example, the “Add to cart” scenario is a use case. It describes the actions that are should be taken after the button is clicked. It's the kind of “orchestrator” that says:
+
+go to the server, send a request;
+now perform this a domain transformation;
+now redraw the UI using the response data.
+Also, in the application layer theree are ports—the specifications of how our application wants the outside world to communicate with it. Usually a port is an interface, a behavior contract.
+
+Ports serve as a “buffer zone” between our application's wishes and the reality. Input Ports tell us how the application wants to be contacted by the outside world. Output Ports say how the application is going to communicate with the outside world to make it ready.

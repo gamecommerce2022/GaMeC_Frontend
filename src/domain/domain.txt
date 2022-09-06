@@ -1,0 +1,7 @@
+Domain is the entities and data that describe the subject area of the application, as well as the code to transform that data. The domain is the core that distinguishes one application from another.
+
+You can think of the domain as something that won't change if we move from React to Angular, or if we change some use case. In the case of the store, these are products, orders, users, cart, and functions to update their data.
+
+The data structure of domain entities and the essence of their transformations are independent from the outer world. External events trigger domain transformations, but do not determine how they will occur.
+
+The function of adding an item to cart doesn't care how exactly the item was added: by the user himself through the “Buy” button or automatically with a promo code. It will in both cases accept the item and return an updated cart with the added item.
