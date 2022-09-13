@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Blogs } from './ui/Blogs';
-import { Collections } from './ui/Collections';
-import { Contact } from './ui/Contact';
-import Header from './ui/Header/Header';
-import { Home } from './ui/Home';
-import { Shop } from './ui/Shop';
+import Blogs from './ui/blogs/blogs';
+import Collections from './ui/collections/collections';
+import Contact from './ui/contact/contact';
+import Header from './ui/header/header';
+import Home from './ui/home/home';
+import Shop from './ui/shop/shop';
 
 function App() {
  return (

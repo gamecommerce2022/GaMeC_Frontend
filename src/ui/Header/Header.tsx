@@ -22,34 +22,29 @@ const Header = () => {
     fluid={true}
     rounded={true}
    >
-    <Navbar.Brand href="https://flowbite.com/">
-     <img
-      src="https://flowbite.com/docs/images/logo.svg"
-      className="mr-3 h-6 sm:h-9"
-      alt="Flowbite Logo"
-     />
+    <Navbar.Brand href="/">
      <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-      Flowbite
+      GaMeC
      </span>
     </Navbar.Brand>
     <Navbar.Toggle />
     <Navbar.Collapse>
      <Navbar.Link
-      href="/navbars"
+      href="/"
       active={true}
      >
       Home
      </Navbar.Link>
-     <Navbar.Link href="/navbars">
-      About
+     <Navbar.Link href="/shop">
+      Shop
      </Navbar.Link>
-     <Navbar.Link href="/navbars">
-      Services
+     <Navbar.Link href="/collections">
+      Collections
      </Navbar.Link>
-     <Navbar.Link href="/navbars">
-      Pricing
+     <Navbar.Link href="/blogs">
+      Blogs
      </Navbar.Link>
-     <Navbar.Link href="/navbars">
+     <Navbar.Link href="/contact">
       Contact
      </Navbar.Link>
     </Navbar.Collapse>

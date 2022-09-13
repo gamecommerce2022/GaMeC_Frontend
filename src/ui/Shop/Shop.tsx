@@ -1,8 +1,7 @@
 import React from 'react';
 
-export function Shop() {
-  return (
-    <div>
-      <h1>Shop</h1>
-    </div>);
+const Shop = () => {
+ return (<></>)
 }
+
+export default Shop;
