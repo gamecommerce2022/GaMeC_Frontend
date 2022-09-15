@@ -5,20 +5,23 @@ import Blogs from './ui/blogs/blogs';
 import Contact from './ui/contact/contact';
 import Footer from './ui/footer/footer';
 import Header from './ui/header/header';
+import { Headers } from './ui/header/headers';
 import Home from './ui/home/home';
-import Shop from './ui/shop/shop';
 import Wishlist from './ui/wishlist/wishlist';
+import Category from './ui/category/category';
+import SignIn from './ui/authentication/sign_in';
 
 function App() {
  return (
   <>
-   <Header />
+   <Headers />
    <Routes >
     <Route path="/" element={<Home />} />
-    <Route path="/shop" element={<Shop />} />
+    <Route path="/category" element={<Category />} />
     <Route path='/blogs' element={<Blogs />} />
     <Route path='/wishlist' element={<Wishlist />} />
     <Route path='/contact' element={<Contact />} />
+    <Route path='/signin' element={<SignIn />} />
    </Routes >
    <Footer />
   </>
