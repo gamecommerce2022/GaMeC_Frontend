@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Blogs from './ui/blogs/blogs';
 import Contact from './ui/contact/contact';
-import Header from './ui/header/header';
 import { Headers } from './ui/header/headers';
 import Home from './ui/home/home';
 import Wishlist from './ui/wishlist/wishlist';
