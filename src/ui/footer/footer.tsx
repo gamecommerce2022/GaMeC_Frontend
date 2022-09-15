@@ -1,35 +1,74 @@
-import { Footer } from "flowbite-react";
+/// Import Image
+import appIcon from '../../assets/images/app_icon.png'
+
+import { Button, Footer, TextInput } from "flowbite-react";
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
+import { Typography } from '@material-tailwind/react';
 
 const FooterApp = () => (
  <Footer>
   <div className="w-full">
    <div className="grid w-full grid-cols-2 gap-8 py-8 px-6 md:grid-cols-4">
+    <div className='flex flex-col justify-center'>
+     <img
+      className="h-24 w-24 mr-2 pb-2"
+      src={appIcon}
+      alt=""
+     />
+     <div className="mb-2 flex flex-row">
+      <div className='mr-2'>
+       <TextInput
+        id="email1"
+        type="email"
+        placeholder="Enter Email Address"
+        required={true}
+       />
+      </div>
+
+      <Button type="submit">
+       Sign Up
+      </Button>
+     </div>
+
+     <div className='text-gray-500'>
+      <Typography variant='small'>Contact Info</Typography>
+      <Typography variant='small'>17 Princess Road, London, Greater London NW1 8JR, UK</Typography>
+     </div>
+    </div>
     <div>
-     <Footer.Title title="Company" />
+     <Footer.Title title="categories" />
      <Footer.LinkGroup col={true}>
       <Footer.Link href="#">
-       About
+       Laptop & Computer
       </Footer.Link>
       <Footer.Link href="#">
-       Brand Center
+       Figures & Card
       </Footer.Link>
       <Footer.Link href="#">
-       Blog
+       Smart Phones & Tablets
+      </Footer.Link>
+      <Footer.Link href="#">
+       Video Games & Consoles
+      </Footer.Link>
+      <Footer.Link href="#">
+       Waterproof Headphones
       </Footer.Link>
      </Footer.LinkGroup>
     </div>
     <div>
-     <Footer.Title title="help center" />
+     <Footer.Title title="customer care" />
      <Footer.LinkGroup col={true}>
       <Footer.Link href="#">
-       Twitter
+       Account
       </Footer.Link>
       <Footer.Link href="#">
-       Facebook
+       Discount
       </Footer.Link>
       <Footer.Link href="#">
-       Contact Us
+       Order History
+      </Footer.Link>
+      <Footer.Link href="#">
+       Return
       </Footer.Link>
      </Footer.LinkGroup>
     </div>
@@ -44,17 +83,6 @@ const FooterApp = () => (
       </Footer.Link>
       <Footer.Link href="#">
        Terms & Conditions
-      </Footer.Link>
-     </Footer.LinkGroup>
-    </div>
-    <div>
-     <Footer.Title title="download" />
-     <Footer.LinkGroup col={true}>
-      <Footer.Link href="#">
-       iOS
-      </Footer.Link>
-      <Footer.Link href="#">
-       Android
       </Footer.Link>
      </Footer.LinkGroup>
     </div>
