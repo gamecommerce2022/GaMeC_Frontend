@@ -3,13 +3,13 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import Blogs from './ui/blogs/blogs';
 import Contact from './ui/contact/contact';
-import Footer from './ui/footer/footer';
 import Header from './ui/header/header';
 import { Headers } from './ui/header/headers';
 import Home from './ui/home/home';
 import Wishlist from './ui/wishlist/wishlist';
 import Category from './ui/category/category';
 import SignIn from './ui/authentication/sign_in';
+import FooterApp from './ui/footer/footer';
 
 function App() {
  return (
@@ -23,7 +23,7 @@ function App() {
     <Route path='/contact' element={<Contact />} />
     <Route path='/signin' element={<SignIn />} />
    </Routes >
-   <Footer />
+   <FooterApp />
   </>
 
  );
