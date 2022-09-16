@@ -9,11 +9,14 @@ import Wishlist from './ui/wishlist/wishlist';
 import Category from './ui/category/category';
 import SignIn from './ui/authentication/sign_in';
 import FooterApp from './ui/footer/footer';
+import Spacer from './ui/home/component/spacer';
 
 function App() {
  return (
-  <>
+  <div className='bg-gray-400'>
+   <Spacer />
    <Headers />
+   <Spacer />
    <Routes >
     <Route path="/" element={<Home />} />
     <Route path="/category" element={<Category />} />
@@ -22,8 +25,9 @@ function App() {
     <Route path='/contact' element={<Contact />} />
     <Route path='/signin' element={<SignIn />} />
    </Routes >
+   <Spacer />
    <FooterApp />
-  </>
+  </div>
 
  );
 }
