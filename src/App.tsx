@@ -13,7 +13,7 @@ import Spacer from './ui/home/component/spacer';
 
 function App() {
  return (
-  <div className='bg-gray-400'>
+  <div>
    <Spacer />
    <Headers />
    <Spacer />
