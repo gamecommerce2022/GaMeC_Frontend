@@ -10,6 +10,8 @@ import Category from './ui/category/category';
 import SignIn from './ui/authentication/sign_in';
 import FooterApp from './ui/footer/footer';
 import Spacer from './ui/home/component/spacer';
+import ProductInfoPage from './domain_product/page/product_info_page/product_info_page';
+import ProductListPage from './domain_product/page/product_list_page/product_list_page';
 
 function App() {
  return (
@@ -24,6 +26,8 @@ function App() {
     <Route path='/wishlist' element={<Wishlist />} />
     <Route path='/contact' element={<Contact />} />
     <Route path='/signin' element={<SignIn />} />
+    <Route path='/product-list' element={<ProductListPage />} />
+    <Route path='/product/:id' element={<ProductInfoPage />} />
    </Routes >
    <Spacer />
    <FooterApp />
