@@ -29,7 +29,7 @@ export const Headers = () => {
    <Typography
     as="li"
     variant="small"
-    color="blue-gray"
+    color="white"
     className="p-1 font-normal"
    >
     <Link to="/" className="flex items-center">
@@ -39,17 +39,17 @@ export const Headers = () => {
    <Typography
     as="li"
     variant="small"
-    color="blue-gray"
+    color="white"
     className="p-1 font-normal"
    >
-    <Link to="/category" className="flex items-center">
+    <Link to="/product-list" className="flex items-center">
      Category
     </Link>
    </Typography>
    <Typography
     as="li"
     variant="small"
-    color="blue-gray"
+    color="white"
     className="p-1 font-normal "
    >
     <Link to="/blogs" className="flex items-center">
@@ -59,7 +59,7 @@ export const Headers = () => {
    <Typography
     as="li"
     variant="small"
-    color="blue-gray"
+    color="white"
     className="p-1 font-normal"
    >
     <Link to="/contact" className="flex items-center">
@@ -70,11 +70,11 @@ export const Headers = () => {
  );
 
  return (
-  <Navbar className="mx-auto max-w-screen-xl py-1 px-4 lg:px-8">
-   <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
+  <Navbar className="mx-auto max-w-screen-xl py-1 px-4 lg:px-8 bg-black">
+   <div className="container mx-auto flex items-center justify-between text-white">
     <Typography
      as="a"
-     href="#"
+     href="/"
      variant="small"
      className="mr-4 cursor-pointer py-1 font-normal flex flex-row items-center"
     >

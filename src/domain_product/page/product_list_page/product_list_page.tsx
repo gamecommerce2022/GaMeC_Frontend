@@ -1,39 +1,44 @@
 import { Link } from "react-router-dom"
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Product } from "../../model/product_list/product_list";
+import { ProductGenresListComponent, ProductListComponent } from "./component/component";
 
-const ProductListPage = () => {
+export const ProductListPage = () => {
+ // const [products, setProducts] = useState<Product[]>([]);
+
+ // const [nextUrl, setNextUrl] = useState<string>('');
+
+ // const [loading, setLoading] = useState<boolean>(true);
+
+ // useEffect(() => {
+ //  const getProducts = async () => {
+ //   const res = await axios.get("https://api.rawg.io/api/games?key=79696f0d5de243dd8f873c69c0ea6fce&page=1");
+ //   setNextUrl(res.data.next);
+ //   res.data.results.forEach(async (product: Product) => {
+ //    setProducts((p) => [...p, product]);
+ //    setLoading(false);
+ //   })
+ //  }
+ //  getProducts();
+ // }, []);
+
+ // const loadMore = async () => {
+ //  setLoading(true);
+ //  let res = await axios.get(nextUrl);
+ //  setNextUrl(res.data.next);
+
+ //  res.data.results.forEach(async (product: Product) => {
+ //   setProducts((p) => [...p, product]);
+ //   setLoading(false);
+ //  })
+ // }
+
  return (
-  <div className="max-w-5xl py-4 flex flex-col">
-   <Link to='/product/1000'>
-    <div className="w-full px-2 py-1 h-40 bg-blue-gray-50">
-     <h1>Product A</h1>
-    </div>
-   </Link>
+  <div className="px-36 py-16 flex flex-row space-x-8 bg-black">
+   <ProductListComponent />
 
-   <Link to='/product/500'>
-    <div className="w-full px-2 py-1 h-40 bg-blue-gray-100">
-     <h1>Product B</h1>
-    </div>
-   </Link>
-
-   <Link to='/product/700'>
-    <div className="w-full px-2 py-1 h-40 bg-blue-gray-200">
-     <h1>Product C</h1>
-    </div>
-   </Link>
-
-   <Link to='/product/53454'>
-    <div className="w-full px-2 py-1 h-40 bg-blue-400">
-     <h1>Product D</h1>
-    </div>
-   </Link>
-
-   <Link to='/product/104300'>
-    <div className="w-full px-2 py-1 h-40 bg-blue-700">
-     <h1>Product E</h1>
-    </div>
-   </Link>
+   <ProductGenresListComponent />
   </div>
  )
 }
-
-export default ProductListPage;
