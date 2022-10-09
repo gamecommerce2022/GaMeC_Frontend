@@ -6,8 +6,8 @@ import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Typography } from '@material-tailwind/react';
 
 const FooterApp = () => (
- <Footer>
-  <div className="w-full">
+ <Footer bgDark={true}>
+  <div className="w-full bg-black">
    <div className="grid w-full grid-cols-2 gap-8 py-8 px-6 md:grid-cols-4">
     <div className='flex flex-col justify-center'>
      <img
@@ -30,7 +30,7 @@ const FooterApp = () => (
       </Button>
      </div>
 
-     <div className='text-gray-500'>
+     <div className='text-white'>
       <Typography variant='small'>Contact Info</Typography>
       <Typography variant='small'>17 Princess Road, London, Greater London NW1 8JR, UK</Typography>
      </div>
@@ -87,7 +87,7 @@ const FooterApp = () => (
      </Footer.LinkGroup>
     </div>
    </div>
-   <div className="w-full bg-white py-6 px-4 sm:flex sm:items-center sm:justify-between text-gray-800">
+   <div className="w-full bg-black py-6 px-4 sm:flex sm:items-center sm:justify-between ">
     <Footer.Copyright
      href="#"
      by="GaMeC"

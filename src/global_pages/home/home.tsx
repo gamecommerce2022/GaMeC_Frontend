@@ -5,7 +5,7 @@ import Spacer from "./component/spacer";
 import TabsDiscountItem from "./component/tabs_discount_item";
 
 const Home = () => {
- return (<>
+ return (<div className="bg-black">
   <CarouselBannerProduct />
   <Spacer />
   <Typography variant='h1'>Latest Product</Typography>
@@ -17,7 +17,7 @@ const Home = () => {
   <TabsDiscountItem />
   <Spacer />
   <Typography variant='h1'>Latest Blogs</Typography>
- </>)
+ </div>)
 }
 
 export default Home;
