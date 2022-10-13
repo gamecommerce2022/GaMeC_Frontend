@@ -9,7 +9,7 @@ import { ProductListPage, ProductInfoPage } from './domain_product/page/page';
 
 function App() {
  return (
-  <div className="bg-black">
+  <div className="bg-black select-none">
    <Spacer />
    <Headers />
    <Spacer />
@@ -17,7 +17,7 @@ function App() {
     <Route path="/" element={<Home />} />
     <Route path="/home" element={<Home />} />
     <Route path='/product-list' element={<ProductListPage />} />
-    <Route path='/product/:id' element={<ProductInfoPage />} />
+    <Route path='/products/:id' element={<ProductInfoPage />} />
    </Routes >
    <Spacer />
    <FooterApp />

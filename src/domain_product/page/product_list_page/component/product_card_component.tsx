@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { classNames } from "../../../../lib/Classnames";
 import { ProductCardEntity } from "../../../entity/entity";
 
@@ -23,9 +24,9 @@ export const ProductCardComponent: React.FC<ProductCardEntity> = (props: Product
     </div>
    </div>
 
-   <div className="h-16 mx-1.5 flex justify-center items-center bg-blue-500 rounded-lg text-white font-bold text-xs group">
+   <Link className="h-16 mx-1.5 flex justify-center items-center bg-blue-500 rounded-lg text-white font-bold text-xs group" to={`/products/${props.id}`} >
     <div className="inline-block group-hover:hidden">{props.price}</div>
     <div className="hidden group-hover:inline-block">Purchase</div>
-   </div>
+   </Link>
   </div>)
 }
