@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Headers } from './global_pages/header/headers';
-import Home from './global_pages/home/home';
-import FooterApp from './global_pages/footer/footer';
-import Spacer from './global_pages/home/component/spacer';
-import { ProductListPage, ProductInfoPage } from './domain_product/page/page';
-
+import FooterApp from './ui/global/footer/footer';
+import { Headers } from './ui/global/header/headers';
+import Spacer from './ui/home/component/spacer';
+import Home from './ui/home/home';
+import { ProductInfoPage } from './ui/user/browser/product_info_page/product_info_page';
+import { ProductListPage } from './ui/user/browser/product_list_page/product_list_page';
 function App() {
  return (
   <div className="bg-black select-none">

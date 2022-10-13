@@ -1,7 +1,17 @@
 import { Button, Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { BannerAdsProp } from "../../../application/home/banner_ads_props";
 import { CheckIcon } from "@heroicons/react/24/outline";
+
+export interface BannerAdsProp {
+ id: number,
+ image: string,
+ title: string,
+ productName: string,
+ productPrice: string,
+ descriptions: string[],
+ buttonTitle: string,
+ link: string,
+}
 
 const DiscountItem: React.FC<BannerAdsProp> = (props) => {
  const bannerAds: BannerAdsProp = props;

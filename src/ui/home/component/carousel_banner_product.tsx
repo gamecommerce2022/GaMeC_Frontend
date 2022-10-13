@@ -1,7 +1,15 @@
 import { Carousel } from "flowbite-react";
 import { Link } from "react-router-dom";
-import { BannerProductProp } from "../../../application/home/banner_poduct_props";
 import BannerProduct from "./banner_product";
+
+export interface BannerProductProp {
+ id: number,
+ image: string,
+ title: string,
+ description: string,
+ buttonTitle: string,
+ link: string,
+}
 
 const bannerPoductList: BannerProductProp[] = [
  { id: 1, title: 'NEW GAME SAGA FAST TIME', description: 'More off this less hello samlande lied much over tightly circa horse taped mightly', image: 'https://source.unsplash.com/random/1920x1080/?game', buttonTitle: 'Shop now', link: '/shop' },

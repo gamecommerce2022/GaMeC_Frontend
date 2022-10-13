@@ -1,11 +1,10 @@
 import { ArrowSmallLeftIcon, ArrowSmallRightIcon, ChevronDownIcon } from "@heroicons/react/24/solid"
 import { ProductCardComponent } from "./component"
-import CyberPunk2077 from "../../../../assets/games/CyberPunk2077.png";
 import { useEffect, useState } from "react";
-import { ProductCardEntity, convertProductsModelToEntity } from "../../../entity/entity";
-import { ProductPageList } from "../../../model/product_list/product_list";
 import axios from "axios";
 import { Button } from "@material-tailwind/react";
+import { ProductCardEntity, convertProductsModelToEntity } from "../../../../../entity/entity";
+import { ProductPageList } from "../../../../../model/product_list/product_list";
 
 export const ProductListComponent: React.FC = () => {
  const defaultProduct: ProductCardEntity[] = [];
