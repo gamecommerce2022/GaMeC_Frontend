@@ -1,6 +1,4 @@
 /// Import Image
-import appIcon from '../../assets/images/app_icon.png'
-
 import { Button, Footer, TextInput } from "flowbite-react";
 import { FaFacebookF, FaInstagram, FaTwitter } from 'react-icons/fa';
 import { Typography } from '@material-tailwind/react';
@@ -10,11 +8,6 @@ const FooterApp = () => (
   <div className="w-full bg-black">
    <div className="grid w-full grid-cols-2 gap-8 py-8 px-6 md:grid-cols-4">
     <div className='flex flex-col justify-center'>
-     <img
-      className="h-24 w-24 mr-2 pb-2"
-      src={appIcon}
-      alt=""
-     />
      <div className="mb-2 flex flex-row">
       <div className='mr-2'>
        <TextInput

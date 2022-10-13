@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Product } from "../../model/product_list/product_list";
 import { ProductGenresListComponent, ProductListComponent } from "./component/component";
 
 export const ProductListPage = () => {

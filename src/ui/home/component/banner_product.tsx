@@ -1,6 +1,14 @@
 import { Button } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import { BannerProductProp } from "../../../application/home/banner_poduct_props";
+
+export interface BannerProductProp {
+ id: number,
+ image: string,
+ title: string,
+ description: string,
+ buttonTitle: string,
+ link: string,
+}
 
 const BannerProduct: React.FC<BannerProductProp> = (props) => {
  const bannerProduct: BannerProductProp = props;

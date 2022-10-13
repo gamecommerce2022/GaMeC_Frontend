@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { classNames } from "../../../../lib/Classnames";
-import { ProductCardEntity } from "../../../entity/entity";
+import { ProductCardEntity } from "../../../../../entity/entity";
+import { classNames } from "../../../../../utils/Classnames";
 
 
 

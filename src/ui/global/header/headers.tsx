@@ -1,6 +1,3 @@
-/// Import Image
-import appIcon from '../../assets/images/app_icon.png'
-
 import { useState, useEffect } from "react";
 import {
  Navbar,
@@ -78,11 +75,6 @@ export const Headers = () => {
      variant="small"
      className="mr-4 cursor-pointer py-1 font-normal flex flex-row items-center"
     >
-     <img
-      className="h-10 w-auto mr-2 pb-2"
-      src={appIcon}
-      alt=""
-     />
      <span>G a M e C </span>
     </Typography>
     <div className="hidden lg:block">{navList}</div>
@@ -108,7 +100,6 @@ export const Headers = () => {
      </Button>
       :
       <Button variant="text" className="hidden lg:flex flex-row items-center py-0" onClick={() => setAvatar(false)}>
-       <Avatar src={appIcon} alt="avatar" variant="circular" className='w-8 h-8 mx-1 mb-1' />
        <Typography variant="small">User Special Name</Typography>
       </Button>}
 

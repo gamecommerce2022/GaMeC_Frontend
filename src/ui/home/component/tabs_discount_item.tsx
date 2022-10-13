@@ -1,7 +1,22 @@
 import { Tab, TabPanel, Tabs, TabsBody, TabsHeader } from "@material-tailwind/react";
-import { BannerAdsProp } from "../../../application/home/banner_ads_props";
-import { TabProps } from "../../../application/home/tab_props";
 import DiscountItem from "./discount_item";
+
+export interface BannerAdsProp {
+ id: number,
+ image: string,
+ title: string,
+ productName: string,
+ productPrice: string,
+ descriptions: string[],
+ buttonTitle: string,
+ link: string,
+}
+
+export interface TabProps {
+ key: string,
+ label: string,
+ value: BannerAdsProp,
+}
 
 const bannerAds: BannerAdsProp = {
  id: 1,

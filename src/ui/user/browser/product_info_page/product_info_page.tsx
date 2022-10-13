@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ProductInformation } from "../../model/product/product";
+import { ProductInformation } from "../../../../model/product/product";
 
 export const ProductInfoPage = () => {
  // 👇️ get ID from url
