@@ -1,4 +1,3 @@
-import { Carousel } from "flowbite-react";
 import { Link } from "react-router-dom";
 import BannerProduct from "./banner_product";
 
@@ -20,9 +19,10 @@ const bannerPoductList: BannerProductProp[] = [
 ]
 
 const CarouselBannerProduct = () => {
- return (<Carousel slideInterval={5000}>
-  {bannerPoductList.map((item: BannerProductProp) => <BannerProduct key={item.id} id={item.id} title={item.title} description={item.description} image={item.image} buttonTitle={item.buttonTitle} link={item.link} />)}
- </Carousel>)
+ // return (<Carousel slideInterval={5000}>
+ //  {bannerPoductList.map((item: BannerProductProp) => <BannerProduct key={item.id} id={item.id} title={item.title} description={item.description} image={item.image} buttonTitle={item.buttonTitle} link={item.link} />)}
+ // </Carousel>)
+ return (<div></div>)
 }
 
 export default CarouselBannerProduct;

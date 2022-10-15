@@ -10,9 +10,8 @@ module.exports = withMT({
  theme: {
   extend: {},
  },
- plugins: [
-  require("flowbite/plugin"),
-  require("@tailwindcss/forms"),
-  require("@tailwindcss/aspect-ratio"),
- ],
+ plugins: [require("@tailwindcss/forms"), require("@tailwindcss/aspect-ratio")],
+ corePlugins: {
+  preflight: false,
+ },
 });
