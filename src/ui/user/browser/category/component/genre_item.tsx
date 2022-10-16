@@ -14,7 +14,7 @@ interface GenreProps {
 
 export const GenreItem: React.FC<GenreProps> = (props: GenreProps) => {
  return (<Card key={props.id} className=" bg-gray-900 hover:bg-gray-700">
-  <CardHeader floated={false} className="relative h-56">
+  <CardHeader floated={false} className="relative h-64">
    <img
     src={props.img}
     alt="img-blur-shadow"
