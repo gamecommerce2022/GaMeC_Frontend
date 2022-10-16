@@ -19,7 +19,7 @@ export const PopularGenres: React.FC = () => {
 
  const swiperRef = useRef<SwiperCore>();
 
- return (<div className="flex flex-col space-y-4">
+ return (<div className="flex flex-col space-y-2">
   {/** Popular Genre + 2 button */}
   <div className="flex flex-row space-x-4">
    <Typography.Title level={4} className='flex-none flex items-center justify-center'><div className="text-white">Popular Genres</div></Typography.Title>
@@ -45,7 +45,7 @@ export const PopularGenres: React.FC = () => {
     freeMode={true}
     grabCursor={true}
     modules={[FreeMode]}
-    slidesPerView={4}
+    slidesPerView={5}
     spaceBetween={20}
    >
     {Array(20).fill('Slider').map((item) => {
