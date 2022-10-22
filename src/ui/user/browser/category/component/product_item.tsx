@@ -1,6 +1,7 @@
 import { Card, CardBody, CardHeader, Tooltip, Typography } from "@material-tailwind/react"
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { classNames } from "../../../../../utils/Classnames";
+import { getProductPrice } from "../../../../../utils/product_utils";
 
 interface ProductItemProps {
  id: string;
@@ -32,11 +33,11 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
     {props.name}
    </div>
    <div className='flex flex-row space-x-2 items-center justify-items-center text-xs'>
-    {props.discount > 0 && <span className='bg-indigo-400 text-center rounded p-1 w-max text-sm'>-25%</span>}
+    {props.discount > 0 && <span className='bg-indigo-400 text-center rounded p-1 w-max text-sm'>-{props.discount * 100}%</span>}
     <span className={classNames("font-medium self-center w-max", props.discount > 0 ? 'line-through text-xs text-gray-400' : 'text-sm')}>
-     {props.price > 0 ? `đ ${props.price}` : 'Free'}
+     {props.price > 0 ? `đ ${getProductPrice(props.price)}` : 'Free'}
     </span>
-    {props.discount > 0 && <span className='w-max text-sm'>đ 1000000</span>}
+    {props.discount > 0 && <span className='w-max text-sm'>đ {getProductPrice(props.price * (1 - props.discount))}</span>}
    </div>
 
   </CardBody>
