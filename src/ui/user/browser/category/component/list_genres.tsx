@@ -59,10 +59,10 @@ const platforms = [
 ]
 
 export const ListGenres = () => {
- const [selectedGenres, setselectedGenres] = useState([genres[0]])
- const [selectedFeatures, setselectedFeatures] = useState([features[0]])
- const [selectedTypes, setselectedTypes] = useState([types[0]])
- const [selectedPlatforms, setselectedPlatforms] = useState([platforms[0]])
+ const [selectedGenres, setselectedGenres] = useState<{ id: number, name: string }[]>([])
+ const [selectedFeatures, setselectedFeatures] = useState<{ id: number, name: string }[]>([])
+ const [selectedTypes, setselectedTypes] = useState<{ id: number, name: string }[]>([])
+ const [selectedPlatforms, setselectedPlatforms] = useState<{ id: number, name: string }[]>([])
 
  return (<div className='flex flex-col gap-4 w-60'>
   {/** Filter Input */}
