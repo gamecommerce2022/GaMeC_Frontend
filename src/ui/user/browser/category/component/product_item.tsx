@@ -1,7 +1,8 @@
-import { Card, CardBody, CardHeader, Tooltip, Typography } from "@material-tailwind/react"
+import { Card, CardBody, CardHeader, Tooltip } from "@material-tailwind/react"
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import { classNames } from "../../../../../utils/Classnames";
 import { getProductPrice } from "../../../../../utils/product_utils";
+import { useNavigate } from "react-router-dom";
 
 interface ProductItemProps {
  id: string;
@@ -12,7 +13,12 @@ interface ProductItemProps {
  discount: number;
 }
 export const ProductItem: React.FC<ProductItemProps> = (props) => {
- return (<Card key={props.id} className=" bg-transparent md:w-32 lg:w-56 ">
+ let navigate = useNavigate();
+ const navigateProductPage = () => {
+  let path = `products/${props.id}`;
+  navigate(path);
+ }
+ return (<Card key={props.id} className=" bg-transparent md:w-32 lg:w-56" onClick={navigateProductPage}>
   <CardHeader floated={true} className="relative lg:h-64 md:h-32 group">
    <img
     src={props.img}
