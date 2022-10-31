@@ -1,23 +1,100 @@
-import { Typography } from "@material-tailwind/react";
-import BannerAds from "./component/banner_ads";
-import CarouselBannerProduct from "./component/carousel_banner_product";
-import Spacer from "./component/spacer";
-import TabsDiscountItem from "./component/tabs_discount_item";
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "./home.css";
+import "../home/carousel.scss";
+import { dataDigitalBestSeller } from "../../data/Data";
+import GameCard from "./component/game-card";
+import CarouselCard from "./component/carousel-card";
+import { carouselData } from "../../data/CarouselData";
 const Home = () => {
- return (<div className="bg-black">
-  <CarouselBannerProduct />
-  <Spacer />
-  <Typography variant='h1'>Latest Product</Typography>
-  <Spacer />
-  <BannerAds />
-  <Spacer />
-  <Typography variant='h1'>Top Categories</Typography>
-  <Spacer />
-  <TabsDiscountItem />
-  <Spacer />
-  <Typography variant='h1'>Latest Blogs</Typography>
- </div>)
-}
+  const customPagingSetting = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    initialSlide: 0,
+  };
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 3,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+  return (
+    <div className="home-wrapper">
+      <div className="text-2xl text-white">FEATURED & RECOMMENDED</div>
+      <Slider  {...customPagingSetting}>
+        {carouselData.map((item) => (
+          <CarouselCard {...item} />
+        ))}
+      </Slider>
+      <div className="text-2xl text-white">Halloween Spotlight</div>
+
+      <Slider {...settings}>
+        {dataDigitalBestSeller.map((item) => (
+          <GameCard {...item} />
+        ))}
+      </Slider>
+
+      <div className="text-2xl text-white">Most Popular</div>
+      <Slider {...settings}>
+        {dataDigitalBestSeller.map((item) => (
+          <GameCard {...item} />
+        ))}
+      </Slider>
+
+      <div className="text-2xl text-white">Game with Achievements</div>
+      <Slider {...settings}>
+        {dataDigitalBestSeller.map((item) => (
+          <GameCard {...item} />
+        ))}
+      </Slider>
+
+      <div className="text-2xl text-white">Recently Updated</div>
+      <Slider {...settings}>
+        {dataDigitalBestSeller.map((item) => (
+          <GameCard {...item} />
+        ))}
+      </Slider>
+
+      <div className="text-2xl text-white">New on GameC</div>
+      <Slider {...settings}>
+        {dataDigitalBestSeller.map((item) => (
+          <GameCard {...item} />
+        ))}
+      </Slider>
+    </div>
+  );
+};
 
 export default Home;
