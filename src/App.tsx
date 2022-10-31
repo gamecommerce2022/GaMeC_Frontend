@@ -5,8 +5,7 @@ import FooterApp from './ui/global/footer/footer';
 import { Headers } from './ui/global/header/headers';
 import Spacer from './ui/home/component/spacer';
 import Home from './ui/home/home';
-import { ProductInfoPage } from './ui/user/browser/product_info_page/product_info_page';
-import { ProductListPage } from './ui/user/browser/product_list_page/product_list_page';
+import { Category, ProductPage } from './ui/user/browser/browser';
 function App() {
  return (
   <div className="bg-black select-none">
@@ -16,8 +15,8 @@ function App() {
    <Routes >
     <Route path="/" element={<Home />} />
     <Route path="/home" element={<Home />} />
-    <Route path='/product-list' element={<ProductListPage />} />
-    <Route path='/products/:id' element={<ProductInfoPage />} />
+    <Route path='/product-list' element={<Category />} />
+    <Route path='/product-list/products/:id' element={<ProductPage />} />
    </Routes >
    <Spacer />
    <FooterApp />
