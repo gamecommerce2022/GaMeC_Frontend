@@ -10,10 +10,11 @@ const CarouselCard = (item: {
   subThumbnails: string[];
 }) => {
   const [currentThumbnail, setCurrentThumbnail] = useState(item.thumbnailUrl);
+  const realPrice = (item.originalPrice * (100 - item.discountPercent)) / 100;
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row cursor-pointer">
       <img
-        className="rounded-md w-3/5 h-full object-fill"
+        className="rounded-md w-3/5 h-96 object-fill transition duration-1000"
         src={currentThumbnail}
         alt=""
       />
@@ -22,8 +23,9 @@ const CarouselCard = (item: {
         <div className="grid grid-cols-2 gap-2">
           {item.subThumbnails.map((subThumbnail) => (
             <img
-              onClick={() => setCurrentThumbnail(subThumbnail)}
-              className="w-4/5 bg-blend-lighten hover:bg-blend-darken"
+              onMouseEnter={() => setCurrentThumbnail(subThumbnail)}
+              onMouseLeave={() => setCurrentThumbnail(item.thumbnailUrl)}
+              className="w-full transition duration-300 filter brightness-50 hover:brightness-100"
               alt=""
               src={subThumbnail}
             />
@@ -32,13 +34,32 @@ const CarouselCard = (item: {
         <p className="text-white text-2xl">Now Available</p>
 
         <div className="flex">
-          <span className="bg-blue-gray-500 rounded-sm text-white">
+          <span className="bg-blue-gray-500 rounded-sm text-white px-1 mb-2">
             Top Seller
           </span>
         </div>
 
         <div className="flex-grow"></div>
-        <p className="text-white text-xs">{item.originalPrice}</p>
+        {realPrice !== item.originalPrice ? (
+          <div className="flex">
+            <span className="text-green-banana bg-green-dark font-semibold px-1">
+              -{item.discountPercent}%
+            </span>
+
+            <span className="bg-gray-dark">
+              <span className="text-gray-600 line-through pl-1">
+                {item.originalPrice}
+              </span>
+              <span className="text-green-banana no-underline px-1">
+                {realPrice}
+              </span>
+            </span>
+          </div>
+        ) : (
+          <p className="text-white text-xs">
+            {realPrice !== 0 ? realPrice : "Free to play"}
+          </p>
+        )}
       </div>
     </div>
   );
