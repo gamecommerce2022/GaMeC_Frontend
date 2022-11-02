@@ -16,6 +16,9 @@ module.exports = withMT({
   },
   variants: {
     extend: {
+      height: {
+        128: "32rem",
+      },
       grayscale: ["hover"],
       sepia: ["hover"],
       invert: ["hover"],

@@ -12,6 +12,7 @@ const Home = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    arrow: false,
     initialSlide: 0,
   };
   const settings = {

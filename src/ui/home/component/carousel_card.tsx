@@ -12,9 +12,9 @@ const CarouselCard = (item: {
   const [currentThumbnail, setCurrentThumbnail] = useState(item.thumbnailUrl);
   const realPrice = (item.originalPrice * (100 - item.discountPercent)) / 100;
   return (
-    <div className="flex flex-row cursor-pointer">
+    <div className="flex flex-row cursor-pointer h-[32rem]">
       <img
-        className="rounded-md w-3/5 h-96 object-fill transition duration-1000"
+        className="rounded-md w-3/5 transition duration-1000 h-"
         src={currentThumbnail}
         alt=""
       />
