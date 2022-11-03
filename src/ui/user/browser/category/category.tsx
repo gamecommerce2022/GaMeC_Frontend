@@ -1,19 +1,29 @@
-import { ListGenres, ListProducts, PopularGenres } from './component';
+import {
+  ListGenres,
+  ListProducts,
+  PopularGenres,
+  ProductSortList,
+} from "./component";
 
 export const Category: React.FC = () => {
- return (
-  <div className="flex flex-col mx-40 space-y-20">
-   {/** Popular Genres */}
-   <PopularGenres />
+  return (
+    <div className="flex flex-col mx-12 space-y-20">
+      {/** Popular Genres */}
+      <PopularGenres />
 
-   {/** List Product */}
-   <div className='flex flex-row space-x-6'>
+      {/** List Product */}
+      <div className="grid grid-cols-5 space-x-6">
+        {/** Show List Product */}
+        <div className="col-span-4">
+          <ProductSortList />
+          <ListProducts />
+        </div>
 
-    {/** Show List Product */}
-    <ListProducts />
-
-    {/** Show Filter */}
-    <ListGenres />
-   </div>
-  </div>)
-}
+        {/** Show Filter */}
+        <div className="col-span-1">
+          <ListGenres />
+        </div>
+      </div>
+    </div>
+  );
+};

@@ -1,6 +1,4 @@
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { dataDigitalBestSeller } from "../../data/Data";
 import GameCard from "./component/game_card";
 import CarouselCard from "./component/carousel_card";
@@ -13,6 +11,7 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
+    arrows: false,
   };
   const settings = {
     dots: true,
@@ -21,6 +20,7 @@ const Home = () => {
     slidesToShow: 4,
     slidesToScroll: 3,
     initialSlide: 0,
+    arrows: false,
     responsive: [
       {
         breakpoint: 1024,
