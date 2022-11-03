@@ -57,7 +57,7 @@ const Home = () => {
           <CarouselCard {...item} />
         ))}
       </Slider>
-      <div className="text-2xl text-white">Halloween Spotlight</div>
+      <div className="text-2xl text-white mt-20">Halloween Spotlight</div>
 
       <Slider {...settings}>
         {dataDigitalBestSeller.map((item) => (
