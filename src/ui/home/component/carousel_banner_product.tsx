@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom";
-import BannerProduct from "./banner_product";
-
 export interface BannerProductProp {
  id: number,
  image: string,

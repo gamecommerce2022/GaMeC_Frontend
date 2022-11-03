@@ -1,9 +1,11 @@
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "./home.css";
+import "../home/carousel.scss";
 import { dataDigitalBestSeller } from "../../data/Data";
-import GameCard from "./component/game_card";
-import CarouselCard from "./component/carousel_card";
+import GameCard from "./component/game-card";
+import CarouselCard from "./component/carousel-card";
 import { carouselData } from "../../data/CarouselData";
 const Home = () => {
   const customPagingSetting = {
@@ -49,9 +51,9 @@ const Home = () => {
     ],
   };
   return (
-    <div className="m-6">
+    <div className="home-wrapper">
       <div className="text-2xl text-white">FEATURED & RECOMMENDED</div>
-      <Slider {...customPagingSetting}>
+      <Slider  {...customPagingSetting}>
         {carouselData.map((item) => (
           <CarouselCard {...item} />
         ))}
