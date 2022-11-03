@@ -1,18 +1,28 @@
 import { Link, Navigate } from 'react-router-dom'
+<<<<<<< HEAD
 import { ProductCard, ProductCardSection, ProductFeatureBox, ProductReviewSection, ProductSpecifications } from "../component"
+=======
+import { ProductCard, ProductFeatureBox, ProductReviewSection, ProductSpecifications } from "../component"
+>>>>>>> GE-2
 import { ReactComponent as FacebookIcon } from '../../../../../assets/images/facebook.svg'
 import { ReactComponent as TwitterIcon } from '../../../../../assets/images/twitter.svg'
 import { ReactComponent as DiscordIcon } from '../../../../../assets/images/discord.svg'
 import { ReactComponent as InstagramIcon } from '../../../../../assets/images/instagram.svg'
 import { reviews } from "../../../../../utils/data"
+<<<<<<< HEAD
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid"
+=======
+>>>>>>> GE-2
 import { getRandomNumber } from "../../../../../utils"
 import { Product } from '../../../../../model/product'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper';
 import SwiperCore from "swiper";
 import { useRef } from 'react'
+<<<<<<< HEAD
 import { GenreItem } from '../../category/component'
+=======
+>>>>>>> GE-2
 
 export interface IGamePageTemplateProps {
  product: Product | null

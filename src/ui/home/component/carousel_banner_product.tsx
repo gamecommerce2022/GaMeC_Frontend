@@ -1,3 +1,5 @@
+
+
 export interface BannerProductProp {
  id: number,
  image: string,
