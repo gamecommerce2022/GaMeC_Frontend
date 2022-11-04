@@ -19,12 +19,12 @@ export const ReviewCard = ({
   review,
   approvalRate,
 }: IReviewCardProps) => (
-  <div className="p-3 border border-gray-200 rounded-sm group">
+  <div className="p-3 bg-[#404040] rounded-xl group">
     <div className="flex">
       <div
         className={`${getScoreColor(
           reviewScore
-        )} shadow-lg rounded-full flex h-12 w-12 items-center justify-center`}
+        )} rounded-full flex h-12 w-12 items-center justify-center text-gray-200`}
       >
         {reviewScore <= 100 ? reviewScore : 100}
       </div>
@@ -39,13 +39,13 @@ export const ReviewCard = ({
       <div className="opacity-0 group-hover:opacity-100">
         <button
           type="button"
-          className="inline-flex items-center justify-center w-8 h-8 mr-2 bg-white rounded-full bg-opacity-5 hover:bg-opacity-20"
+          className="inline-flex items-center justify-center w-8 h-8 mr-2 bg-white rounded-full bg-opacity-5 hover:bg-opacity-20 border-none"
         >
           <HandThumbUpIcon />
         </button>
         <button
           type="button"
-          className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-full bg-opacity-5 hover:bg-opacity-20"
+          className="inline-flex items-center justify-center w-8 h-8 bg-white rounded-full bg-opacity-5 hover:bg-opacity-20 border-none"
         >
           <HandThumbDownIcon />
         </button>

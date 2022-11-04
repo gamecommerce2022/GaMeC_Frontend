@@ -28,11 +28,11 @@ export const discountCalc = (disc = 0, price: number) =>
 export const withCurrency = (price: number) => `đ${price.toFixed(2)}`
 
 export const getScoreColor = (score: number) => {
- if (score > 90) return 'border-2 border-white'
- if (score > 80) return 'border-2 border-gray-200'
- if (score > 70) return 'border-2 border-gray-300 '
- if (score > 60) return 'border-2 border-gray-500 '
- if (score > 50) return 'border-2 border-gray-600 '
- return 'border-2 border-gray-700 '
- //   if (score > 20) return 'border-2 border-red-300'
+ if (score > 90) return 'ring-2 ring-white'
+ if (score > 80) return 'ring-2 ring-gray-200'
+ if (score > 70) return 'ring-2 ring-gray-300 '
+ if (score > 60) return 'ring-2 ring-gray-500 '
+ if (score > 50) return 'ring-2 ring-gray-600 '
+ return 'ring-2 ring-gray-700 '
+ //   if (score > 20) return 'ring-2 ring-red-300'
 }

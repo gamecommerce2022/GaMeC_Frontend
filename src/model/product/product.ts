@@ -9,6 +9,7 @@ export type Product = {
  developer: string
  languages: string
  platform: string[]
+ feature: string[]
  publisherId: string
  description: string
  longDesc: string[]

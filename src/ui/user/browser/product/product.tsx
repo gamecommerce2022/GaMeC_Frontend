@@ -14,6 +14,7 @@ export const sampleProduct = {
   discount: 0,
   developer: "Quantic Dream",
   languages: "",
+  feature: ["hyfsbhdk"],
   longDesc: [
     "FREEDOM HAS A PRICE",
     "Detroit 2038. Technology has evolved to a point where human like androids are everywhere. They speak, move and behave like human beings, but they are only machines serving humans.",

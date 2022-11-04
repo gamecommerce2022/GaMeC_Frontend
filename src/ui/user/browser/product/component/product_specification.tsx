@@ -32,11 +32,11 @@ const spec = {
 };
 
 export const ProductSpecifications: React.FC<SpecificationsProps> = (props) => (
-  <div className="grid grid-cols-2 gap-2 py-6">
+  <div className="grid grid-cols-2 gap-2 pb-6 text-sm lg:text-base">
     <div>
       {spec.minimum.map((item) => (
         <div key={item.key} className="my-4">
-          <div className="text-gray-400">{item.key}</div>
+          <div className="text-gray-400 text-sm">{item.key}</div>
           <div className="mt-1 text-gray-100">{item.value}</div>
         </div>
       ))}
@@ -44,7 +44,7 @@ export const ProductSpecifications: React.FC<SpecificationsProps> = (props) => (
     <div>
       {spec.recommended.map((item) => (
         <div className="my-4" key={item.key}>
-          <div className="text-gray-400">{item.key}</div>
+          <div className="text-gray-400 text-sm">{item.key}</div>
           <div className="mb-1 text-gray-100">{item.value}</div>
         </div>
       ))}

@@ -45,13 +45,9 @@ export const Price = ({
     }
 
     return 0;
-
-    // throw new Error(
-    //   'Unknown combination of values received in Price component.'
-    // )
   };
 
   return (
-    <div className={`text-sm text-gray-200 ${classes}`}>{CreatePrice()}</div>
+    <div className={`text-sm lg:text-base text-gray-200 ${classes}`}>{CreatePrice()}</div>
   );
 };

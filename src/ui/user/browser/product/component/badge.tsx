@@ -20,7 +20,7 @@ export const Badge = ({
   };
   const variantCls = {
     primary: "bg-primary text-white",
-    gray: "bg-gray text-white",
+    gray: "bg-[#404040] text-white",
     green: "bg-green-600 text-white",
     white: "bg-white text-primary-800",
   };

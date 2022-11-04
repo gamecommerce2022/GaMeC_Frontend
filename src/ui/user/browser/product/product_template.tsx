@@ -8,6 +8,7 @@ import { getRandomNumber } from "../../../../utils/date_utils";
 import {
  ProductCard,
  ProductFeatureBox,
+ ProductImage,
  ProductReviewSection,
  ProductSpecifications,
 } from "./component";
@@ -23,44 +24,26 @@ export const ProductPageTemplate = ({
  const sliderRef = useRef<Slider>(null);
  if (!product) <Navigate to="/404" />;
  return (
-  <div className="mx-40">
+  <div className="lg:mx-40 md:mx-20 sm:mx-20">
    {product && (
     <div>
      <div className="my-3 text-4xl text-gray-100">{product.title}</div>
      <div className="grid grid-cols-1 gap-10 md:grid-cols-3">
       <div className="order-2 md:col-span-2 md:order-1">
-       {/** Carousel Genre */}
-       <div className="space-x-5">
-        <Slider ref={sliderRef} {...singleSettings}>
-         {Array(20)
-          .fill("Slider")
-          .map((item) => {
-           return (
-            <div className="mt-6 bg-black aspect-w-16 aspect-h-9">
-             <img
-              className="object-cover w-full h-full"
-              src={product.imageUrl}
-              alt={product.imageUrl}
-             />
-            </div>
-           );
-          })}
-        </Slider>
-       </div>
-
+       <ProductImage images={Array(20).fill(product.imageUrl)}/>
        <div className="my-4 text-lg">{product.description}</div>
        <div className="grid grid-cols-2 my-4">
         <ProductFeatureBox
          title="Genres"
-         value={product.tags.join(", ")}
+         value={product.tags}
         />
-        <ProductFeatureBox title="Features" value="-" />
+        <ProductFeatureBox title="Features" value={product.feature} />
         <ProductFeatureBox
          title="Platforms"
-         value={product.platform.join(", ")}
+         value={product.platform}
         />
        </div>
-       <div className="my-6">
+       <div className="mt-6">
         {product.longDesc?.map((item) => (
          <div
           key={item}
@@ -71,13 +54,13 @@ export const ProductPageTemplate = ({
          </div>
         ))}
        </div>
-       <div className="my-6">
+       <div className="mt-6">
         <div className="text-xl text-gray-200">
-         ProductSpecifications
+         Product Specifications
         </div>
         <ProductSpecifications />
        </div>
-       <div className="my-6">
+       <div className="mt-6">
         <div className="text-xl font-semibold text-gray-200">
          Reviews
         </div>

@@ -75,7 +75,7 @@ export const ListGenres = () => {
   >([]);
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 sticky top-0">
       {/** Filter Input */}
       <div className="bg-transparent">
         <label

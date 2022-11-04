@@ -1,3 +1,4 @@
+
 import { getScoreColor } from "../../../../../utils/product_utils";
 import { IReviewCardProps, ReviewCard } from "./product_review_card";
 
@@ -12,9 +13,9 @@ export const ProductReviewSection = ({
   count,
   reviews,
 }: IReviewSectionProps) => (
-  <div className="my-6 ">
+  <div className="mb-6 mt-2">
     <div
-      className={`items-baseline inline-block rounded-lg p-2 border-gray-200 ${getScoreColor(
+      className={`items-baseline inline-block rounded-lg p-2 ${getScoreColor(
         averageRating
       )}`}
     >
@@ -24,7 +25,7 @@ export const ProductReviewSection = ({
       <span className="text-lg text-gray-300">/ 100</span>
     </div>
 
-    <div className="mt-2 text-sm text-gray-400">
+    <div className="mt-2 text-base text-gray-400">
       based on {count.toLocaleString()} reviews
     </div>
     <div className="mt-8 mb-2 text-xl text-gray-200">Featured Reviews</div>

@@ -12,7 +12,7 @@ export const Category: React.FC = () => {
       <PopularGenres />
 
       {/** List Product */}
-      <div className="grid grid-cols-5 space-x-6">
+      <div className="grid grid-cols-5 space-x-10">
         {/** Show List Product */}
         <div className="col-span-4">
           <ProductSortList />

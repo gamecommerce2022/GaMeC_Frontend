@@ -10,7 +10,7 @@ export interface IProductCardProps {
 const KeyValue = ({ label, value }: { label: string; value: string }) => (
   <div className="flex justify-between py-2">
     <div className="text-gray-400">{label}</div>
-    <div className="text-gray-200">{value}</div>
+    <div className="text-white">{value}</div>
   </div>
 );
 
@@ -36,7 +36,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
         />
       </div>
 
-      <Badge className="mt-4">Base product</Badge>
+      <Badge className="mt-4">{'base product'.toUpperCase()}</Badge>
       {!product.purchased && (
         <Price
           price={product.price}
@@ -54,7 +54,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
       ) : (
         <>
           <button
-            className="w-full py-2 mt-4 bg-blue-500 btn btn-xl text-gray-50 rounded text-base"
+            className="w-full py-2 mt-4 bg-[#a63822] btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none hover:bg-[#b45745] active:bg-[#b45745] active:ring-2 active:ring-white"
             type="button"
             onClick={
               () => {}
@@ -67,11 +67,11 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               // })
             }
           >
-            {product.inCart ? "In Cart" : "Add to cart"}
+            {"GET"}
           </button>
 
           <button
-            className="w-full py-2 mt-4 bg-blue-500 btn btn-xl text-gray-50 rounded text-base"
+            className="w-full py-2 mt-4 bg-transparent btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none ring-1 ring-white hover:bg-[#404040] active:bg-[#404040] active:ring-2"
             type="button"
             onClick={
               () => {}
@@ -85,11 +85,29 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               // })
             }
           >
-            {product.wishlisted ? "In Wishlist" : "Wishlist"}
+            {product.inCart ? "IN CART" : "ADD TO CART"}
+          </button>
+
+          <button
+            className="w-full py-2 mt-4 bg-transparent btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none ring-1 ring-white hover:bg-[#404040] active:bg-[#404040] active:ring-2"
+            type="button"
+            onClick={
+              () => {}
+              // updateUserGames({
+              //  uid: uid || '',
+              //  gameId: product.id,
+              //  status: product.wishlisted
+              //   ? 'REMOVED_FROM_WISHLIST'
+              //   : 'WISHLISTED',
+              //  history,
+              // })
+            }
+          >
+            {product.wishlisted ? "IN WISHLIST" : "ADD TO WISHLIST"}
           </button>
         </>
       )}
-      <div className="mt-2 text-sm divide-y divide-gray-700">
+      <div className="mt-2 text-sm lg:text-base">
         {values.map(({ label, value }) => (
           <KeyValue key={label} label={label} value={value} />
         ))}
