@@ -13,6 +13,9 @@ module.exports = withMT({
       gray: { dark: "#344654" },
     },
     extend: {},
+    screen: {
+      min: "320px",
+    },
   },
   variants: {
     extend: {
