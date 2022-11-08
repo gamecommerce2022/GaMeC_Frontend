@@ -1,4 +1,3 @@
-
 import { getScoreColor } from "../../../../../utils/product_utils";
 import { IReviewCardProps, ReviewCard } from "./product_review_card";
 

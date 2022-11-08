@@ -1,53 +1,53 @@
 .Pagination {
- $this: &;
- display: flex;
- align-items: center;
- justify-content: center;
- list-style: none;
- outline: transparent;
-
- &>li {
-  margin: 2px;
-  width: 30px;
-  height: 30px;
- }
-
- &>li>a {
+  $this: &;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  color: rgb(107, 114, 128);
-  background-color: transparent;
+  list-style: none;
   outline: transparent;
-  cursor: pointer;
 
-  &:hover {
-   color: rgb(229, 231, 235);
-  }
- }
-
- &>#{$this}__active>a {
-  color: rgb(229, 231, 235);
- }
-
- &>#{$this}__active>a,
- &>#{$this}__active>a:hover,
- &>#{$this}__active>a:focus {
-  outline: transparent;
-  cursor: default;
- }
-
- &>.disabled>a {
-  cursor: default;
-
-  svg {
-   fill: rgb(229, 231, 235);
+  & > li {
+    margin: 2px;
+    width: 30px;
+    height: 30px;
   }
 
-  &:hover {
-   background-color: transparent;
+  & > li > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: rgb(107, 114, 128);
+    background-color: transparent;
+    outline: transparent;
+    cursor: pointer;
+
+    &:hover {
+      color: rgb(229, 231, 235);
+    }
   }
- }
+
+  & > #{$this}__active > a {
+    color: rgb(229, 231, 235);
+  }
+
+  & > #{$this}__active > a,
+  & > #{$this}__active > a:hover,
+  & > #{$this}__active > a:focus {
+    outline: transparent;
+    cursor: default;
+  }
+
+  & > .disabled > a {
+    cursor: default;
+
+    svg {
+      fill: rgb(229, 231, 235);
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
 }

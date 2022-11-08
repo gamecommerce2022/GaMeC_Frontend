@@ -45,7 +45,9 @@ const LoginForm = () => {
             <input className="mr-2 " type="checkbox" />
             Remember Me
           </p>
-          <a target="_blank"  href="forgot-password">Forgot Password</a>
+          <a target="_blank" href="forgot-password">
+            Forgot Password
+          </a>
         </div>
 
         {/* <button className="w-full my-5 py-2 bg-blue-600 shadow-lg text-white font-semibold rounded-lg h-12 cursor-not-allowed opacity-60">
@@ -64,7 +66,7 @@ const LoginForm = () => {
 
         <div className="flex items-center justify-center">
           <span className="text-gray-400">Don't have an account?</span>
-          <a target='_blank' className="text-white ml-2" href="sign-up">
+          <a target="_blank" className="text-white ml-2" href="sign-up">
             Sign up now
           </a>
         </div>
