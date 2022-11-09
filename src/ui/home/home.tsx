@@ -52,7 +52,7 @@ const Home = () => {
   return (
     <div className="m-6">
       <div className="text-2xl text-white">FEATURED & RECOMMENDED</div>
-      <Slider {...customPagingSetting}>
+      <Slider  {...customPagingSetting}>
         {carouselData.map((item) => (
           <CarouselCard {...item} />
         ))}

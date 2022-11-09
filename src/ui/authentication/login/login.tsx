@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
-import loginImg from "../../../assets/images/app_icon.png";
+import appIcon from "../../../assets/images/app_icon.png";
+import CustomTextField from "../component/custom_text";
 const LoginForm = () => {
   const [currentEmail, setCurrentEmail] = useState<string>();
   const [currentPassword, setCurrentPassword] = useState<string>();
@@ -11,41 +12,33 @@ const LoginForm = () => {
         action=""
       >
         <div className=" flex items-center justify-center">
-          <img className="w-1/2 rounded-lg" src={loginImg} alt="" />
+          <img className="w-1/2 rounded-lg" src={appIcon} alt="" />
         </div>
         <h2 className="text-4xl mt-5 text-white font-bold text-center">
           SIGN IN
         </h2>
-        <div className="flex flex-col text-gray-400 py-2">
-          <label htmlFor="">Email</label>
-          <input
-            onChange={(e) => {
-              setCurrentEmail(e.target.value);
-            }}
-            className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-            type="email"
-            value={currentEmail}
-          />
-        </div>
+        <CustomTextField
+          label="Email"
+          isPassword={false}
+          value={currentEmail}
+          setValue={setCurrentEmail}
+        />
 
-        <div className="flex flex-col text-gray-400 py-2">
-          <label htmlFor="">Password</label>
-          <input
-            onChange={(e) => {
-              setCurrentPassword(e.target.value);
-            }}
-            className=" rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-            type="password"
-            value={currentPassword}
-          />
-        </div>
+        <CustomTextField
+          label="Password"
+          isPassword={true}
+          value={currentPassword}
+          setValue={setCurrentPassword}
+        />
 
         <div className="flex justify-between text-gray-400 py-2">
           <p className="flex items-center ">
             <input className="mr-2 " type="checkbox" />
             Remember Me
           </p>
-          <a target="_blank"  href="forgot-password">Forgot Password</a>
+          <a target="_blank" href="forgot-password">
+            Forgot Password
+          </a>
         </div>
 
         {/* <button className="w-full my-5 py-2 bg-blue-600 shadow-lg text-white font-semibold rounded-lg h-12 cursor-not-allowed opacity-60">
@@ -64,7 +57,7 @@ const LoginForm = () => {
 
         <div className="flex items-center justify-center">
           <span className="text-gray-400">Don't have an account?</span>
-          <a target='_blank' className="text-white ml-2" href="sign-up">
+          <a target="_blank" className="text-white ml-2" href="sign-up">
             Sign up now
           </a>
         </div>
