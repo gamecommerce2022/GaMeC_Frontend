@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 const withMT = require("@material-tailwind/react/utils/withMT");
 module.exports = withMT({
+  darkMode: 'class',
   content: [
-    "./node_modules/flowbite-react/**/*.js",
-    "./pages/**/*.{ts,tsx}",
-    "./public/**/*.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+    './pages/**/*.{ts,tsx}',
+    './public/**/*.html',
+    './src/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     colors: {
@@ -13,9 +14,7 @@ module.exports = withMT({
       gray: { dark: "#344654" },
     },
     extend: {},
-    screen: {
-      min: "320px",
-    },
+   
   },
   variants: {
     extend: {
@@ -28,8 +27,9 @@ module.exports = withMT({
     },
   },
   plugins: [
-    require("@tailwindcss/forms"),
-    require("@tailwindcss/aspect-ratio"),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),    
   ],
   corePlugins: {
     preflight: false,

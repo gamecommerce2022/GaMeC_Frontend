@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import { Button, Tooltip, Typography } from "antd";
+import { Button, Tooltip } from "flowbite-react";
 import { GenreItem } from "./genre_item";
 import { useRef } from "react";
 
@@ -14,17 +14,14 @@ export const PopularGenres: React.FC = () => {
     <div className="flex flex-col space-y-2">
       {/** Popular Genre + 2 button */}
       <div className="flex flex-row space-x-4">
-        <Typography.Title
-          level={4}
+        <h4
           className="flex-none flex items-center justify-center"
         >
           <div className="text-white">Popular Genres</div>
-        </Typography.Title>
+        </h4>
         <div className="grow" />
-        <Tooltip title="Previous">
-          <Button
-            shape="circle"
-            ghost={true}
+        <Tooltip content="Previous">
+          <Button                
             onClick={() => {
               sliderRef.current?.slickPrev();
             }}
@@ -33,10 +30,8 @@ export const PopularGenres: React.FC = () => {
             <ChevronLeftIcon className="w-4 h-" />
           </Button>
         </Tooltip>
-        <Tooltip title="Next">
+        <Tooltip content="Next">
           <Button
-            shape="circle"
-            ghost={true}
             onClick={() => {
               sliderRef.current?.slickNext();
             }}
