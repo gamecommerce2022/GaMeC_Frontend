@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useState } from "react";
 import loginImg from "../../../assets/images/app_icon.png";
-const LoginForm = () => {
+const LoginPage = () => {
   const [currentEmail, setCurrentEmail] = useState<string>();
   const [currentPassword, setCurrentPassword] = useState<string>();
   return (
@@ -75,4 +75,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default LoginPage;

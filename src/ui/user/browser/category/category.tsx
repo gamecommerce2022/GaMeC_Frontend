@@ -5,7 +5,7 @@ import {
   ProductSortList,
 } from "./component";
 
-export const Category: React.FC = () => {
+export const CategoryPage: React.FC = () => {
   return (
     <div className="flex flex-col mx-12 space-y-20">
       {/** Popular Genres */}

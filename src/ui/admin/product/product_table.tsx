@@ -5,7 +5,10 @@ import * as ProductService from '../../../services/product/product';
 import { Pagination } from '../../global/component/pagination';
 import { ProductItem } from './product_item';
 import { PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { getTotalPage } from '../../../services/product/product';
+import { Breadcrumb } from 'flowbite-react';
+import { BriefcaseIcon, HomeIcon } from '@heroicons/react/24/outline';
+import { Link, Navigate } from 'react-router-dom';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
 
 const filters = [
   { id: 1, name: "ID", value: "_id" },
@@ -19,7 +22,7 @@ const maxPerPages = [20, 30, 40]
 
 
 
-export const ProductManager = () => {
+export const ProductTable = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalPage, setTotalPage] = useState(0)
@@ -56,7 +59,25 @@ export const ProductManager = () => {
 
 
   return (<div className="bg-white p-4 rounded-xl">
-    <h1 className='text-2xl font-bold'>Product Manager</h1>
+   <nav className="flex" aria-label="Breadcrumb">
+  <ol className="inline-flex items-center space-x-1 md:space-x-3">
+    <li className="inline-flex items-center">
+      <Link replace={true} to="/admin" className="inline-flex items-center gap-x-1 text-sm font-medium text-gray-700 hover:text-gray-900">
+        <HomeIcon className='w-4 h-4'/>
+        <span className='self-center mt-1'>Dashboard</span>
+      </Link>
+    </li>
+    <li>
+      <div className="flex items-center">
+       <ChevronRightIcon className='w-4 h-4'/>
+       <div className="inline-flex items-center gap-x-1 text-sm font-medium text-gray-700 hover:text-gray-900">
+       <BriefcaseIcon className="w-4 h-4" />
+        <span className='self-center mt-1'>Products</span>
+      </div>
+      </div>
+    </li>
+  </ol>
+</nav>
 
     {/**Search Bar and Add Button */}
     <div className="grid grid-cols-6 relative my-2">
@@ -67,8 +88,7 @@ export const ProductManager = () => {
           <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
             <MagnifyingGlassIcon className='w-4 h-4' />
           </div>
-          <input type="search" id="default-search" className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none" placeholder="Search Mockups, Logos..." required onChange={(e) => {
-            console.log(e.target.value)
+          <input type="search" id="default-search" className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none" placeholder="Search Product..." required onChange={(e) => {          
             setSearch(e.target.value)
           }} />
           <button type="button" className="text-blue-500 absolute right-2.5 bottom-2.5 bg-white hover:bg-gray-100 font-medium rounded-lg border border-gray-400 text-sm px-4 py-2 focus:text-white focus:bg-blue-500" onClick={() => {
@@ -139,7 +159,7 @@ export const ProductManager = () => {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm w-[120px] z-10">
+                <Listbox.Options className="absolute mt-1 max-h-60 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm w-[60px] z-10">
                   {maxPerPages.map((perPage, index) => (
                     <Listbox.Option
                       key={index}
@@ -232,7 +252,7 @@ export const ProductManager = () => {
         <tbody>
           {
             products.map((product, index) => {
-              return <ProductItem product={product} index={index + 1} />
+              return <ProductItem product={product} index={index + 1} key={`${index}-${product._id}`}  />
             })
           }
         </tbody>

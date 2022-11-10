@@ -1,9 +1,9 @@
 import Slider from "react-slick";
-import { dataDigitalBestSeller } from "../../data/Data";
 import GameCard from "./component/game_card";
 import CarouselCard from "./component/carousel_card";
-import { carouselData } from "../../data/CarouselData";
-const Home = () => {
+import { carouselData } from "../../../data/CarouselData";
+import { dataDigitalBestSeller } from "../../../data/Data";
+export const HomePage = () => {
   const customPagingSetting = {
     dots: true,
     infinite: false,
@@ -95,5 +95,3 @@ const Home = () => {
     </div>
   );
 };
-
-export default Home;

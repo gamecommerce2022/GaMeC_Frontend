@@ -3,7 +3,7 @@ import { Product } from '../../../model/product_model';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 export const ProductItem: React.FC<{ index: number, product: Product }> = (props: { index: number, product: Product }) => {
-  return <tr className="bg-white hover:bg-gray-50">
+return <tr className="bg-white hover:bg-gray-50">
   <th scope="row" className="py-4 px-6 font-medium text-gray-900 ">
   {props.index}
   </th>

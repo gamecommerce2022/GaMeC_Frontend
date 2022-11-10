@@ -1,32 +1,27 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route,Routes } from "react-router-dom";
 import "./App.css";
-import { Admin } from "./ui/admin/admin";
-import LoginForm from "./ui/authentication/login/login";
-import { ErrorPage } from "./ui/global/404/error";
-import FooterApp from "./ui/global/footer/footer";
-import { Headers } from "./ui/global/header/headers";
-import Spacer from "./ui/home/component/spacer";
-import Home from "./ui/home/home";
-import { Category, ProductPage } from "./ui/user/browser/browser";
+import LoginPage from "./ui/authentication/login/login";
+import { ResetPasswordPage, OnDevelopPage, UserPage, VerifyEmailPage, AdminPage, NotFoundPage } from './ui/page';
+
+
 function App() {
   return (
-    <div className="dark bg-black select-none list-none m-0 p-0" >
-      <Spacer />
-      <Headers />
-      <Spacer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/browse" element={<Category />} />
-        <Route path="/p/:id" element={<ProductPage />} />       
-        <Route path="/admin" element={<Admin />} />   
-        <Route path="*" element={<ErrorPage />} /> 
-      </Routes>
-      <Spacer />
-      <FooterApp />
-    </div>
+  
+      <React.Suspense fallback={<div>Loading....</div>}>
+        <Routes>
+          <Route key="default-app" path="/"  element={<Navigate  to="login" replace={true}/>}/>
+		  <Route key="user-page" path='user/*' element={<UserPage/>}/>
+		  <Route key="admin-page" path='admin/*' element={<AdminPage/>}/>
+		  <Route key="login-page" path='login' element={<LoginPage/>}/>
+		  <Route key="upcoming-page" path='upcoming' element={<OnDevelopPage/>}/>
+		  <Route key="not-found-page" path='404' element={<NotFoundPage/>}/>
+		  <Route key="verify-email-page" path='activate/:activation_token' element={<VerifyEmailPage/>}/>
+		  <Route key="reset-password-page" path='reset/:reset_token' element={<ResetPasswordPage/>}/>
+		  <Route key="other-page" path='*' element={<NotFoundPage/>}/>
+        </Routes>
+      </React.Suspense>
+    
   );
 }
 
