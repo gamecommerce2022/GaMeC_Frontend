@@ -4,11 +4,12 @@ import appIcon from "../../../assets/images/app_icon.png";
 import CustomTextField from "../component/custom_text";
 
 const SignUpForm = () => {
-  const [firstName, setFirstName] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
-  const [displayName, setDisplayName] = useState<string>();
-  const [email, setEmail] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [displayName, setDisplayName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [isAgreed, setIsAgreed] = useState<boolean>(false);
   return (
     <div className="bg-black h-screen flex flex-col justify-center items-center">
       <form
@@ -31,7 +32,6 @@ const SignUpForm = () => {
           />
           <CustomTextField
             label="Password"
-            isPassword
             value={lastName}
             setValue={setLastName}
             className="ml-2"
@@ -39,13 +39,11 @@ const SignUpForm = () => {
         </div>
         <CustomTextField
           label="Display Name"
-          isPassword
           value={displayName}
           setValue={setDisplayName}
         />
         <CustomTextField
           label="Email Address"
-          isPassword
           value={email}
           setValue={setEmail}
         />
@@ -55,17 +53,49 @@ const SignUpForm = () => {
           value={password}
           setValue={setPassword}
         />
-
+        <div className="flex items-center">
+          <input
+            id="link-checkbox"
+            type="checkbox"
+            onChange={(e) => {
+              setIsAgreed(e.target.checked);
+            }}
+            value={isAgreed ? "true" : "false"}
+            className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label className="ml-2 text-sm font-medium text-white dark:text-gray-300">
+            I agree with the{" "}
+            <a
+              href="/"
+              className="text-blue-600 dark:text-blue-500 hover:underline"
+            >
+              terms and conditions
+            </a>
+            .
+          </label>
+        </div>
         <button
           className={clsx(
             "w-full my-5 py-2 bg-blue-600 shadow-lg text-white font-semibold rounded-lg h-12",
-            !email || !password || !displayName || !email || !password
+            !email ||
+              !password ||
+              !displayName ||
+              !email ||
+              !password ||
+              !isAgreed
               ? "cursor-not-allowed opacity-60"
               : "cursor-pointer "
           )}
         >
           Sign Up
         </button>
+
+        <div className="flex items-center justify-center">
+          <span className="text-gray-400">Already have account?</span>
+          <a className="text-white ml-2" href="login">
+            Sign in
+          </a>
+        </div>
       </form>
     </div>
   );

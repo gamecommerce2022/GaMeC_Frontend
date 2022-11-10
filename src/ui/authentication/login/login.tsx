@@ -3,8 +3,8 @@ import { useState } from "react";
 import appIcon from "../../../assets/images/app_icon.png";
 import CustomTextField from "../component/custom_text";
 const LoginForm = () => {
-  const [currentEmail, setCurrentEmail] = useState<string>();
-  const [currentPassword, setCurrentPassword] = useState<string>();
+  const [currentEmail, setCurrentEmail] = useState<string>('');
+  const [currentPassword, setCurrentPassword] = useState<string>('');
   return (
     <div className="bg-black h-screen flex flex-col justify-center items-center">
       <form
@@ -57,7 +57,7 @@ const LoginForm = () => {
 
         <div className="flex items-center justify-center">
           <span className="text-gray-400">Don't have an account?</span>
-          <a target="_blank" className="text-white ml-2" href="sign-up">
+          <a  className="text-white ml-2" href="sign-up">
             Sign up now
           </a>
         </div>

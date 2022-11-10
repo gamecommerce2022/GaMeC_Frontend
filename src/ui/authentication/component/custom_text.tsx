@@ -3,9 +3,9 @@ import clsx from "clsx";
 type CustomTextFieldProps = {
   label: string;
   isPassword?: boolean;
-  value: string | undefined;
+  value: string;
   className?: string;
-  setValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const CustomTextField: React.FC<CustomTextFieldProps> = ({
