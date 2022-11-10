@@ -20,13 +20,63 @@ code {
 }
 
 /* the slides */
-.slick-slide {
+/* .slick-slide {
   padding: 0 8px;
-}
+} */
 
 /* the parent */
-.slick-list {
+/* .slick-list {
   margin: 0 -8px;
+} */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+*,
+::before,
+::after {
+  border-width: 0;
+  border-style: solid;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  outline: none;
+  box-shadow: none;
+  border-color: transparent;
+}
