@@ -1,8 +1,9 @@
-import { Table } from 'flowbite-react';
-import { Product } from '../../../model/product_model';
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import { Product } from '../../../../model/product_model';
 
-export const ProductItem: React.FC<{ index: number, product: Product }> = (props: { index: number, product: Product }) => {
+export const ProductItemComponent: React.FC<{ index: number, product: Product }> = (props: { index: number, product: Product }) => {
+  let navigate = useNavigate()
 return <tr className="bg-white hover:bg-gray-50">
   <th scope="row" className="py-4 px-6 font-medium text-gray-900 ">
   {props.index}
@@ -26,7 +27,9 @@ return <tr className="bg-white hover:bg-gray-50">
   </td>
   <td className="py-4 px-6">
   <div className="flex flex-row h-full items-center justify-around">
-        <PencilIcon className="w-4 h-4 text-blue-500 hover:text-orange-500" onClick={() => { }} />
+        <PencilIcon className="w-4 h-4 text-blue-500 hover:text-orange-500" onClick={() => {          
+          navigate(`/admin/products/${props.product._id}`)
+         }} />
         <TrashIcon className="w-4 h-4 text-blue-500 hover:text-orange-500" onClick={() => { }} />
       </div>
   </td>

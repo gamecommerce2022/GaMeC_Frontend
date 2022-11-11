@@ -1,14 +1,17 @@
 import { Listbox, Switch, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
-import { Product } from '../../../model/product_model';
-import * as ProductService from '../../../services/product/product';
-import { Pagination } from '../../global/component/pagination';
-import { ProductItem } from './product_item';
+import { Product } from '../../../../model/product_model';
+import * as ProductService from '../../../../services/product/product';
+import { Pagination } from '../../../global/component/pagination';
+import { ProductItemComponent } from './product_item';
 import { PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Breadcrumb } from 'flowbite-react';
 import { BriefcaseIcon, HomeIcon } from '@heroicons/react/24/outline';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { BreadCrumbComponent } from '../../component/breadcrumb';
+import { SearchComponent } from '../../component/search';
+import { TableComponent } from '../../component/table';
 
 const filters = [
   { id: 1, name: "ID", value: "_id" },
@@ -22,7 +25,7 @@ const maxPerPages = [20, 30, 40]
 
 
 
-export const ProductTable = () => {
+export const ProductTableComponent = () => {
   const [products, setProducts] = useState<Product[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalPage, setTotalPage] = useState(0)
@@ -31,6 +34,7 @@ export const ProductTable = () => {
   const [isDES, setIsDES] = useState(false)
   const [search, setSearch] = useState("")
   const [perPage, setPerPage] = useState(maxPerPages[1])
+  let navigate = useNavigate()
   useEffect(() => {
     try {
       getMaxPage()
@@ -58,44 +62,18 @@ export const ProductTable = () => {
   }
 
 
-  return (<div className="bg-white p-4 rounded-xl">
-   <nav className="flex" aria-label="Breadcrumb">
-  <ol className="inline-flex items-center space-x-1 md:space-x-3">
-    <li className="inline-flex items-center">
-      <Link replace={true} to="/admin" className="inline-flex items-center gap-x-1 text-sm font-medium text-gray-700 hover:text-gray-900">
-        <HomeIcon className='w-4 h-4'/>
-        <span className='self-center mt-1'>Dashboard</span>
-      </Link>
-    </li>
-    <li>
-      <div className="flex items-center">
-       <ChevronRightIcon className='w-4 h-4'/>
-       <div className="inline-flex items-center gap-x-1 text-sm font-medium text-gray-700 hover:text-gray-900">
-       <BriefcaseIcon className="w-4 h-4" />
-        <span className='self-center mt-1'>Products</span>
-      </div>
-      </div>
-    </li>
-  </ol>
-</nav>
+  return (<div className="">
+    <BreadCrumbComponent key="bread-crumb-component-key" list={[{name: "Dashboard", icon: <HomeIcon className='w-4 h-4'/>, path: "/admin"}, {name: "Products", icon: <BriefcaseIcon className="w-4 h-4" />}]}/>  
 
     {/**Search Bar and Add Button */}
     <div className="grid grid-cols-6 relative my-2">
-
-      <div className="w-full col-span-2 overflow-auto">
-        <label className="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-        <div className="relative">
-          <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-            <MagnifyingGlassIcon className='w-4 h-4' />
-          </div>
-          <input type="search" id="default-search" className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:outline-none" placeholder="Search Product..." required onChange={(e) => {          
+      <div className="col-span-2">
+        <SearchComponent key="search-component-key" placeHolder='Search Product....' onChange={(e) => {          
             setSearch(e.target.value)
-          }} />
-          <button type="button" className="text-blue-500 absolute right-2.5 bottom-2.5 bg-white hover:bg-gray-100 font-medium rounded-lg border border-gray-400 text-sm px-4 py-2 focus:text-white focus:bg-blue-500" onClick={() => {
+          }} onClick={() => {
             getMaxPage(perPage, search)
             searchText(currentPage, perPage, selectedFilter.value, isDES, search)
-          }}>Search</button>
-        </div>
+          }} />
       </div>
 
       <div className="grid grid-cols-3 p-2 col-span-3 items-center px-20">
@@ -212,7 +190,9 @@ export const ProductTable = () => {
       </div>
 
       <div className="relative">
-        <button type="button" className="absolute right-0 flex items-center justify-around text-blue-500 bg-white hover:bg-gray-100 font-medium rounded-lg border border-gray-400 text-sm truncate px-4 py-2 focus:text-white focus:bg-blue-500">
+        <button type="button" className="absolute right-0 flex items-center justify-around text-blue-500 bg-white hover:bg-gray-100 font-medium rounded-lg border border-gray-400 text-sm truncate px-4 py-2 focus:text-white focus:bg-blue-500" onClick={() => {
+          navigate('/admin/products/add')
+        }}>
           <PlusIcon className='w-4 h-4 inline-block lg:pr-2' />
           ADD NEW PRODUCT</button>
       </div>
@@ -221,43 +201,12 @@ export const ProductTable = () => {
 
     </div>
 
-    {/** Table */}
-    <div className="overflow-x-auto relative shadow-md sm:rounded-lg h-[700px] scroll-smooth">
-      <table className="w-full text-sm text-left text-gray-500 rounded-xl">
-        <thead className="text-base text-gray-700 uppercase bg-gray-50 sticky top-0">
-          <tr>
-            <th scope="col" className="py-3 px-6">
-              ID
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Title
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Platform
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Image
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Price Before
-            </th>
-            <th scope="col" className="py-3 px-6">
-              Price After
-            </th>
-            <th scope="col" className="py-3 px-6">
-              <span className="sr-only">Edit</span>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {
+    {/** Table */}   
+    <TableComponent key="table-component-key" headerList={["ID", "TITLE", "PLATFORM", "IMAGE", "PRICE BEFORE", "PRICE AFTER", ""]} bodyList= {
             products.map((product, index) => {
-              return <ProductItem product={product} index={index + 1} key={`${index}-${product._id}`}  />
+              return <ProductItemComponent product={product} index={index + 1} key={`${index}-${product._id}`}  />
             })
-          }
-        </tbody>
-      </table>
-    </div>
+          } />
 
     {/** Pagging */}
     <div className="grid grid-cols-3 w-full overflow-hidden mt-2">
