@@ -25,13 +25,13 @@ const SignUpForm = () => {
 
         <div className="flex flex-row">
           <CustomTextField
-            label="Email"
+            label="First name"
             isPassword={false}
             value={firstName}
             setValue={setFirstName}
           />
           <CustomTextField
-            label="Password"
+            label="Last name"
             value={lastName}
             setValue={setLastName}
             className="ml-2"
