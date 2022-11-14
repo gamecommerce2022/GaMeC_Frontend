@@ -13,7 +13,7 @@ export const ProductAddComponent: React.FC = () => {
     </div>
     
 
-<div className="overflow-auto h-[860px]">
+<div className="overflow-auto h-[820px]">
 <div className="mx-10 md:mx-20 shadow-lg rounded-lg p-8 mt-4">
       <h3 className="text-lg font-medium leading-6 text-gray-900">Thông tin sản phẩm</h3>
       <div className="grid lg:grid-cols-3 gap-x-2">
@@ -62,13 +62,13 @@ export const ProductAddComponent: React.FC = () => {
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
     <h3 className="text-lg font-medium leading-6 text-gray-900">Miêu tả chi tiết</h3>
     <textarea id="message" rows={10} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-none border-gray-300 focus: focus:border-none focus:ring-0" placeholder="Chi tiết...."></textarea>
-    </div>
+    </div>   
+</div>
 
-    <div className="w-full flex justify-center my-4">
+<div className="w-full flex justify-center">
     <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border shadow-sm border-gray-200 hover:bg-gray-100 hover:text-blue-300 focus:z-10 focus:ring-0 focus:bg-blue-600 focus:text-white">Quay lại</button>
     <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg">Lưu</button>
     </div>
-</div>
     
 
   </div>)
