@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom"
 import { BreadCrumbComponent } from "../../component/breadcrumb"
 import { InputComponent } from "../../component/input"
 import { UploadImageComponent } from "../../component/upload_image"
+import { UploadListImageComponent } from "../../component/upload_list_image"
 
 export const ProductAddComponent: React.FC = () => {
-    const [shortImage, setShortImage] = useState("")
-    const [listImage, setListImage] = useState([])
+    const [shortImage, setShortImage] = useState<string | null>(null)
+    const [listImage, setListImage] = useState<string[]>([])
     let navigate = useNavigate()
   return (<div className="relative">
     <div className="mb-1 shadow-sm">
@@ -18,7 +19,7 @@ export const ProductAddComponent: React.FC = () => {
 <div className="overflow-auto h-[820px]">
 <div className="mx-10 md:mx-20 shadow-lg rounded-lg p-8 mt-4">
       <h3 className="text-lg font-medium leading-6 text-gray-900">Thông tin sản phẩm</h3>
-      <div className="grid lg:grid-cols-3 gap-x-2">
+      <div className="grid lg:grid-cols-2 gap-x-2">
         <div className="grid md:grid-rows-4 gap-y-3">
           <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" />
           <div className="grid lg:grid-cols-2 gap-x-4">
@@ -47,10 +48,7 @@ export const ProductAddComponent: React.FC = () => {
           </div>  
 
           <InputComponent title="Lưu ý" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" />
-        </div>
-        <div className='flex justify-center'>
-        <UploadImageComponent image={shortImage} key="upload-short-image" title="Hình ảnh sản phẩm" isMulitple={false} style="w-[80%]"/>
-        </div>     
+        </div>   
       </div>
 
     </div>
@@ -58,7 +56,7 @@ export const ProductAddComponent: React.FC = () => {
 
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
     <h3 className="text-lg font-medium leading-6 text-gray-900">Danh sách hình ảnh</h3>
-    <UploadImageComponent images={listImage} key="upload-multiple-image" title="" isMulitple={true} style="w-[100%]"/>
+    <UploadListImageComponent images={listImage} onImages={setListImage} key="upload-multiple-image" style="w-[100%]"/>
     </div>
 
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
@@ -68,8 +66,8 @@ export const ProductAddComponent: React.FC = () => {
 </div>
 
 <div className="w-full flex justify-center">
-    <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border shadow-sm border-gray-200 hover:bg-gray-100 hover:text-blue-300 focus:z-10 focus:ring-0 focus:bg-blue-600 focus:text-white" onClick={() => navigate(-1)}>Quay lại</button>
-    <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg">Lưu</button>
+    <button type="button" className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border shadow-sm border-gray-200 hover:bg-gray-100 hover:text-blue-300 focus:z-10 focus:ring-0 focus:bg-blue-600 focus:text-white" onClick={() => navigate(-1)}>Quay lại</button>
+    <button type="button" className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg">Lưu</button>
     </div>
     
 
