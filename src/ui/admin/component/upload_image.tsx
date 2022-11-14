@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export interface UploadImageProp {
@@ -84,9 +84,20 @@ export const ImageCardBig = (props: { image: string, onClick: React.MouseEventHa
 }
 
 export const UploadImageComponent: React.FC<UploadImageProp> = (props: UploadImageProp) => {
-    const [image, setImage] = useState(props.image || "")
-    const [images, setImages] = useState<any[]>(props.images || [])
+    console.log(props.isMulitple)
+    const [image, setImage] = useState("")
+    const [images, setImages] = useState<any[]>([])
 
+    useEffect(() => {
+        if(props.image !== undefined){
+             setImage(props.image || "") 
+        }
+        if(props.images !== undefined){
+            setImages(props.images || []) 
+        }
+   
+       
+    }, [props.image, props.images])
     return (<div className={`${props.style}`}>
         <label className="block text-sm font-medium text-gray-700">{props.title}</label>
         <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">

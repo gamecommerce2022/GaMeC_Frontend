@@ -3,7 +3,7 @@ import { Pagination } from '../../../../global/component/pagination'
 import { ProductItem } from '../component'
 
 import GenreImage from '../../../../../assets/games/CyberPunk2077.png'
-import { Product } from '../../../../../model/product_model'
+import { Game } from '../../../../../model/product_model'
 import axios from 'axios'
 
 const categoriesSort = [
@@ -19,14 +19,14 @@ export const ListProducts = () => {
  const [selectedCategorySort, setSelectedCategorySort] = useState(
   categoriesSort[0],
  )
- const defaultProducts: Product[] = []
+ const defaultProducts: Game[] = []
  const [defaultPage, setDefaultPage]: [
   number,
   (defaultPage: number) => void,
  ] = useState(0)
  const [products, setProducts]: [
-  Product[],
-  (products: Product[]) => void,
+  Game[],
+  (products: Game[]) => void,
  ] = useState(defaultProducts)
  const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<
   boolean
@@ -94,24 +94,18 @@ export const ListProducts = () => {
       {Array.isArray(products)
        ? products.map((product) => {
         let discount = 0;
-        let price = parseInt(product.price_before);
-        if (product.price_before >= product.price_after) {
-         discount = parseFloat(
-          (
-           1 -
-           parseFloat(product.price_after) /
-           parseFloat(product.price_before)
-          ).toFixed(2),
-         );
+        let price = product.priceDefault;
+        if (product.priceDefault >= product.priceOffical) {
+         discount = product.discount || 0;
         } else {
          discount = 0;
-         price = parseInt(product.price_after);
+         price = product.priceOffical;
         }
         return (
          <ProductItem
           id={product._id}
           name={product.title}
-          img={product.short_image}
+          img={product.imageDefault}
           price={price}
           type={product.platform}
           discount={discount}

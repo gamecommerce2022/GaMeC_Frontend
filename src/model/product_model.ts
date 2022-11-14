@@ -1,25 +1,20 @@
-export type Product = {
+export type Game = {
   _id: string;
-  short_image: string;
-  price_after: string;
-  price_before: string;
-  image_list: string[];
   title: string;
-  type: string;
-  max_player: string;
-  release_date: string;
-  language: string;
-  addition_info: string;
-  description: string[];
-  addtion_images: string[];
-  videos: string[];
+  type: string[];
+  releaseDate: string;
   platform: string;
-  rate: number;
-  comment: {
-    name: string;
-    content: string;
-    date: string;
-  }[];
-  like: number;
-  dislike: number;
+  maxPlayer?: number;
+  total: number;
+  status?: string;
+  priceDefault: number;
+  priceDeposit?: number;
+  discount?: number;
+  priceOffical: number;
+  shortDescription?: string;
+  note?: string;
+  imageDefault: string;
+  imageList?: string[];
+  videoList?: string[];
+  description: string[];
 };

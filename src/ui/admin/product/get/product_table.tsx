@@ -1,14 +1,12 @@
 import { Listbox, Switch, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
-import { Product } from '../../../../model/product_model';
+import { Game } from '../../../../model/product_model';
 import * as ProductService from '../../../../services/product/product';
 import { Pagination } from '../../../global/component/pagination';
 import { ProductItemComponent } from './product_item';
-import { PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Breadcrumb } from 'flowbite-react';
+import { PlusIcon } from '@heroicons/react/20/solid'
 import { BriefcaseIcon, HomeIcon } from '@heroicons/react/24/outline';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import { useNavigate } from 'react-router-dom';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { SearchComponent } from '../../component/search';
 import { TableComponent } from '../../component/table';
@@ -26,7 +24,7 @@ const maxPerPages = [20, 30, 40]
 
 
 export const ProductTableComponent = () => {
-  const [products, setProducts] = useState<Product[]>([])
+  const [products, setProducts] = useState<Game[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [totalPage, setTotalPage] = useState(0)
   const [loading, setLoading] = useState(true)

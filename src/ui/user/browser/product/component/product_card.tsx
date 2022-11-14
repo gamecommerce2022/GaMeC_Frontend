@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { Product } from "../../../../../model/product_model";
+import { Game } from "../../../../../model/product_model";
 import { Badge } from "./badge";
 import { Price } from "./price";
 
 export interface IProductCardProps {
- product: Product;
+ product: Game;
 }
 
 const KeyValue = ({ label, value }: { label: string; value: string }) => (
@@ -18,7 +18,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
  const getDate = (date: string) => new Date(date).toLocaleDateString();
 
  const values = [
-  { label: "Release Date", value: getDate(product.release_date) || "" },
+  { label: "Release Date", value: getDate(product.releaseDate) || "" },
   { label: "Platform", value: product.platform },
  ];
 
@@ -29,21 +29,16 @@ export const ProductCard = ({ product }: IProductCardProps) => {
    <div className="mt-6 bg-primary aspect-w-1 aspect-h-1 bg-opacity-10">
     <img
      className="object-fill object-center w-full p-2"
-     src={product.short_image}
+     src={product.imageDefault}
      alt=""
     />
    </div>
 
    <Badge className="mt-4">{"base product".toUpperCase()}</Badge>
    <Price
-    price={parseInt(product.price_before)}
+    price={product.priceDefault}
     discount={
-     1 - parseFloat(
-      (
-       parseFloat(product.price_after) /
-       parseFloat(product.price_before)
-      ).toFixed(2),
-     )
+     product.discount
     }
     classes="mt-2"
    />

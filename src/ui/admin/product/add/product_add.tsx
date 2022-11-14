@@ -1,5 +1,6 @@
 import { BriefcaseIcon, HomeIcon, PlusIcon } from "@heroicons/react/24/outline"
 import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { BreadCrumbComponent } from "../../component/breadcrumb"
 import { InputComponent } from "../../component/input"
 import { UploadImageComponent } from "../../component/upload_image"
@@ -7,6 +8,7 @@ import { UploadImageComponent } from "../../component/upload_image"
 export const ProductAddComponent: React.FC = () => {
     const [shortImage, setShortImage] = useState("")
     const [listImage, setListImage] = useState([])
+    let navigate = useNavigate()
   return (<div className="relative">
     <div className="mb-1 shadow-sm">
     <BreadCrumbComponent key="bread-crumb-component-key" list={[{ name: "Dashboard", icon: <HomeIcon className='w-4 h-4' />, path: "/admin" }, { name: "Products", icon: <BriefcaseIcon className="w-4 h-4" />, path: "/admin/products" }, { name: "Add New Product", icon: <PlusIcon className="w-4 h-4" />, }]} />
@@ -66,7 +68,7 @@ export const ProductAddComponent: React.FC = () => {
 </div>
 
 <div className="w-full flex justify-center">
-    <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border shadow-sm border-gray-200 hover:bg-gray-100 hover:text-blue-300 focus:z-10 focus:ring-0 focus:bg-blue-600 focus:text-white">Quay lại</button>
+    <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border shadow-sm border-gray-200 hover:bg-gray-100 hover:text-blue-300 focus:z-10 focus:ring-0 focus:bg-blue-600 focus:text-white" onClick={() => navigate(-1)}>Quay lại</button>
     <button type="button" className="py-2.5 px-5 mr-2 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg">Lưu</button>
     </div>
     

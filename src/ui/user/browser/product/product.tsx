@@ -1,36 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Product } from "../../../../model/product_model";
+import { Game } from "../../../../model/product_model";
 import { ProductPageTemplate } from "./product_template";
 
 export interface IGamePageProps {}
 
+let defaultGame: Game = {
+  _id: "",
+  title: "",
+  type: [],
+  releaseDate: Date.now().toString(),
+  platform: "",
+  total: 0,
+  priceDefault: 0,
+  priceOffical: 0,
+  imageDefault: "",
+  description: []
+}
+
 export const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
-  const defaultProduct: Product = {
-    _id: "",
-    short_image: "",
-    price_after: "",
-    price_before: "",
-    image_list: [],
-    title: "",
-    type: "",
-    max_player: "",
-    release_date: "",
-    language: "",
-    addition_info: "",
-    description: [],
-    addtion_images: [],
-    videos: [],
-    platform: "",
-    rate: 0,
-    comment: [],
-    like: 0,
-    dislike: 0,
-  };
-  const [product, setProduct]: [Product, (products: Product) => void] =
-    useState(defaultProduct);
+  const [product, setProduct]: [Game, (products: Game) => void] =
+    useState(defaultGame);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] =
     useState<boolean>(true);
   const [error, setError]: [string, (error: string) => void] = useState("");
