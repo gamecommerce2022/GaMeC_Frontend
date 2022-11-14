@@ -6,6 +6,8 @@ export interface UploadImageProp {
     title: string;
     isMulitple: boolean;
     style?: string;
+    image?: string;
+    images?: string[];
 }
 
 export const UploadCardSmall = (props: { onChange: React.ChangeEventHandler<HTMLInputElement> }) => {
@@ -39,8 +41,8 @@ export const UploadCardSmall = (props: { onChange: React.ChangeEventHandler<HTML
 }
 
 export const ImageCardSmall = (props: {image: string}) => {
-    return (<div className='w-[50%] h-[50%] p-2 flex items-center content-between gap-y-2'>
-        <img src={props.image} alt={props.image} className="flex-1 w-[60%] apsect-square" />
+    return (<div className='w-[200px] h-[160px] p-2 flex items-center content-between gap-y-2'>
+        <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
     </div>)
 }
 
@@ -82,14 +84,32 @@ export const ImageCardBig = (props: { image: string, onClick: React.MouseEventHa
 }
 
 export const UploadImageComponent: React.FC<UploadImageProp> = (props: UploadImageProp) => {
-    const [image, setImage] = useState("")
-    const [images, setImages] = useState<any[]>([])
+    const [image, setImage] = useState(props.image || "")
+    const [images, setImages] = useState<any[]>(props.images || [])
 
     return (<div className={`${props.style}`}>
         <label className="block text-sm font-medium text-gray-700">{props.title}</label>
         <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
             <div className="text-center flex justify-center items-center">
-                {!props.isMulitple &&
+                {props.isMulitple === true ?  <div className={`${images.length === 0 ? 'flex items-center justify-center' : 'grid grid-cols-6 gap-1'} `} onClick={() => { setImages([]) }}>
+                        {images.length === 0 ? <UploadCardBig multiple={true} onChange={(event) => {
+                            if(event.target.files){
+                                console.log(event.target.files.length)
+                                let strFiles: string[] = []
+                                for(let i = 0; i < event.target.files.length; i++){
+                                    if(event.target.files[i]){
+                                        console.log(i)
+                                        let strImg: string = URL.createObjectURL(event.target.files[i]) + " "   
+                                        strFiles.push(strImg)
+                                    }
+                                }
+                                setImages(strFiles)
+                            }
+                        }} /> : (images.map((item) => {
+                            return <ImageCardSmall image={item}/>
+                            
+                        }))}
+                    </div> :
                     <div className="block">
                         {image ? <ImageCardBig image={image} onClick={() => { setImage("") }} /> : <UploadCardBig onChange={(event) => {
                             if (event.target.files && event.target.files[0]) {
@@ -100,41 +120,6 @@ export const UploadImageComponent: React.FC<UploadImageProp> = (props: UploadIma
 
 
                     </div>}
-
-                {props.isMulitple &&
-                    <div className="flex flex-row items-center">
-                        {images.length === 0 ? <UploadCardBig multiple={true} onChange={(event) => {
-                            if(event.target.files){
-                                console.log(event.target.files.length)
-                                let strFiles: string[] = []
-                                for(let i = 0; i < event.target.files.length; i++){
-                                    if(event.target.files[i]){
-                                        console.log(i)
-                                        let strImg: string = URL.createObjectURL(event.target.files[i])   
-                                        strFiles.push(strImg)
-                                    }
-                                }
-                                strFiles.push("")
-                                setImages(strFiles)
-                            }
-                        }} /> : (images.map((item, index) => {
-                        if(index === images.length - 1){
-                            return <UploadCardSmall onChange={(event) => {
-                                if (event.target.files && event.target.files[0]) {
-                                    let strFiles: string[] = []
-                                    let strImg: string = URL.createObjectURL(event.target.files[0])  
-                                    strFiles.push(strImg)
-                                    strFiles.push("")
-                                   setImages((curState: string[]) => [...curState, strFiles])
-                                }
-                            }}/>
-                        } else {
-                            return <ImageCardSmall image={item}/>
-                        }
-                            
-                        }))}
-                    </div>
-                }
             </div>
         </div>
     </div>)
