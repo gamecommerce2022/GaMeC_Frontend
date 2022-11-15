@@ -1,9 +1,4 @@
-const GameCard = (item: {
-  id: number;
-  price: string;
-  linkImg: string;
-  title: string;
-}) => (
+const GameCard = (item: { id: number; price: string; linkImg: string; title: string }) => (
   <div className="mr-10">
     <img className="w-full h-full" src={item.linkImg} alt={item.title} />
     <div className="text-gray-500">Base game</div>

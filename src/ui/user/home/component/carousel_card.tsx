@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 const CarouselCard = (item: {
   id: number;
@@ -34,9 +34,7 @@ const CarouselCard = (item: {
         <p className="text-white text-2xl">Now Available</p>
 
         <div className="flex">
-          <span className="bg-blue-gray-500 rounded-sm text-white px-1 mb-2">
-            Top Seller
-          </span>
+          <span className="bg-blue-gray-500 rounded-sm text-white px-1 mb-2">Top Seller</span>
         </div>
 
         <div className="flex-grow"></div>
@@ -47,18 +45,12 @@ const CarouselCard = (item: {
             </span>
 
             <span className="bg-gray-dark">
-              <span className="text-gray-600 line-through pl-1">
-                {item.originalPrice}
-              </span>
-              <span className="text-green-banana no-underline px-1">
-                {realPrice}
-              </span>
+              <span className="text-gray-600 line-through pl-1">{item.originalPrice}</span>
+              <span className="text-green-banana no-underline px-1">{realPrice}</span>
             </span>
           </div>
         ) : (
-          <p className="text-white text-xs">
-            {realPrice !== 0 ? realPrice : "Free to play"}
-          </p>
+          <p className="text-white text-xs">{realPrice !== 0 ? realPrice : 'Free to play'}</p>
         )}
       </div>
     </div>

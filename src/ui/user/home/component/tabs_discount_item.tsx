@@ -1,11 +1,5 @@
-import {
-  Tab,
-  TabPanel,
-  Tabs,
-  TabsBody,
-  TabsHeader,
-} from "@material-tailwind/react";
-import DiscountItem from "./discount_item";
+import { Tab, TabPanel, Tabs, TabsBody, TabsHeader } from '@material-tailwind/react';
+import DiscountItem from './discount_item';
 
 export interface BannerAdsProp {
   id: number;
@@ -26,22 +20,22 @@ export interface TabProps {
 
 const bannerAds: BannerAdsProp = {
   id: 1,
-  image: "https://source.unsplash.com/random/1920x1080/?ads",
-  title: "Unique Features Of leatest & Trending Poducts",
-  productName: "Thần Trùng",
-  productPrice: "3.00",
+  image: 'https://source.unsplash.com/random/1920x1080/?ads',
+  title: 'Unique Features Of leatest & Trending Poducts',
+  productName: 'Thần Trùng',
+  productPrice: '3.00',
   descriptions: [
-    "All frames constructed with hardwood solids and laminates",
-    "Reinforced with double wood dowels, glue, screw - nails corner blocks and machine nails",
-    "Arms, backs and seats are structurally reinforced",
+    'All frames constructed with hardwood solids and laminates',
+    'Reinforced with double wood dowels, glue, screw - nails corner blocks and machine nails',
+    'Arms, backs and seats are structurally reinforced',
   ],
-  buttonTitle: "Add to Cart",
-  link: "/cart",
+  buttonTitle: 'Add to Cart',
+  link: '/cart',
 };
 const tabsData: TabProps[] = [
-  { key: "gamepc", label: "Game PC", value: bannerAds },
-  { key: "gamenin", label: "Game Nintendo", value: bannerAds },
-  { key: "gameps5", label: "Game PS5", value: bannerAds },
+  { key: 'gamepc', label: 'Game PC', value: bannerAds },
+  { key: 'gamenin', label: 'Game Nintendo', value: bannerAds },
+  { key: 'gameps5', label: 'Game PS5', value: bannerAds },
 ];
 const TabsDiscountItem = () => {
   return (

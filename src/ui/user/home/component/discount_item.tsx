@@ -1,6 +1,6 @@
-import { Button, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import { Button, Typography } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
+import { CheckIcon } from '@heroicons/react/24/outline';
 
 export interface BannerAdsProp {
   id: number;
@@ -20,14 +20,12 @@ const DiscountItem: React.FC<BannerAdsProp> = (props) => {
       <div className="pt-24 pb-24">
         <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
           <div className="sm:max-w-lg">
-            <h1 className="text-3xl font-bold tracking-tight text-indigo-700">
-              {bannerAds.title}
-            </h1>
+            <h1 className="text-3xl font-bold tracking-tight text-indigo-700">{bannerAds.title}</h1>
             <ul className="flex flex-col py-4 px-2 text-gray-100">
               {bannerAds.descriptions.map((description: string) => (
                 <li>
                   <Typography variant="paragraph">
-                    {" "}
+                    {' '}
                     <CheckIcon className="w-6 h-6 inline" /> {description}
                   </Typography>
                 </li>

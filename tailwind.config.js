@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const withMT = require("@material-tailwind/react/utils/withMT");
+const withMT = require('@material-tailwind/react/utils/withMT');
 module.exports = withMT({
   darkMode: 'class',
   content: [
@@ -10,17 +10,27 @@ module.exports = withMT({
   ],
   theme: {
     colors: {
-      green: { banana: "#BEEE11", dark: "#4c6b22" },
-      gray: { dark: "#344654" },
-      primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" },
-      dark: {"purple": "#081A51"},
-      "light-white": "rgba(255,255,255,0.17)",
+      green: { banana: '#BEEE11', dark: '#4c6b22' },
+      gray: { dark: '#344654' },
+      primary: {
+        50: '#eff6ff',
+        100: '#dbeafe',
+        200: '#bfdbfe',
+        300: '#93c5fd',
+        400: '#60a5fa',
+        500: '#3b82f6',
+        600: '#2563eb',
+        700: '#1d4ed8',
+        800: '#1e40af',
+        900: '#1e3a8a',
+      },
+      dark: { purple: '#081A51' },
+      'light-white': 'rgba(255,255,255,0.17)',
     },
     extend: {},
-
   },
   fontFamily: {
-    'body': [
+    body: [
       'Inter',
       'ui-sans-serif',
       'system-ui',
@@ -35,9 +45,9 @@ module.exports = withMT({
       'Apple Color Emoji',
       'Segoe UI Emoji',
       'Segoe UI Symbol',
-      'Noto Color Emoji'
+      'Noto Color Emoji',
     ],
-    'sans': [
+    sans: [
       'Inter',
       'ui-sans-serif',
       'system-ui',
@@ -52,17 +62,17 @@ module.exports = withMT({
       'Apple Color Emoji',
       'Segoe UI Emoji',
       'Segoe UI Symbol',
-      'Noto Color Emoji'
-    ]
+      'Noto Color Emoji',
+    ],
   },
   variants: {
     extend: {
       height: {
-        128: "32rem",
+        128: '32rem',
       },
-      grayscale: ["hover"],
-      sepia: ["hover"],
-      invert: ["hover"],
+      grayscale: ['hover'],
+      sepia: ['hover'],
+      invert: ['hover'],
     },
   },
   plugins: [

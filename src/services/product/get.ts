@@ -14,28 +14,27 @@ export const get : (page: number, perPage: number, filter?: string, order?: stri
     }
 
     let response: any = await axios.get(`${productUrl}?page=${page}&perPage=${perPage}${filterText}${queryText}`);
-    rawProducts = response.data;
+    rawProducts = response.data.products;
     let products : Game[] = []
     for(let i = 0; i < rawProducts.length; i++){
         let product: Game = {
             _id: rawProducts[i]._id,
             title: rawProducts[i].title,
-            type: (rawProducts[i].type || "").split(','),
-            releaseDate: rawProducts[i].release_date,
+            type: (rawProducts[i].type ?? []),
+            releaseDate: rawProducts[i].releaseDate,
             platform: rawProducts[i].platform,
             total: rawProducts[i].total,
-            priceDefault:parseFloat(rawProducts[i].price_before || "0"),
-            priceOffical:parseFloat(rawProducts[i].price_after || "0"),
-            imageDefault: rawProducts[i].short_image,
+            priceDefault:parseFloat(rawProducts[i].priceDefault ?? "0"),
+            priceOffical:parseFloat(rawProducts[i].priceOffical ?? "0"),
             description: rawProducts[i].description,
-            maxPlayer:parseInt(rawProducts[i].max_player || "1"),
-            priceDeposit:parseFloat(rawProducts[i].price_desposit || "0"),
-            discount: parseFloat(rawProducts[i].discount || "0.0"),
+            maxPlayer:parseInt(rawProducts[i].maxPlayer ?? "0"),
+            discount: parseFloat(rawProducts[i].discount ?? "0.0"),
             status: rawProducts[i].status,
+            tags: (rawProducts[i].tags ?? []),
             note: rawProducts[i].note,
-            imageList: rawProducts[i].image_list,
-            videoList: rawProducts[i].videos,
-            shortDescription: rawProducts[i].short_description,
+            imageList: rawProducts[i].imageList,
+            videoList: rawProducts[i].videoList,
+            shortDescription: rawProducts[i].shortDescription,
         };  
         products.push(product);
     }
@@ -57,26 +56,25 @@ export const getTotalPage: (perPage: number, query?: string) => Promise<number> 
 export const getProductById: (id: string) => Promise<Game> = async (id: string) => {
     let rawProduct;
     let response: any = await axios.get(`${productUrl}/get/${id}`);
-    rawProduct = response.data;
+    rawProduct = response.data.product;
     let product: Game = {
         _id: rawProduct._id,
-        title: rawProduct.title,
-        type: (rawProduct.type || "").split(','),
-        releaseDate: rawProduct.release_date,
-        platform: rawProduct.platform,
-        total: rawProduct.total || 0,
-        priceDefault:parseFloat(rawProduct.price_before || "0"),
-        priceOffical:parseFloat(rawProduct.price_after || "0"),
-        imageDefault: rawProduct.short_image,
-        description: rawProduct.description,
-        maxPlayer:parseInt(rawProduct.max_player || "1"),
-        priceDeposit:parseFloat(rawProduct.price_desposit || "0"),
-        discount: parseFloat(rawProduct.discount || "0.0"),
-        status: rawProduct.status,
-        note: rawProduct.note,
-        imageList: rawProduct.image_list,
-        videoList: rawProduct.videos,
-        shortDescription: rawProduct.short_description,
+            title: rawProduct.title,
+            type: (rawProduct.type ?? []),
+            releaseDate: rawProduct.releaseDate,
+            platform: rawProduct.platform,
+            total: rawProduct.total,
+            priceDefault:parseFloat(rawProduct.priceDefault ?? "0"),
+            priceOffical:parseFloat(rawProduct.priceOffical ?? "0"),
+            description: rawProduct.description,
+            maxPlayer:parseInt(rawProduct.maxPlayer ?? "0"),
+            discount: parseFloat(rawProduct.discount ?? "0.0"),
+            status: rawProduct.status,
+            tags: (rawProduct.tags ?? []),
+            note: rawProduct.note,
+            imageList: rawProduct.imageList,
+            videoList: rawProduct.videoList,
+            shortDescription: rawProduct.shortDescription,
     };  
     return product;
 }
