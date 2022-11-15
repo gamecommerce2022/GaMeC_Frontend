@@ -136,7 +136,7 @@ export const ProductEditComponent = () => {
             if(res === true){
               navigate(-1)
             } else {
-              console.log('error')
+              console.log('Edit Product Failed')
             }
           }}
         >
