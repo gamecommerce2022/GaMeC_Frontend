@@ -1,17 +1,17 @@
-import { useRef } from "react";
-import { Navigate } from "react-router-dom";
-import Slider from "react-slick";
-import { reviews } from "../../../../data/DataProduct";
-import { singleSettings } from "../../../../config/carousel_setting";
-import { getRandomNumber } from "../../../../utils/date_utils";
+import { useRef } from 'react';
+import { Navigate } from 'react-router-dom';
+import Slider from 'react-slick';
+import { reviews } from '../../../../data/DataProduct';
+import { singleSettings } from '../../../../config/carousel_setting';
+import { getRandomNumber } from '../../../../utils/date_utils';
 import {
   ProductCard,
   ProductFeatureBox,
   ProductImage,
   ProductReviewSection,
   ProductSpecifications,
-} from "./component";
-import { Game } from "../../../../model/product_model";
+} from './component';
+import { Game } from '../../../../model/product_model';
 
 export interface IGamePageTemplateProps {
   product: Game | null;
@@ -56,21 +56,17 @@ export const ProductPageTemplate = ({ product }: IGamePageTemplateProps) => {
               )}
               <div className="mt-6 flex flex-col">
                 {product.description?.map((item) => {
-                  if (item.includes("https://") === true) {
+                  if (item.includes('https://') === true) {
                     return (
                       <div className="mb-2 justify-self-center aspect-square ">
-                        <img
-                          className="object-fill w-full h-full"
-                          src={item}
-                          alt={item}
-                        />
+                        <img className="object-fill w-full h-full" src={item} alt={item} />
                       </div>
                     );
                   } else {
                     return (
                       <div
                         className={`mb-2 text-gray-400 ${
-                          item.length < 80 ? "mt-4 font-semibold" : "text-sm"
+                          item.length < 80 ? 'mt-4 font-semibold' : 'text-sm'
                         }`}
                       >
                         {item}

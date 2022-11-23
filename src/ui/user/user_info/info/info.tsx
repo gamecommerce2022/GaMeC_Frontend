@@ -1,3 +1,3 @@
 export const UserInfoPage = () => {
-    return (<div>User Info</div>)
-}
+  return <div>User Info</div>;
+};

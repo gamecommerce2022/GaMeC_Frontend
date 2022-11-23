@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import BannerProduct from "./banner_product";
+import { Link } from 'react-router-dom';
+import BannerProduct from './banner_product';
 
 export interface BannerProductProp {
   id: number;
@@ -13,48 +13,48 @@ export interface BannerProductProp {
 const bannerPoductList: BannerProductProp[] = [
   {
     id: 1,
-    title: "NEW GAME SAGA FAST TIME",
+    title: 'NEW GAME SAGA FAST TIME',
     description:
-      "More off this less hello samlande lied much over tightly circa horse taped mightly",
-    image: "https://source.unsplash.com/random/1920x1080/?game",
-    buttonTitle: "Shop now",
-    link: "/shop",
+      'More off this less hello samlande lied much over tightly circa horse taped mightly',
+    image: 'https://source.unsplash.com/random/1920x1080/?game',
+    buttonTitle: 'Shop now',
+    link: '/shop',
   },
   {
     id: 2,
-    title: "NEW PHONE",
+    title: 'NEW PHONE',
     description:
-      "More off this less hello samlande lied much over tightly circa horse taped mightly",
-    image: "https://source.unsplash.com/random/1920x1080/?phone",
-    buttonTitle: "Shop now",
-    link: "/shop",
+      'More off this less hello samlande lied much over tightly circa horse taped mightly',
+    image: 'https://source.unsplash.com/random/1920x1080/?phone',
+    buttonTitle: 'Shop now',
+    link: '/shop',
   },
   {
     id: 3,
-    title: "GAME GOTY",
+    title: 'GAME GOTY',
     description:
-      "More off this less hello samlande lied much over tightly circa horse taped mightly",
-    image: "https://source.unsplash.com/random/1920x1080/?product",
-    buttonTitle: "Read now",
-    link: "/blogs",
+      'More off this less hello samlande lied much over tightly circa horse taped mightly',
+    image: 'https://source.unsplash.com/random/1920x1080/?product',
+    buttonTitle: 'Read now',
+    link: '/blogs',
   },
   {
     id: 4,
-    title: "SUMMER SAGA",
+    title: 'SUMMER SAGA',
     description:
-      "More off this less hello samlande lied much over tightly circa horse taped mightly",
-    image: "https://source.unsplash.com/random/1920x1080/?summer",
-    buttonTitle: "Shop now",
-    link: "/shop",
+      'More off this less hello samlande lied much over tightly circa horse taped mightly',
+    image: 'https://source.unsplash.com/random/1920x1080/?summer',
+    buttonTitle: 'Shop now',
+    link: '/shop',
   },
   {
     id: 5,
-    title: "LATEST NEWS",
+    title: 'LATEST NEWS',
     description:
-      "More off this less hello samlande lied much over tightly circa horse taped mightly",
-    image: "https://source.unsplash.com/random/1920x1080/?news",
-    buttonTitle: "Read now",
-    link: "/blogs",
+      'More off this less hello samlande lied much over tightly circa horse taped mightly',
+    image: 'https://source.unsplash.com/random/1920x1080/?news',
+    buttonTitle: 'Read now',
+    link: '/blogs',
   },
 ];
 

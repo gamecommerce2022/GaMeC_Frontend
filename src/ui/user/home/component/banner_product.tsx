@@ -1,5 +1,5 @@
-import { Button } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Button } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
 
 export interface BannerProductProp {
   id: number;
@@ -26,9 +26,7 @@ const BannerProduct: React.FC<BannerProductProp> = (props) => {
             <h1 className="font text-4xl font-bold tracking-tight text-indigo-700 sm:text-6xl">
               {bannerProduct.title}
             </h1>
-            <p className="mt-4 text-xl text-gray-100">
-              {bannerProduct.description}
-            </p>
+            <p className="mt-4 text-xl text-gray-100">{bannerProduct.description}</p>
           </div>
           <div>
             <div className="mt-10">

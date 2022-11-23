@@ -11,7 +11,7 @@ export const ProductFeatureBox = ({ title, value }: ProductFeatureBoxProps) => (
         <span className="underline hover:no-underline mr-2 hover:text-gray-200 hover:font-bold">
           {item}
         </span>
-        {value.findIndex((i) => i === item) === value.length - 1 ? "" : ", "}
+        {value.findIndex((i) => i === item) === value.length - 1 ? '' : ', '}
       </span>
     ))}
   </div>

@@ -1,3 +1,3 @@
 export const ResetPasswordPage = () => {
-    return (<div>Change Password</div>)
-}
+  return <div>Change Password</div>;
+};

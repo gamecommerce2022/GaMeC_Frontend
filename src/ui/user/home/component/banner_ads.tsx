@@ -1,5 +1,5 @@
-import { Button, Typography } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Button, Typography } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
 
 export interface BannerAdsProp {
   id: number;
@@ -14,17 +14,17 @@ export interface BannerAdsProp {
 
 const bannerAd: BannerAdsProp = {
   id: 1,
-  image: "https://source.unsplash.com/random/1920x1080/?ads",
-  title: "Unique Features Of leatest & Trending Poducts",
-  productName: "Thần Trùng",
-  productPrice: "3.00",
+  image: 'https://source.unsplash.com/random/1920x1080/?ads',
+  title: 'Unique Features Of leatest & Trending Poducts',
+  productName: 'Thần Trùng',
+  productPrice: '3.00',
   descriptions: [
-    "All frames constructed with hardwood solids and laminates",
-    "Reinforced with double wood dowels, glue, screw - nails corner blocks and machine nails",
-    "Arms, backs and seats are structurally reinforced",
+    'All frames constructed with hardwood solids and laminates',
+    'Reinforced with double wood dowels, glue, screw - nails corner blocks and machine nails',
+    'Arms, backs and seats are structurally reinforced',
   ],
-  buttonTitle: "Add to Cart",
-  link: "/cart",
+  buttonTitle: 'Add to Cart',
+  link: '/cart',
 };
 
 const BannerAds = () => {
@@ -41,11 +41,7 @@ const BannerAds = () => {
         <div className="relative mx-auto max-w-7xl sm:static flex flex-row items-center justify-between">
           {/* Decorative image grid */}
           <div className="w-1/2 h-3/4 lg:inset-y-0 lg:max-w-4xl pointer-events-none">
-            <img
-              className="rounded-xl"
-              src={bannerAds.image}
-              alt={bannerAds.title}
-            />
+            <img className="rounded-xl" src={bannerAds.image} alt={bannerAds.title} />
           </div>
 
           <div className="sm:max-w-lg">

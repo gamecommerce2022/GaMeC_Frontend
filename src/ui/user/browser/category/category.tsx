@@ -1,9 +1,4 @@
-import {
-  ListGenres,
-  ListProducts,
-  PopularGenres,
-  ProductSortList,
-} from "./component";
+import { ListGenres, ListProducts, PopularGenres, ProductSortList } from './component';
 
 export const CategoryPage: React.FC = () => {
   return (
