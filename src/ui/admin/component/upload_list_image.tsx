@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export interface UploadImageListProp {
     images: string[];
-    style?: string;
+    styleProps?: string;
     onImages?: (images: string[]) => void;
 }
 
 export const ImageCard = (props: {image: string}) => {
-    return (<div className='w-[200px] h-[160px] p-2 flex items-center content-between gap-y-2'>
+    return (<div className='p-2 h-[120px] flex items-center content-between gap-y-2'>
         <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
     </div>)
 }
@@ -47,10 +47,10 @@ export const UploadCard = (props: { onChange: (file
 
 export const UploadListImageComponent: React.FC<UploadImageListProp> = (props: UploadImageListProp) => {
 
-    return (<form><div className={`${props.style}`}>
+    return (<form><div className={`${props.styleProps}`}>
     <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
         <div className="text-center flex justify-center items-center">
-        <div className={`${props.images.length === 0 ? 'flex items-center justify-center' : 'grid grid-cols-6 gap-1'} `} onClick={() => {props.onImages!([]) }}>
+        <div className={`${props.images.length === 0 ? 'flex items-center justify-center' : 'grid lg:grid-cols-5 md:grid-cols-3 gap-1'} `} onClick={() => {props.onImages!([]) }}>
                     {props.images.length === 0 ? <UploadCard  onChange={(files) => {
                         if(files){
                             console.log(files.length)
@@ -58,7 +58,7 @@ export const UploadListImageComponent: React.FC<UploadImageListProp> = (props: U
                             for(let i = 0; i < files.length; i++){
                                 if(files[i]){
                                     console.log(i)
-                                    let strImg: string = URL.createObjectURL(files[i]) + " "   
+                                    let strImg: string = URL.createObjectURL(files[i])   
                                     strFiles.push(strImg)
                                 }
                             }

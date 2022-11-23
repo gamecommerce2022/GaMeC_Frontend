@@ -5,7 +5,6 @@ import { Game } from "../../../../model/product_model";
 import * as ProductService from '../../../../services/product/product';
 import { BreadCrumbComponent } from "../../component/breadcrumb";
 import { InputComponent } from "../../component/input";
-import { UploadImageComponent } from "../../component/upload_image";
 import { UploadListImageComponent } from "../../component/upload_list_image";
 
 export const ProductEditComponent = () => {
@@ -25,7 +24,7 @@ export const ProductEditComponent = () => {
         } catch(error) {
             console.log(error);
         }
-    }, []);
+    }, [productId]);
 
     return (<div className="relative">
 
@@ -39,33 +38,33 @@ export const ProductEditComponent = () => {
       <h3 className="text-lg font-medium leading-6 text-gray-900">Thông tin sản phẩm</h3>
       <div className="grid lg:grid-cols-2 gap-x-2">
         <div className="grid md:grid-rows-4 gap-y-3">
-          <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" value={product?.title} />
+          <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" onChange={(e) => { }} styleProps="w-full" value={product?.title} />
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Hệ điều hành" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.platform}/>
-          <InputComponent title="Số người chơi" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.maxPlayer?.toString()} />
+          <InputComponent title="Hệ điều hành" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.platform}/>
+          <InputComponent title="Số người chơi" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.maxPlayer?.toString()} />
           </div>
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Giá mặc định" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.priceDefault.toString()}/>
-          <InputComponent title="Giá đặt cọc" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.priceDeposit?.toString()}/>
+          <InputComponent title="Giá mặc định" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.priceDefault.toString()}/>
+          <InputComponent title="Giá đặt cọc" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.priceDeposit?.toString()}/>
           </div>
-          <InputComponent title="Miêu tả ngắn gọn" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" value={product?.shortDescription} />
+          <InputComponent title="Miêu tả ngắn gọn" placeHolder="Pokemon" onChange={(e) => { }} styleProps="w-full" value={product?.shortDescription} />
           
         </div>
         <div className="grid md:grid-rows-4 gap-y-3">
         <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Thể loại" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.type.join(',')}/>
-          <InputComponent title="Ngày phát hình" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.releaseDate}/>
+          <InputComponent title="Thể loại" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.type.join(',')}/>
+          <InputComponent title="Ngày phát hình" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.releaseDate}/>
           </div>
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Số lượng sản phẩm" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.total.toString()}/>
-          <InputComponent title="Trạng thái" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.status}/>
+          <InputComponent title="Số lượng sản phẩm" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.total.toString()}/>
+          <InputComponent title="Trạng thái" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.status}/>
           </div>        
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Giảm giá" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
-          <InputComponent title="Giá chính thức" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" value={product?.priceOffical.toString()}/>
+          <InputComponent title="Giảm giá" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
+          <InputComponent title="Giá chính thức" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" value={product?.priceOffical.toString()}/>
           </div>  
 
-          <InputComponent title="Lưu ý" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" value={product?.note}/>
+          <InputComponent title="Lưu ý" placeHolder="Pokemon" onChange={(e) => { }} styleProps="w-full" value={product?.note}/>
         </div>   
       </div>
 
@@ -74,7 +73,7 @@ export const ProductEditComponent = () => {
 
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
     <h3 className="text-lg font-medium leading-6 text-gray-900">Danh sách hình ảnh</h3>
-    <UploadListImageComponent images={listImage} onImages={setListImage} key="upload-multiple-image" style="w-[100%]"/>
+    <UploadListImageComponent images={listImage} onImages={setListImage} key="upload-multiple-image" styleProps="w-[100%]"/>
     </div>
 
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">

@@ -5,13 +5,13 @@ export interface InputProp {
     required?: boolean;
     value?: string;
     onChange: React.ChangeEventHandler<HTMLInputElement>;
-    style?: string; 
+    styleProps?: string; 
     disable?: boolean;
     type?: string;
     key?: string;
 }
 export const InputComponent: React.FC<InputProp> = (props: InputProp) => {
-    return (<div className={`${props.style}`}>
+    return (<div className={`${props.styleProps}`}>
     <label htmlFor={props.key} className="block text-sm font-medium text-gray-700">
       {props.title}
     </label>

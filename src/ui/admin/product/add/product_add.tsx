@@ -3,11 +3,9 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { BreadCrumbComponent } from "../../component/breadcrumb"
 import { InputComponent } from "../../component/input"
-import { UploadImageComponent } from "../../component/upload_image"
 import { UploadListImageComponent } from "../../component/upload_list_image"
 
 export const ProductAddComponent: React.FC = () => {
-    const [shortImage, setShortImage] = useState<string | null>(null)
     const [listImage, setListImage] = useState<string[]>([])
     let navigate = useNavigate()
   return (<div className="relative">
@@ -21,33 +19,33 @@ export const ProductAddComponent: React.FC = () => {
       <h3 className="text-lg font-medium leading-6 text-gray-900">Thông tin sản phẩm</h3>
       <div className="grid lg:grid-cols-2 gap-x-2">
         <div className="grid md:grid-rows-4 gap-y-3">
-          <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" />
+          <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" onChange={(e) => { }} styleProps="w-full" />
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Hệ điều hành" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
-          <InputComponent title="Số người chơi" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
+          <InputComponent title="Hệ điều hành" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
+          <InputComponent title="Số người chơi" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
           </div>
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Giá mặc định" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
-          <InputComponent title="Giá đặt cọc" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
+          <InputComponent title="Giá mặc định" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
+          <InputComponent title="Giá đặt cọc" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
           </div>
-          <InputComponent title="Miêu tả ngắn gọn" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" />
+          <InputComponent title="Miêu tả ngắn gọn" placeHolder="Pokemon" onChange={(e) => { }} styleProps="w-full" />
           
         </div>
         <div className="grid md:grid-rows-4 gap-y-3">
         <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Thể loại" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
-          <InputComponent title="Ngày phát hình" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
+          <InputComponent title="Thể loại" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
+          <InputComponent title="Ngày phát hình" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
           </div>
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Số lượng sản phẩm" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
-          <InputComponent title="Trạng thái" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
+          <InputComponent title="Số lượng sản phẩm" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
+          <InputComponent title="Trạng thái" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
           </div>        
           <div className="grid lg:grid-cols-2 gap-x-4">
-          <InputComponent title="Giảm giá" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
-          <InputComponent title="Giá chính thức" placeHolder="10000000" onChange={(e) => { }} style="w-full lg:w-[90%]" />
+          <InputComponent title="Giảm giá" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
+          <InputComponent title="Giá chính thức" placeHolder="10000000" onChange={(e) => { }} styleProps="w-full lg:w-[90%]" />
           </div>  
 
-          <InputComponent title="Lưu ý" placeHolder="Pokemon" onChange={(e) => { }} style="w-full" />
+          <InputComponent title="Lưu ý" placeHolder="Pokemon" onChange={(e) => { }} styleProps="w-full" />
         </div>   
       </div>
 
@@ -56,7 +54,7 @@ export const ProductAddComponent: React.FC = () => {
 
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
     <h3 className="text-lg font-medium leading-6 text-gray-900">Danh sách hình ảnh</h3>
-    <UploadListImageComponent images={listImage} onImages={setListImage} key="upload-multiple-image" style="w-[100%]"/>
+    <UploadListImageComponent images={listImage} onImages={setListImage} key="upload-multiple-image" styleProps="w-[100%]"/>
     </div>
 
     <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
