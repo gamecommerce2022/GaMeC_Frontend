@@ -55,25 +55,12 @@ export const ProductPageTemplate = ({ product }: IGamePageTemplateProps) => {
                 </div>
               )}
               <div className="mt-6 flex flex-col">
-                {product.description?.map((item) => {
-                  if (item.includes('https://') === true) {
-                    return (
-                      <div className="mb-2 justify-self-center aspect-square ">
-                        <img className="object-fill w-full h-full" src={item} alt={item} />
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div
-                        className={`mb-2 text-gray-400 ${
-                          item.length < 80 ? 'mt-4 font-semibold' : 'text-sm'
-                        }`}
-                      >
-                        {item}
-                      </div>
-                    );
-                  }
-                })}
+                <div
+                  className={`mb-2 text-gray-400 ${product.description.length < 80 ? 'mt-4 font-semibold' : 'text-sm'
+                    }`}
+                >
+                  {product.description}
+                </div>
               </div>
               {/* <div className="mt-6">
         <div className="text-xl text-gray-200">

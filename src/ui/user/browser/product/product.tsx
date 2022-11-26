@@ -15,7 +15,7 @@ let defaultGame: Game = {
   total: 0,
   priceDefault: 0,
   priceOffical: 0,
-  description: [],
+  description: "",
 };
 
 export const ProductPage = () => {

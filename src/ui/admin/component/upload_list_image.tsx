@@ -6,7 +6,7 @@ export interface UploadImageListProp {
 
 export const ImageCard = (props: { image: string }) => {
   return (
-    <div className="w-[200px] h-[160px] p-2 flex items-center content-between gap-y-2">
+    <div className="h-[160px] p-2 flex items-center content-between gap-y-2">
       <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
     </div>
   );

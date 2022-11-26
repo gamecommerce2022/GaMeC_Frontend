@@ -15,7 +15,7 @@ export type Game = {
   tags?: string[];
   imageList?: string[];
   videoList?: string[];
-  description: string[];
+  description: string;
   rate?: number;
   comment?: {
       name: string;

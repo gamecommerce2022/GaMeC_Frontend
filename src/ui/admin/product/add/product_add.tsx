@@ -23,7 +23,82 @@ export const ProductAddComponent: React.FC = () => {
   const [note, setNote] = useState("")
   const [listImage, setListImage] = useState<string[]>([])
   const [description, setDescription] = useState<string>("")
+  const [errorTitle, setErrorTitle] = useState<string>()
+  const [errorType, setErrorType] = useState<string>()
+  const [errorPlatform, setErrorPlatform] = useState<string>()
+  const [errorTotal, setErrorTotal] = useState<string>()
+  const [errorDefaultPrice, setErrorDefaultPrice] = useState<string>()
+  const [errorOfficalPrice, setErrorOfficalPrice] = useState<string>()
+  const [errorShortDescription, setErrorShortDescription] = useState<string>()
   let navigate = useNavigate()
+
+  async function addProduct() {
+    let errorCount = 0
+    if (title === null || title === undefined || title === '') {
+      setErrorTitle('Tên không được để trống')
+      errorCount++
+    }
+
+    if (platform === null || platform === undefined || platform === '') {
+      setErrorPlatform('Hệ điều hành không được để trống')
+      errorCount++
+    }
+
+    if (type === null || type === undefined || type.length === 0) {
+      setErrorType('Thể loại không được để trống')
+      errorCount++
+    }
+
+    if (total === null || total === undefined || total === 0) {
+      setErrorTotal('Số lượng không được để trống')
+      errorCount++
+    }
+
+    if (defaultPrice === null || defaultPrice === undefined || defaultPrice === 0) {
+      setErrorDefaultPrice('Giá ban đầu không được để trống')
+      errorCount++
+    }
+
+    if (officalPrice === null || officalPrice === undefined || officalPrice === 0) {
+      setErrorOfficalPrice('Giá chính thức không được để trống')
+      errorCount++
+    }
+
+    if (shortDescription === null || shortDescription === undefined || shortDescription === '') {
+      setErrorShortDescription('Miêu tả sản phẩm không được để trống')
+      errorCount++
+    }
+
+    if (listImage === null || listImage === undefined || listImage.length === 0){
+      errorCount++
+    }
+
+
+    if (errorCount === 0) {
+      let game: Game = {
+        title: title,
+        type: type,
+        releaseDate: releaseDate,
+        platform: platform,
+        total: total,
+        priceDefault: defaultPrice,
+        priceOffical: officalPrice,
+        description: description,
+        shortDescription: shortDescription,
+        discount: discount,
+        maxPlayer: maxPlayer,
+        note: note,
+        tags: tags,
+      }
+
+      let response = await ProductService.addGame(game);
+      if (response !== null) {
+        uploadImage({ list: listImage, id: response })
+      }
+      return response;
+    }
+  }
+
   return (<div className="relative">
     <div className="mb-1 shadow-sm">
       <BreadCrumbComponent key="bread-crumb-component-key" list={[{ name: "Dashboard", icon: <HomeIcon className='w-4 h-4' />, path: "/admin" }, { name: "Products", icon: <BriefcaseIcon className="w-4 h-4" />, path: "/admin/products" }, { name: "Add New Product", icon: <PlusIcon className="w-4 h-4" />, }]} />
@@ -35,30 +110,30 @@ export const ProductAddComponent: React.FC = () => {
         <h3 className="text-lg font-medium leading-6 text-gray-900">Thông tin sản phẩm</h3>
         <div className="grid lg:grid-cols-2 gap-x-2">
           <div className="grid md:grid-rows-4 gap-y-3">
-            <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" value={title} onChange={setTitle} styleProps="w-full" />
+            <InputComponent title="Tên sản phẩm" placeHolder="Pokemon" value={title} error={errorTitle} onChange={setTitle} styleProps="w-full" />
             <div className="grid lg:grid-cols-2 gap-x-4">
-              <InputComponent title="Hệ điều hành" placeHolder="Nintendo Switch" value={platform} onChange={setPlatform} styleProps="w-full lg:w-[90%]" />
-              <InputComponent title="Số người chơi" placeHolder="1" value={maxPlayer.toString()} onChange={(value) => setMaxPlayer(parseInt(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Hệ điều hành" placeHolder="Nintendo Switch" value={platform} error={errorPlatform} onChange={setPlatform} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Số người chơi" placeHolder="1" value={maxPlayer.toString()}  onChange={(value) => setMaxPlayer(parseInt(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
             </div>
             <div className="grid lg:grid-cols-2 gap-x-4">
-              <InputComponent title="Giá mặc định" placeHolder="10000000" value={defaultPrice.toString()} onChange={(value) => setDefaultPrice(parseFloat(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
-              <InputComponent title="Trạng thái" placeHolder="CÓ SẴN" value={status} onChange={setStatus} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Giá mặc định" placeHolder="10000000" value={defaultPrice.toString()} error={errorDefaultPrice} onChange={(value) => setDefaultPrice(parseFloat(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Trạng thái" placeHolder="CÓ SẴN" value={status}  onChange={setStatus} styleProps="w-full lg:w-[90%]" />
             </div>
-            <InputComponent title="Miêu tả ngắn gọn" placeHolder="Một trò chơi thư giản với gia đình" value={shortDescription} onChange={setShortDescription} styleProps="w-full" />
+            <InputComponent title="Miêu tả ngắn gọn" placeHolder="Một trò chơi thư giản với gia đình" value={shortDescription} onChange={setShortDescription} error={errorShortDescription} styleProps="w-full" />
 
           </div>
           <div className="grid md:grid-rows-4 gap-y-3">
             <div className="grid lg:grid-cols-2 gap-x-4">
-              <InputComponent title="Thể loại" placeHolder="Phiêu lưu,Hành động" value={type.join(',')} onChange={(value) => setType(value.split(","))} styleProps="w-full lg:w-[90%]" />
-              <InputComponent title="Ngày phát hình" placeHolder="20/11/2022" value={releaseDate} onChange={setReleaseDate} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Thể loại" placeHolder="Phiêu lưu,Hành động" value={type.join(',')} error={errorType} onChange={(value) => setType(value.split(","))} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Ngày phát hành" placeHolder="20/11/2022" value={releaseDate} onChange={setReleaseDate} styleProps="w-full lg:w-[90%]" />
             </div>
             <div className="grid lg:grid-cols-2 gap-x-4">
-              <InputComponent title="Số lượng sản phẩm" placeHolder="10" value={total.toString()} onChange={(value) => setTotal(parseInt(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Số lượng sản phẩm" placeHolder="10" value={total.toString()} error={errorTotal} onChange={(value) => setTotal(parseInt(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
               <InputComponent title="Từ khóa" placeHolder="game,hot2022" value={tags.join(',')} onChange={(value) => setTags(value.split(","))} styleProps="w-full lg:w-[90%]" />
             </div>
             <div className="grid lg:grid-cols-2 gap-x-4">
-              <InputComponent title="Giảm giá" placeHolder="0.5" value={discount.toString()} onChange={(value) => setDiscount(parseInt(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
-              <InputComponent title="Giá chính thức" placeHolder="10000000" value={officalPrice.toString()} onChange={(value) => setOfficalPrice(parseFloat(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Giảm giá" placeHolder="0.5" value={discount.toString()}  onChange={(value) => setDiscount(parseInt(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
+              <InputComponent title="Giá chính thức" placeHolder="10000000" value={officalPrice.toString()} error={errorOfficalPrice} onChange={(value) => setOfficalPrice(parseFloat(value ? value : "0"))} styleProps="w-full lg:w-[90%]" />
             </div>
 
             <InputComponent title="Lưu ý" placeHolder="Những thông tin cần thông báo cho khách hàng" value={note} onChange={setNote} styleProps="w-full" />
@@ -69,22 +144,22 @@ export const ProductAddComponent: React.FC = () => {
 
 
       <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
-        <h3 className="text-lg font-medium leading-6 text-gray-900">D      releaseDate: props.realeaseDate,anh sách hình ảnh</h3>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">Danh sách hình ảnh</h3>
+        <h4 className="text-sm text-red-500 italic">*Cần có ít nhất 1 ảnh làm ảnh đại diện sản phẩm</h4>
         <UploadListImageComponent images={listImage} onImages={setListImage} key="upload-multiple-image" styleProps="w-[100%]" />
       </div>
 
       <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
         <h3 className="text-lg font-medium leading-6 text-gray-900">Miêu tả chi tiết</h3>
-        <textarea id="message" rows={10} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-none border-gray-300 focus: focus:border-none focus:ring-0" placeholder="Chi tiết...." value={description} onChange={(event) => {setDescription(event.target.value)}}></textarea>
+        <textarea id="message" rows={10} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border-none border-gray-300 focus: focus:border-none focus:ring-0" placeholder="Chi tiết...." value={description} onChange={(event) => { setDescription(event.target.value) }}></textarea>
       </div>
     </div>
 
     <div className="w-full flex justify-center">
       <button type="button" className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-gray-900 focus:outline-none bg-white rounded-lg border shadow-sm border-gray-200 hover:bg-gray-100 hover:text-blue-300 focus:z-10 focus:ring-0 focus:bg-blue-600 focus:text-white" onClick={() => navigate(-1)}>Quay lại</button>
       <button type="button" className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg" onClick={async () => {
-        let descriptions = description.split('\n')
-        let res = await addProduct({title: title, type: type, releaseDate: releaseDate,platform: platform,maxPlayer: maxPlayer,total: total,status: status,priceDefault: defaultPrice,priceOffical: officalPrice,shortDescription: shortDescription,discount: discount,note: note,tags: tags, imageList: listImage,description: descriptions})
-        if(res === true){
+        let res = await addProduct()
+        if (res !== null) {
           navigate(-1)
         } else {
           console.log('Add Product Failed')
@@ -96,39 +171,14 @@ export const ProductAddComponent: React.FC = () => {
   </div>)
 }
 
-const addProduct = async (props: {title: string;
-  type: string[];
-  releaseDate: string;
-  platform: string;
-  maxPlayer?: number;
-  total: number;
-  status: string;
-  priceDefault: number;
-  priceOffical: number;
-  shortDescription: string;
-  discount?: number;
-  note?: string;
-  tags?: string[];
-  imageList?: string[];
-  description: string[];
-  videoList?: string[];}) => {
-    let game: Game = {
-      title: props.title,
-      type: props.type,
-      releaseDate: props.releaseDate,
-      platform: props.platform,
-      total: props.total,
-      priceDefault: props.priceDefault,
-      priceOffical: props.priceOffical,
-      description: props.description,
-      videoList: props.videoList,
-      shortDescription: props.shortDescription,
-      discount: props.discount,
-      maxPlayer: props.maxPlayer,
-      note: props.note,
-      tags: props.tags,
-    }
-
-    let response = await ProductService.addGame(game);
-    return response;
+const uploadImage = async (props: { list: string[], id: string }) => {
+  for (let i = 0; i < props.list.length; i++) {
+    let response = await fetch(props.list[i])
+    let data = await response.blob();
+    let metadata = {
+      type: 'image/jpeg'
+    };
+    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
+    await ProductService.editImage({ image: file, id: props.id })
+  }
 }

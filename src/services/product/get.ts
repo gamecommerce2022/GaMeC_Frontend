@@ -14,7 +14,7 @@ export const get : (page: number, perPage: number, filter?: string, order?: stri
     }
 
     let response: any = await axios.get(`${productUrl}?page=${page}&perPage=${perPage}${filterText}${queryText}`);
-    rawProducts = response.data.products;
+    rawProducts = response.data;
     let products : Game[] = []
     for(let i = 0; i < rawProducts.length; i++){
         let product: Game = {

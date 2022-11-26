@@ -12,6 +12,7 @@ export const ProductItemComponent: React.FC<{ index: number; product: Game }> = 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const closeShow = () => setShow(false);
+  console.log(props.product)
   return (
     <tr className="bg-white hover:bg-gray-50">
       <th scope="row" className="py-4 px-6 font-medium text-gray-900 ">
