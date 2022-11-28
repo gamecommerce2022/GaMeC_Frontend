@@ -12,14 +12,14 @@ const categoriesSort = [
 
 export const ProductSortList = () => {
   const [selectedCategorySort, setSelectedCategorySort] = useState(categoriesSort[0]);
-  const [searchParams] = useSearchParams()
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   return (
     <div className="relative">
-      <Listbox 
+      <Listbox
         value={selectedCategorySort}
         onChange={(value: { id: number; name: string; tag: string }) => {
-          let query = searchParams.get('q')
+          let query = searchParams.get('q');
           navigate(`?sortBy=${value.tag}&q=${query}`, { replace: true });
           setSelectedCategorySort(value);
         }}
@@ -58,6 +58,5 @@ export const ProductSortList = () => {
         </Listbox.Options>
       </Listbox>
     </div>
-      
   );
 };

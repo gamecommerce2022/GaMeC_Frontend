@@ -20,19 +20,18 @@ export const Headers = () => {
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-  
-        <Link to="/user" className="flex items-center text-white text-sm p-1">
-          Home
-        </Link>
-        <Link to="/user/browser" className="flex items-center text-white text-sm p-1">
-          Browser
-        </Link>
-        <Link to="/user/news" className="flex items-center text-white text-sm p-1">
-          Blogs
-        </Link>
-        <Link to="/user/contact" className="flex items-center text-white text-sm p-1">
-          Contact
-        </Link>
+      <Link to="/user" className="flex items-center text-white text-sm p-1">
+        Home
+      </Link>
+      <Link to="/user/browser" className="flex items-center text-white text-sm p-1">
+        Browser
+      </Link>
+      <Link to="/user/news" className="flex items-center text-white text-sm p-1">
+        Blogs
+      </Link>
+      <Link to="/user/contact" className="flex items-center text-white text-sm p-1">
+        Contact
+      </Link>
     </ul>
   );
 

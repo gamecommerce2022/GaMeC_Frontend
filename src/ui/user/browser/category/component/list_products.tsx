@@ -2,42 +2,41 @@ import { useEffect, useState } from 'react';
 import { Pagination } from '../../../../global/component/pagination';
 import { ProductItem } from '../component';
 import { Game } from '../../../../../model/product_model';
-import * as ProductService from '../../../../../services/product/product'
+import * as ProductService from '../../../../../services/product/product';
 import { useSearchParams } from 'react-router-dom';
-
 
 export const ListProducts = () => {
   const [searchParams] = useSearchParams();
   const defaultProducts: Game[] = [];
   const [defaultPage, setDefaultPage]: [number, (defaultPage: number) => void] = useState(0);
   const [products, setProducts]: [Game[], (products: Game[]) => void] = useState(defaultProducts);
-  const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true); 
-  const [query, setQuery] = useState<string|null>()
-  const [sortBy, setSortBy] = useState<string|null>()
+  const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true);
+  const [query, setQuery] = useState<string | null>();
+  const [sortBy, setSortBy] = useState<string | null>();
 
   useEffect(() => {
     // TODO - get products
-    const sortBy = searchParams.get('sortBy')
-    const query = searchParams.get('q') || ""
-    setSortBy(sortBy)
-    setQuery(query)
+    const sortBy = searchParams.get('sortBy');
+    const query = searchParams.get('q') || '';
+    setSortBy(sortBy);
+    setQuery(query);
     ProductService.getTotalPage(30).then((length) => {
-      console.log(length)
-      setDefaultPage(length)
-    })
-    ProductService.get(0,30, undefined, undefined, query).then((products) => {
-      console.log(products)
-      setProducts(products)
-      setLoading(false)
-    })
+      console.log(length);
+      setDefaultPage(length);
+    });
+    ProductService.get(0, 30, undefined, undefined, query).then((products) => {
+      console.log(products);
+      setProducts(products);
+      setLoading(false);
+    });
   }, [searchParams]);
 
   function goToNextPage(page: number) {
     setLoading(true);
     ProductService.get(page, 30, undefined, undefined, query).then((products) => {
-      setProducts(products)
-      setLoading(false)
-    })
+      setProducts(products);
+      setLoading(false);
+    });
   }
 
   return (
@@ -47,7 +46,7 @@ export const ListProducts = () => {
           {/** Product List */}
           <div className="grid sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 lg:grid gap-x-8 gap-y-8">
             {Array.isArray(products)
-              ? products.map((product) => {    
+              ? products.map((product) => {
                   return (
                     <ProductItem
                       id={product._id!}

@@ -10,20 +10,20 @@ import { UserInfoPage } from './user_info/user_info';
 
 export const UserPage = () => {
   return (
-    <Fragment >
-      <div className="bg-black">    
-      <Headers />
-      <Routes>
-        <Route key="user-home-page" path="/" element={<HomePage />} />
-        <Route key="user-browser-page" path="browser" element={<CategoryPage />} />
-        <Route key="user-product-page" path="products/:productId" element={<ProductPage />} />
-        <Route key="user-search-page" path="searched/:search" element={<SearchPage />} />
-        <Route key="user-all-news-page" path="news" element={<AllNewsPage />} />
-        <Route key="user-detail-news-page" path="news/:newsID" element={<DetailNewsPage />} />
-        <Route key="user-info-page" path="info" element={<UserInfoPage />} />
-        <Route key="user-not found-page" path="*" element={<NotFoundPage />} />
-      </Routes>
-      <Footer />
+    <Fragment>
+      <div className="bg-black">
+        <Headers />
+        <Routes>
+          <Route key="user-home-page" path="/" element={<HomePage />} />
+          <Route key="user-browser-page" path="browser" element={<CategoryPage />} />
+          <Route key="user-product-page" path="products/:productId" element={<ProductPage />} />
+          <Route key="user-search-page" path="searched/:search" element={<SearchPage />} />
+          <Route key="user-all-news-page" path="news" element={<AllNewsPage />} />
+          <Route key="user-detail-news-page" path="news/:newsID" element={<DetailNewsPage />} />
+          <Route key="user-info-page" path="info" element={<UserInfoPage />} />
+          <Route key="user-not found-page" path="*" element={<NotFoundPage />} />
+        </Routes>
+        <Footer />
       </div>
     </Fragment>
   );

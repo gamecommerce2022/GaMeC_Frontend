@@ -18,7 +18,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
 
   const values = [
     { label: 'Release Date', value: getDate(product.releaseDate) || '' },
-    { label: 'Platform', value: product.platform },    
+    { label: 'Platform', value: product.platform },
   ];
 
   // const { uid } = useAppSelector(selectUser)
@@ -30,7 +30,12 @@ export const ProductCard = ({ product }: IProductCardProps) => {
       </div>
 
       <Badge className="mt-4">{'base product'.toUpperCase()}</Badge>
-      <Price priceDefault={product.priceDefault} discount={product.discount} priceOffical={product.priceOffical} classes="mt-2" />
+      <Price
+        priceDefault={product.priceDefault}
+        discount={product.discount}
+        priceOffical={product.priceOffical}
+        classes="mt-2"
+      />
       {
         <>
           <button

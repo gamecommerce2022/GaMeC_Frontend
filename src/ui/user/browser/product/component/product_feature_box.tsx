@@ -5,10 +5,9 @@ interface ProductFeatureBoxProps {
 
 export const ProductFeatureBox = ({ title, value }: ProductFeatureBoxProps) => {
   if (value === undefined || value === null) {
-    return null
+    return null;
   } else {
     return (
-
       <div className="p-3 text-gray-400 font-medium">
         <div className="font-bold text-gray-200 text-base">{title}</div>
         {value.map((item) => (
@@ -20,7 +19,6 @@ export const ProductFeatureBox = ({ title, value }: ProductFeatureBoxProps) => {
           </span>
         ))}
       </div>
-    )
+    );
   }
-
 };

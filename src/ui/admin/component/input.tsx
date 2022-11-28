@@ -27,11 +27,17 @@ export const InputComponent: React.FC<InputProp> = (props: InputProp) => {
         value={props.value}
         className="mt-1 block w-[92%] rounded-md border-gray-300 shadow-sm focus:border-dark-purple focus:ring-dark-purple sm:text-sm"
       />
-      <div className={`${props.error === undefined ? 'hidden' : 'block text-sm font-medium text-red-500'}`}>{props.error}</div>
+      <div
+        className={`${
+          props.error === undefined ? 'hidden' : 'block text-sm font-medium text-red-500'
+        }`}
+      >
+        {props.error}
+      </div>
     </div>
   );
 };
 
-const onChangeInput = (props: InputProp) => (e: React.ChangeEvent<HTMLInputElement>) => { 
+const onChangeInput = (props: InputProp) => (e: React.ChangeEvent<HTMLInputElement>) => {
   props.onChange(e.target.value);
 };
