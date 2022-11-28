@@ -2,7 +2,7 @@ import axios from "axios";
 import { Game } from "../../model/product_model";
 import { productUrl } from "../url";
 
-export const get : (page: number, perPage: number, filter?: string, order?: string, query?: string) => Promise<Game[]> = async (page: number, perPage: number, filter?: string, order?: string, query?:string) => {
+export const get : (page: number, perPage: number, filter?: string|null, order?: string|null, query?: string|null) => Promise<Game[]> = async (page: number, perPage: number, filter?: string|null, order?: string|null, query?:string|null) => {
     let rawProducts = [];
     let filterText= '';
     if(filter !== undefined && order !== undefined){
@@ -14,7 +14,7 @@ export const get : (page: number, perPage: number, filter?: string, order?: stri
     }
 
     let response: any = await axios.get(`${productUrl}?page=${page}&perPage=${perPage}${filterText}${queryText}`);
-    rawProducts = response.data;
+    rawProducts = response.data.products;
     let products : Game[] = []
     for(let i = 0; i < rawProducts.length; i++){
         let product: Game = {

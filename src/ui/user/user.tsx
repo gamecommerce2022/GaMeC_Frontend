@@ -10,7 +10,8 @@ import { UserInfoPage } from './user_info/user_info';
 
 export const UserPage = () => {
   return (
-    <Fragment>
+    <Fragment >
+      <div className="bg-black">    
       <Headers />
       <Routes>
         <Route key="user-home-page" path="/" element={<HomePage />} />
@@ -23,6 +24,7 @@ export const UserPage = () => {
         <Route key="user-not found-page" path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
+      </div>
     </Fragment>
   );
 };

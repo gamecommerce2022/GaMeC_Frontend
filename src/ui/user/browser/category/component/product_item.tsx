@@ -17,7 +17,7 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
     <div
       className="w-full h-max flex flex-col"
       onClick={() => {
-        navigate(`/p/${props.id}`);
+        navigate(`/user/products/${props.id}`);
       }}
     >
       <img className="w-full h-64 object-fill rounded" src={props.img} alt={props.name} />

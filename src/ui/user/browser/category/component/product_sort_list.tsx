@@ -1,29 +1,26 @@
 import { Listbox } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getUrlLink } from '../../../../../utils/nav_utils';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const categoriesSort = [
   { id: 1, name: 'All', tag: 'all' },
-  { id: 2, name: 'New Release', tag: 'newRelease' },
-  { id: 3, name: 'Comming soon', tag: 'commingSoon' },
-  { id: 4, name: 'Alphabetical', tag: 'alphabetical' },
-  { id: 5, name: 'Price: High to Low', tag: 'priceHighLow' },
-  { id: 6, name: 'Price: Low to High', tag: 'priceLowHigh' },
+  { id: 2, name: 'Alphabetical', tag: 'alphabetical' },
+  { id: 3, name: 'Price: High to Low', tag: 'priceHighLow' },
+  { id: 4, name: 'Price: Low to High', tag: 'priceLowHigh' },
 ];
 
 export const ProductSortList = () => {
   const [selectedCategorySort, setSelectedCategorySort] = useState(categoriesSort[0]);
+  const [searchParams] = useSearchParams()
   const navigate = useNavigate();
   return (
-    <div className="w-max mb-8">
-      <Listbox
+    <div className="relative">
+      <Listbox 
         value={selectedCategorySort}
         onChange={(value: { id: number; name: string; tag: string }) => {
-          let itemPath = `sortBy=${value.tag}`;
-          let urlPath = getUrlLink('sortBy', itemPath);
-          navigate(`/browse?${urlPath}`, { replace: true });
+          let query = searchParams.get('q')
+          navigate(`?sortBy=${value.tag}&q=${query}`, { replace: true });
           setSelectedCategorySort(value);
         }}
       >
@@ -61,5 +58,6 @@ export const ProductSortList = () => {
         </Listbox.Options>
       </Listbox>
     </div>
+      
   );
 };

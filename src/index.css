@@ -19,13 +19,11 @@ code {
     monospace;
 }
 
-/* the slides */
 /* .slick-slide {
   padding: 0 8px;
-} */
+}
 
-/* the parent */
-/* .slick-list {
+.slick-list {
   margin: 0 -8px;
 } */
 
