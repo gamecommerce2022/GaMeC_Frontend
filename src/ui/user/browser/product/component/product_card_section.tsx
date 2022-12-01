@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
-import { Product } from '../../../../../model/product/product';
+import { Game } from '../../../../../model/product_model';
 
 export interface IProductCardSection {
   heading: string;
   buttonText?: string;
   buttonLinkTo?: string;
-  products: Product[];
+  products: Game[];
   classes?: string;
 }
 

@@ -1,28 +1,26 @@
-import { Listbox, Switch, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
-import { Game } from '../../../../model/product_model';
-import * as ProductService from '../../../../services/product/product';
-import { Pagination } from '../../../global/component/pagination';
-import { ProductItemComponent } from './product_item';
-import { PlusIcon } from '@heroicons/react/20/solid';
-import { BriefcaseIcon, HomeIcon } from '@heroicons/react/24/outline';
-import { useNavigate } from 'react-router-dom';
+import { News } from '../../../../model/news_model';
+import * as NewsService from '../../../../services/news/news';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
+import { PlusIcon } from '@heroicons/react/20/solid';
+import { HomeIcon, NewspaperIcon } from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
 import { SearchComponent } from '../../component/search';
+import { Listbox, Switch, Transition } from '@headlessui/react';
 import { TableComponent } from '../../component/table';
+import { Pagination } from '../../../global/component/pagination';
+import { NewsItemComponent } from './news_item';
 
 const filters = [
   { id: 1, name: 'ID', value: '_id' },
   { id: 2, name: 'Title', value: 'title' },
-  { id: 3, name: 'Platform', value: 'platform' },
-  { id: 4, name: 'Price Before', value: 'price_before' },
-  { id: 5, name: 'Price After', value: 'price_after' },
+  { id: 3, name: 'Author', value: 'author' },
 ];
 
 const maxPerPages = [20, 30, 40];
 
-export const ProductTableComponent = () => {
-  const [products, setProducts] = useState<Game[]>([]);
+export const NewsTableComponent = () => {
+  const [newsList, setNewsList] = useState<News[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -48,16 +46,16 @@ export const ProductTableComponent = () => {
     query?: string,
   ) {
     setLoading(true);
-    ProductService.get(page || 0, perPage || 30, filter, isDES ? 'DES' : 'ASC', query).then(
+    NewsService.get(page || 0, perPage || 30, filter, isDES ? 'DES' : 'ASC', query).then(
       (response) => {
-        setProducts(response);
+        setNewsList(response);
         setLoading(false);
       },
     );
   }
 
   function getMaxPage(perPage?: number, query?: string) {
-    ProductService.getTotalPage(perPage || 30, query).then((response) => {
+    NewsService.getTotalPage(perPage || 30, query).then((response) => {
       setTotalPage(response);
     });
   }
@@ -68,7 +66,7 @@ export const ProductTableComponent = () => {
         key="bread-crumb-component-key"
         list={[
           { name: 'Dashboard', icon: <HomeIcon className="w-4 h-4" />, path: '/admin' },
-          { name: 'Products', icon: <BriefcaseIcon className="w-4 h-4" /> },
+          { name: 'News', icon: <NewspaperIcon className="w-4 h-4" /> },
         ]}
       />
 
@@ -77,7 +75,7 @@ export const ProductTableComponent = () => {
         <div className="col-span-2">
           <SearchComponent
             key="search-component-key"
-            placeHolder="Search Product...."
+            placeHolder="Search News...."
             onChange={(e) => {
               setSearch(e.target.value);
             }}
@@ -202,13 +200,13 @@ export const ProductTableComponent = () => {
                 searchText(currentPage, perPage, selectedFilter.value, value, search);
               }}
               className={`${isDES ? 'bg-gray-700' : 'bg-gray-300'}
-          relative inline-flex h-[24px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+            relative inline-flex h-[24px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
             >
               <span className="sr-only">Order</span>
               <span
                 aria-hidden="true"
                 className={`${isDES ? 'translate-x-4' : 'translate-x-0'}
-            pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+              pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
               />
             </Switch>
             <span
@@ -226,11 +224,11 @@ export const ProductTableComponent = () => {
             type="button"
             className="absolute right-0 flex items-center justify-around text-blue-500 bg-white hover:bg-gray-100 font-medium rounded-lg border border-gray-400 text-sm truncate px-4 py-2 focus:text-white focus:bg-blue-500"
             onClick={() => {
-              navigate('/admin/products/add');
+              navigate('/admin/news/add');
             }}
           >
             <PlusIcon className="w-4 h-4 inline-block lg:pr-2" />
-            ADD NEW PRODUCT
+            ADD NEW NEWS
           </button>
         </div>
       </div>
@@ -238,15 +236,9 @@ export const ProductTableComponent = () => {
       {/** Table */}
       <TableComponent
         key="table-component-key"
-        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'PRICE BEFORE', 'PRICE AFTER', '']}
-        bodyList={products.map((product, index) => {
-          return (
-            <ProductItemComponent
-              product={product}
-              index={index + 1}
-              key={`${index}-${product._id}`}
-            />
-          );
+        headerList={['ID', 'TITLE', 'AUTHOR', 'DATE', '']}
+        bodyList={newsList.map((news, index) => {
+          return <NewsItemComponent news={news} index={index + 1} key={`${index}-${news._id}`} />;
         })}
       />
 

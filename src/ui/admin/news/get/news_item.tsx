@@ -1,12 +1,12 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game } from '../../../../model/product_model';
-import * as ProductService from '../../../../services/product/product';
+import { News } from '../../../../model/news_model';
+import * as NewsService from '../../../../services/news/news';
 
-export const ProductItemComponent: React.FC<{ index: number; product: Game }> = (props: {
+export const NewsItemComponent: React.FC<{ index: number; news: News }> = (props: {
   index: number;
-  product: Game;
+  news: News;
 }) => {
   let navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -17,25 +17,15 @@ export const ProductItemComponent: React.FC<{ index: number; product: Game }> = 
       <th scope="row" className="py-4 px-6 font-medium text-gray-900 ">
         {props.index}
       </th>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.title}</td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.platform}</td>
-      <td className="py-4 px-6">
-        <div className="flex items-center">
-          <img
-            className="object-contain max-h-[8rem] max-w-[8rem]"
-            src={props.product.imageList ? props.product.imageList[0] : ''}
-            alt={props.product.title}
-          />
-        </div>
-      </td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.priceDefault}</td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.priceOffical}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.title}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.author}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.date}</td>
       <td className="py-4 px-6">
         <div className="flex flex-row h-full items-center justify-around">
           <PencilIcon
             className="w-4 h-4 text-blue-500 hover:text-orange-500"
             onClick={() => {
-              navigate(`/admin/products/${props.product._id}`);
+              navigate(`/admin/news/${props.news._id}`);
             }}
           />
 
@@ -88,15 +78,15 @@ export const ProductItemComponent: React.FC<{ index: number; product: Game }> = 
                     ></path>
                   </svg>
                   <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                    Are you sure you want to delete this product?
+                    Are you sure you want to delete this news?
                   </h3>
                   <button
                     data-modal-toggle="popup-modal"
                     type="button"
                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                     onClick={async () => {
-                      if (props.product._id) {
-                        let res = await ProductService.deleteGame(props.product._id);
+                      if (props.news._id) {
+                        let res = await NewsService.deleteNews(props.news._id);
                         if (res === true) {
                           navigate(0);
                         } else {

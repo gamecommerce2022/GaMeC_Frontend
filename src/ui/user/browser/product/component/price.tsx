@@ -1,5 +1,4 @@
-import { ProductNotes } from '../../../../../model/product/product';
-import { discountCalc, withCurrency } from '../../../../../utils/product_utils';
+import { withCurrency } from '../../../../../utils/product_utils';
 
 export interface IPriceProps {
   priceOffical: number;

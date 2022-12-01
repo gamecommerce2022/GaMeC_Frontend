@@ -15,12 +15,12 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const menuList = [
-  { title: 'Dashboard', link: '/admin', component: <HomeIcon className="w-6 h-6" /> },
-  {
-    title: 'Inbox',
-    link: '/admin/inbox',
-    component: <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6" />,
-  },
+  // { title: 'Dashboard', link: '/admin', component: <HomeIcon className="w-6 h-6" /> },
+  // {
+  //   title: 'Inbox',
+  //   link: '/admin/inbox',
+  //   component: <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6" />,
+  // },
   {
     title: 'Accounts',
     link: '/admin/accounts',
@@ -29,11 +29,11 @@ const menuList = [
   },
   { title: 'Products ', link: '/admin/products', component: <BriefcaseIcon className="w-6 h-6" /> },
   { title: 'Carts', link: '/admin/carts', component: <ShoppingCartIcon className="w-6 h-6" /> },
-  {
-    title: 'Analytics',
-    link: '/admin/analytics',
-    component: <PresentationChartLineIcon className="w-6 h-6" />,
-  },
+  // {
+  //   title: 'Analytics',
+  //   link: '/admin/analytics',
+  //   component: <PresentationChartLineIcon className="w-6 h-6" />,
+  // },
   {
     title: 'News',
     link: '/admin/news',
@@ -61,6 +61,7 @@ export const SidebarComponent = () => {
       <div className="flex gap-x-4 items-center">
         <img
           src={AppIcon}
+          alt=""
           className={`cursor-pointer duration-500 w-12 h-12 ${open && 'rotate-[360deg]'}`}
         />
         <h1

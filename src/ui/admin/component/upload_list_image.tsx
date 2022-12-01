@@ -1,10 +1,18 @@
 export interface UploadImageListProp {
   images: string[];
   styleProps?: string;
+  multiple?: boolean;
   onImages?: (images: string[]) => void;
 }
 
-export const ImageCard = (props: { image: string }) => {
+export const ImageCard = (props: { image: string; multiple?: boolean | null }) => {
+  if (props.multiple === false) {
+    return (
+      <div className="h-[480px] p-2 flex items-center content-between gap-y-2">
+        <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
+      </div>
+    );
+  }
   return (
     <div className="h-[160px] p-2 flex items-center content-between gap-y-2">
       <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
@@ -27,7 +35,7 @@ export const UploadCard = (props: {
         onChange={(event) => {
           props.onChange(event.target.files);
         }}
-        multiple
+        multiple={props.multiple || true}
       />
       <svg
         className="mx-auto h-[60%] w-[60%] text-gray-400"
@@ -64,7 +72,7 @@ export const UploadListImageComponent: React.FC<UploadImageListProp> = (
           <div className="text-center flex justify-center items-center">
             <div
               className={`${
-                props.images.length === 0
+                props.images.length === 0 || props.images.length === 1
                   ? 'flex items-center justify-center'
                   : 'grid lg:grid-cols-5 md:grid-cols-3 gap-1'
               } `}
@@ -74,6 +82,7 @@ export const UploadListImageComponent: React.FC<UploadImageListProp> = (
             >
               {props.images.length === 0 ? (
                 <UploadCard
+                  multiple={props.multiple || true}
                   onChange={(files) => {
                     if (files) {
                       let strFiles: string[] = [];
@@ -89,7 +98,7 @@ export const UploadListImageComponent: React.FC<UploadImageListProp> = (
                 />
               ) : (
                 props.images.map((item) => {
-                  return <ImageCard image={item} />;
+                  return <ImageCard image={item} multiple={props.multiple} />;
                 })
               )}
             </div>
