@@ -1,8 +1,8 @@
-import React from "react";
-import classNames from "classnames";
-import "./pagination.scss";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import ReactPaginate from "react-paginate";
+import React from 'react';
+import classNames from 'classnames';
+import './pagination.scss';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
+import ReactPaginate from 'react-paginate';
 
 export interface IPaginationProps {
   className?: string;
@@ -28,7 +28,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
       pageCount={pagesCount}
       pageRangeDisplayed={pageRangeDisplayed}
       onPageChange={onChange}
-      containerClassName={classNames("Pagination", className)}
+      containerClassName={classNames('Pagination', className)}
       activeClassName="Pagination__active"
       pageLinkClassName="Pagination__page-link"
       breakLinkClassName="Pagination__page-link"

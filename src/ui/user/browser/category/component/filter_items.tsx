@@ -1,8 +1,8 @@
-import { Disclosure, Listbox } from "@headlessui/react";
-import { CheckIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import { Dispatch, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUrlLink, getUrlMapLink } from "../../../../../utils/nav_utils";
+import { Disclosure, Listbox } from '@headlessui/react';
+import { CheckIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
+import { Dispatch, SetStateAction } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getUrlLink, getUrlMapLink } from '../../../../../utils/nav_utils';
 
 interface FilterItemProps {
   title: string;
@@ -23,8 +23,7 @@ export const FilterItems: React.FC<FilterItemProps> = (props) => {
           items.push(item.name);
         }
         console.log(window.location.href);
-        let itemsPath =
-          items.length >= 1 ? `${props.tag}=${items.join("|")}` : null;
+        let itemsPath = items.length >= 1 ? `${props.tag}=${items.join('|')}` : null;
         let urlPath = getUrlLink(props.tag, itemsPath);
 
         navigate(`/browse?${urlPath}`, { replace: true });
@@ -41,7 +40,7 @@ export const FilterItems: React.FC<FilterItemProps> = (props) => {
               </span>
               <ChevronUpIcon
                 className={`${
-                  open ? "rotate-180 transform" : ""
+                  open ? 'rotate-180 transform' : ''
                 } h-5 w-5 text-gray-600 group-hover:text-gray-300`}
               />
             </Disclosure.Button>
@@ -53,22 +52,20 @@ export const FilterItems: React.FC<FilterItemProps> = (props) => {
                       <div
                         className={`w-full h-12 rounded px-4 flex items-center justify-between ${
                           selected
-                            ? "bg-gray-600 opacity-75 border-2 border-white"
-                            : "bg-transparent"
+                            ? 'bg-gray-600 opacity-75 border-2 border-white'
+                            : 'bg-transparent'
                         }`}
                       >
                         <span
                           className={`block truncate ${
                             selected
-                              ? "font-medium text-white"
-                              : "font-normal text-gray-600 hover:text-white"
+                              ? 'font-medium text-white'
+                              : 'font-normal text-gray-600 hover:text-white'
                           }`}
                         >
                           {item.name}
                         </span>
-                        {selected ? (
-                          <CheckIcon className="w-4 h-4 text-white block" />
-                        ) : null}
+                        {selected ? <CheckIcon className="w-4 h-4 text-white block" /> : null}
                       </div>
                     )}
                   </Listbox.Option>

@@ -1,28 +1,26 @@
-import { Link } from "react-router-dom";
-import { Product } from "../../../../../model/product/product";
+import { Link } from 'react-router-dom';
+import { Game } from '../../../../../model/product_model';
 
 export interface IProductCardSection {
   heading: string;
   buttonText?: string;
   buttonLinkTo?: string;
-  products: Product[];
+  products: Game[];
   classes?: string;
 }
 
 export const ProductCardSection = ({
   heading,
-  buttonText = "view more",
-  buttonLinkTo = "#0",
+  buttonText = 'view more',
+  buttonLinkTo = '#0',
   products,
-  classes = "text-white",
+  classes = 'text-white',
 }: IProductCardSection) => {
   const productsSix = products.slice(0, 6);
   return (
     <div className={`mt-6 mb-12 ${classes}`}>
       <div className="flex items-baseline justify-between">
-        <div className="flex items-center text-xl font-semibold capitalize">
-          {heading}
-        </div>
+        <div className="flex items-center text-xl font-semibold capitalize">{heading}</div>
         {buttonText && (
           <Link
             to={buttonLinkTo}

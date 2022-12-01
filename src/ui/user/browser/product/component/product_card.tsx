@@ -1,10 +1,9 @@
-import { Link } from "react-router-dom";
-import { Product } from "../../../../../model/product/product";
-import { Badge } from "./badge";
-import { Price } from "./price";
+import { Game } from '../../../../../model/product_model';
+import { Badge } from './badge';
+import { Price } from './price';
 
 export interface IProductCardProps {
-  product: Product;
+  product: Game;
 }
 
 const KeyValue = ({ label, value }: { label: string; value: string }) => (
@@ -18,40 +17,26 @@ export const ProductCard = ({ product }: IProductCardProps) => {
   const getDate = (date: string) => new Date(date).toLocaleDateString();
 
   const values = [
-    { label: "Developer", value: product?.developer || "" },
-    { label: "Publisher", value: product.publisherId || "" },
-    { label: "Release Date", value: getDate(product.releaseDate) || "" },
-    { label: "Platform", value: "Windows" },
+    { label: 'Release Date', value: getDate(product.releaseDate) || '' },
+    { label: 'Platform', value: product.platform },
   ];
 
   // const { uid } = useAppSelector(selectUser)
 
   return (
     <div>
-      <div className="mt-6 bg-primary aspect-w-16 aspect-h-9 bg-opacity-10">
-        <img
-          className="object-contain object-center w-full p-2"
-          src={product.subImageUrl}
-          alt=""
-        />
+      <div className="mt-6 bg-primary aspect-w-1 aspect-h-1 bg-opacity-10">
+        <img className="object-fill object-center w-full p-2" src={product.imageList![0]} alt="" />
       </div>
 
       <Badge className="mt-4">{'base product'.toUpperCase()}</Badge>
-      {!product.purchased && (
-        <Price
-          price={product.price}
-          discount={product.discount}
-          classes="mt-2"
-        />
-      )}
-      {product.purchased ? (
-        <Link
-          to="/library"
-          className="flex justify-center w-full mt-4 bg-primary btn btn-xl"
-        >
-          In Library
-        </Link>
-      ) : (
+      <Price
+        priceDefault={product.priceDefault}
+        discount={product.discount}
+        priceOffical={product.priceOffical}
+        classes="mt-2"
+      />
+      {
         <>
           <button
             className="w-full py-2 mt-4 bg-[#a63822] btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none hover:bg-[#b45745] active:bg-[#b45745] active:ring-2 active:ring-white"
@@ -67,7 +52,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               // })
             }
           >
-            {"GET"}
+            {'GET'}
           </button>
 
           <button
@@ -85,7 +70,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               // })
             }
           >
-            {product.inCart ? "IN CART" : "ADD TO CART"}
+            {false ? 'IN CART' : 'ADD TO CART'}
           </button>
 
           <button
@@ -103,10 +88,10 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               // })
             }
           >
-            {product.wishlisted ? "IN WISHLIST" : "ADD TO WISHLIST"}
+            {false ? 'IN WISHLIST' : 'ADD TO WISHLIST'}
           </button>
         </>
-      )}
+      }
       <div className="mt-2 text-sm lg:text-base">
         {values.map(({ label, value }) => (
           <KeyValue key={label} label={label} value={value} />

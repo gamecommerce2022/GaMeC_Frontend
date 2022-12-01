@@ -1,8 +1,5 @@
-import { getScoreColor } from "../../../../../utils/product_utils";
-import {
-  HandThumbUpIcon,
-  HandThumbDownIcon,
-} from "@heroicons/react/24/outline";
+import { getScoreColor } from '../../../../../utils/product_utils';
+import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/24/outline';
 
 export interface IReviewCardProps {
   reviewScore: number;
@@ -23,7 +20,7 @@ export const ReviewCard = ({
     <div className="flex">
       <div
         className={`${getScoreColor(
-          reviewScore
+          reviewScore,
         )} rounded-full flex h-12 w-12 items-center justify-center text-gray-200`}
       >
         {reviewScore <= 100 ? reviewScore : 100}

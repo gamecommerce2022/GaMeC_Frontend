@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   Navbar,
   MobileNav,
@@ -6,68 +6,32 @@ import {
   Button,
   IconButton,
   Avatar,
-} from "@material-tailwind/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-  HeartIcon,
-  ShoppingCartIcon,
-} from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+} from '@material-tailwind/react';
+import { Bars3Icon, XMarkIcon, HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
 
 export const Headers = () => {
   const [openNav, setOpenNav] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<boolean>(false);
 
   useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false)
-    );
+    window.addEventListener('resize', () => window.innerWidth >= 960 && setOpenNav(false));
   }, []);
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-normal"
-      >
-        <Link to="/" className="flex items-center">
-          Home
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-normal"
-      >
-        <Link to="/browse" className="flex items-center">
-          Browse
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-normal "
-      >
-        <Link to="/blogs" className="flex items-center">
-          Blogs
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-normal"
-      >
-        <Link to="/contact" className="flex items-center">
-          Contact
-        </Link>
-      </Typography>
+      <Link to="/user" className="flex items-center text-white text-sm p-1">
+        Home
+      </Link>
+      <Link to="/user/browser" className="flex items-center text-white text-sm p-1">
+        Browser
+      </Link>
+      <Link to="/user/news" className="flex items-center text-white text-sm p-1">
+        Blogs
+      </Link>
+      <Link to="/user/contact" className="flex items-center text-white text-sm p-1">
+        Contact
+      </Link>
     </ul>
   );
 
@@ -76,7 +40,7 @@ export const Headers = () => {
       <div className="container mx-auto flex items-center justify-between text-white">
         <Typography
           as="a"
-          href="/"
+          href="/user"
           variant="small"
           className="mr-4 cursor-pointer py-1 font-normal flex flex-row items-center"
         >
@@ -85,12 +49,8 @@ export const Headers = () => {
         <div className="hidden lg:block">{navList}</div>
         <div className="flex flex-row justify-evenly items-center">
           {/**Wishlist */}
-          <IconButton
-            variant="outlined"
-            size="sm"
-            className="hidden lg:inline-block mx-2"
-          >
-            <Link to="/wishlist">
+          <IconButton variant="outlined" size="sm" className="hidden lg:inline-block mx-2">
+            <Link to="user/wishlist">
               <HeartIcon className="text-blue-400 w-4 h-4" />
             </Link>
           </IconButton>
@@ -102,7 +62,7 @@ export const Headers = () => {
             color="red"
             className="hidden lg:inline-block mx-2"
           >
-            <Link to="/cart">
+            <Link to="user/cart">
               <ShoppingCartIcon className="text-red-400 w-4 h-4" />
             </Link>
           </IconButton>
@@ -134,11 +94,7 @@ export const Headers = () => {
           ripple={false}
           onClick={() => setOpenNav(!openNav)}
         >
-          {openNav ? (
-            <XMarkIcon className="w-6 h-6" />
-          ) : (
-            <Bars3Icon className="w-6 h-6" />
-          )}
+          {openNav ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
         </IconButton>
       </div>
 

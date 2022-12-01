@@ -1,49 +1,75 @@
-import { useState } from "react";
-import { Pagination } from "../../../../global/component/pagination";
-import { ProductItem } from "../component";
-
-import GenreImage from "../../../../../assets/games/CyberPunk2077.png";
-
-const categoriesSort = [
-  { id: 1, name: "All" },
-  { id: 2, name: "New Release" },
-  { id: 3, name: "Comming soon" },
-  { id: 4, name: "Alphabetical" },
-  { id: 5, name: "Price: High to Low" },
-  { id: 6, name: "Price: Low to High" },
-];
+import { useEffect, useState } from 'react';
+import { Pagination } from '../../../../global/component/pagination';
+import { ProductItem } from '../component';
+import { Game } from '../../../../../model/product_model';
+import * as ProductService from '../../../../../services/product/product';
+import { useSearchParams } from 'react-router-dom';
 
 export const ListProducts = () => {
-  const [selectedCategorySort, setSelectedCategorySort] = useState(
-    categoriesSort[0]
-  );
+  const [searchParams] = useSearchParams();
+  const defaultProducts: Game[] = [];
+  const [defaultPage, setDefaultPage]: [number, (defaultPage: number) => void] = useState(0);
+  const [products, setProducts]: [Game[], (products: Game[]) => void] = useState(defaultProducts);
+  const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true);
+  const [query, setQuery] = useState<string | null>();
+  const [sortBy, setSortBy] = useState<string | null>();
+
+  useEffect(() => {
+    // TODO - get products
+    const sortBy = searchParams.get('sortBy');
+    const query = searchParams.get('q') || '';
+    setSortBy(sortBy);
+    setQuery(query);
+    ProductService.getTotalPage(30).then((length) => {
+      console.log(length);
+      setDefaultPage(length);
+    });
+    ProductService.get(0, 30, undefined, undefined, query).then((products) => {
+      console.log(products);
+      setProducts(products);
+      setLoading(false);
+    });
+  }, [searchParams]);
+
+  function goToNextPage(page: number) {
+    setLoading(true);
+    ProductService.get(page, 30, undefined, undefined, query).then((products) => {
+      setProducts(products);
+      setLoading(false);
+    });
+  }
+
   return (
     <div className="flex flex-col space-y-4">
-      {/** Product List */}
-      <div className="grid sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 lg:grid gap-x-8 gap-y-8">
-        {Array(20)
-          .fill(1)
-          .map((item) => {
-            return (
-              <ProductItem
-                id={"1"}
-                name={"Evil Nun The Broken Mask"}
-                img={GenreImage}
-                price={100000}
-                type={"Laptop/PC"}
-                discount={0.1}
-              />
-            );
-          })}
-      </div>
+      {loading ? null : (
+        <div>
+          {/** Product List */}
+          <div className="grid sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 lg:grid gap-x-8 gap-y-8">
+            {Array.isArray(products)
+              ? products.map((product) => {
+                  return (
+                    <ProductItem
+                      id={product._id!}
+                      name={product.title}
+                      img={product.imageList![0]}
+                      price={product.priceOffical}
+                      type={product.platform}
+                      discount={product.discount || 0}
+                    />
+                  );
+                })
+              : null}
+          </div>
+        </div>
+      )}
 
       {/** Pagging */}
       <div className="flex justify-center items-center w-full">
         <Pagination
-          pagesCount={43}
+          pagesCount={defaultPage}
           pageRangeDisplayed={5}
           onChange={(selected) => {
-            console.log(selected);
+            goToNextPage(selected.selected);
           }}
         />
       </div>
