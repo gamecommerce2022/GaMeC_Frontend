@@ -1,4 +1,3 @@
-const FooterApp = () => (
- <div />)
+const FooterApp = () => <div />;
 
 export default FooterApp;

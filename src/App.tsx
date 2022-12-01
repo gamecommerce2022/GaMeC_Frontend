@@ -1,31 +1,41 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import "./App.css";
-import LoginForm from "./ui/authentication/login/login";
-import SignUpForm from "./ui/authentication/signup/signup";
-import FooterApp from "./ui/global/footer/footer";
-import { Headers } from "./ui/global/header/headers";
-import Spacer from "./ui/home/component/spacer";
-import Home from "./ui/home/home";
-import { Category } from "./ui/user/browser/browser";
-import { ProductInfoPage } from "./ui/user/browser/product_info_page/product_info_page";
+import React from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
+import LoginPage from './ui/authentication/login/login';
+import SignUpPage from './ui/authentication/signup/signup';
+import {
+  AdminPage,
+  NotFoundPage,
+  OnDevelopPage,
+  ResetPasswordPage,
+  UserPage,
+  VerifyEmailPage,
+} from './ui/page';
+
 function App() {
   return (
-    <div className="bg-black select-none">
-      <Spacer />
-      <Headers />
-      <Spacer />
+    <React.Suspense fallback={<div>Loading....</div>}>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/sign-up" element={<SignUpForm />} />
-        <Route path="/product-list" element={<Category />} />
-        <Route path="/products/:id" element={<ProductInfoPage />} />
+        <Route key="default-app" path="/" element={<Navigate to="login" replace={true} />} />
+        <Route key="user-page" path="user/*" element={<UserPage />} />
+        <Route key="admin-page" path="admin/*" element={<AdminPage />} />
+        <Route key="login-page" path="login" element={<LoginPage />} />
+        <Route key="signup-page" path="signup" element={<SignUpPage />} />
+        <Route key="upcoming-page" path="upcoming" element={<OnDevelopPage />} />
+        <Route key="not-found-page" path="404" element={<NotFoundPage />} />
+        <Route
+          key="verify-email-page"
+          path="activate/:activation_token"
+          element={<VerifyEmailPage />}
+        />
+        <Route
+          key="reset-password-page"
+          path="reset/:reset_token"
+          element={<ResetPasswordPage />}
+        />
+        <Route key="other-page" path="*" element={<NotFoundPage />} />
       </Routes>
-      <Spacer />
-      <FooterApp />
-    </div>
+    </React.Suspense>
   );
 }
 

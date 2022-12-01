@@ -3,7 +3,7 @@ import { useState } from "react";
 import appIcon from "../../../assets/images/app_icon.png";
 import CustomTextField from "../component/custom_text";
 
-const SignUpForm = () => {
+const SignUpPage = () => {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [displayName, setDisplayName] = useState<string>("");
@@ -100,4 +100,4 @@ const SignUpForm = () => {
     </div>
   );
 };
-export default SignUpForm;
+export default SignUpPage;
