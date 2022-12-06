@@ -7,21 +7,12 @@ export type Game = {
   maxPlayer?: number;
   total: number;
   status?: string;
-  priceDefault: number;
   discount?: number;
-  priceOffical: number;
+  price: number;
   shortDescription?: string;
   note?: string;
   tags?: string[];
   imageList?: string[];
   videoList?: string[];
   description: string;
-  rate?: number;
-  comment?: {
-      name: string;
-      content: string;
-      date: string;
-  }[];
-  like?: number;
-  dislike?: number;
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { HomeIcon, NewspaperIcon, PlusIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,17 +18,18 @@ export const NewsEditComponent: React.FC = () => {
   const [errorTitle, setErrorTitle] = useState<string>();
   const [errorType, setErrorType] = useState<string>();
   const [errorShortDescription, setErrorShortDescription] = useState<string>();
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   let navigate = useNavigate();
 
   useEffect(() => {
     try {
-      NewsService.getNewsById(newsId || '').then((response) => {
+        NewsService.getNewsById(newsId || '').then((response) => {
         let images: string[] = [];
-        images.push(response.image);
+        console.log(response)
+        images.push(response.mainImage);
         let descriptions = response.description !== null ? response.description.join('\n') : '';
         setTitle(response.title);
-        setType(response.type);
+        setType(response.category);
         setShortDescription(response.shortDescription);
         setImage(images);
         setDescription(descriptions);
@@ -38,46 +40,49 @@ export const NewsEditComponent: React.FC = () => {
     }
   }, []);
 
-  async function addNews() {
+  async function editNews() {
     let errorCount = 0;
     if (title === null || title === undefined || title === '') {
       setErrorTitle('Tên không được để trống');
       errorCount++;
     }
-
     if (type === null || type === undefined || type.length === 0) {
       setErrorType('Thể loại không được để trống');
       errorCount++;
     }
-
     if (shortDescription === null || shortDescription === undefined || shortDescription === '') {
       setErrorShortDescription('Miêu tả sản phẩm không được để trống');
       errorCount++;
     }
-
     if (description === null || description === undefined || description === '') {
+      console.log('Error in Description')
       errorCount++;
     }
-
     if (image === null || image === undefined || image.length === 0) {
+      console.log('Error in Image')
       errorCount++;
     }
-
     if (errorCount === 0) {
+      let resImages = []
+      if(!image.includes('game-ecomemerce.appspot.com', 0)){
+        const imageData = await uploadImage({ list: image });
+       
+        if(imageData){
+          resImages.push(imageData)
+        }
+      }
       let descriptions = description!.split('\n');
       let news: News = {
+        _id: newsId,
         title: title,
-        type: type,
+        category: type,
         date: Date.now().toString(),
         description: descriptions,
         shortDescription: shortDescription,
-        image: image[0],
+        mainImage: resImages[0],
       };
 
-      let response = await NewsService.add(news);
-      if (response !== null) {
-        uploadImage({ image: image, id: response });
-      }
+      let response = await NewsService.editNews(news);
       return response;
     }
   }
@@ -171,8 +176,8 @@ export const NewsEditComponent: React.FC = () => {
           type="button"
           className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg"
           onClick={async () => {
-            let res = await addNews();
-            if (res !== null) {
+            let res = await editNews();
+            if (res) {
               navigate(-1);
             } else {
               console.log('Add News Failed');
@@ -186,12 +191,14 @@ export const NewsEditComponent: React.FC = () => {
   );
 };
 
-const uploadImage = async (props: { image: string[]; id: string }) => {
-  let response = await fetch(props.image[0]);
-  let data = await response.blob();
-  let metadata = {
-    type: 'image/jpeg',
-  };
-  let file = new File([data], `${props.image[0]}.jpeg`, metadata);
-  await NewsService.editImage({ image: file, id: props.id });
+const uploadImage = async (props: { list: string[]}) => {
+  for (let i = 0; i < props.list.length; i++) {
+    let response = await fetch(props.list[i]);
+    let data = await response.blob();
+    let metadata = {
+      type: 'image/jpeg',
+    };
+    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
+    return await NewsService.editImage({ image: file});
+  }
 };

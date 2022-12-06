@@ -3,7 +3,7 @@ export interface InputProp {
   placeHolder: string;
   required?: boolean;
   value?: string;
-  onChange: (value: string) => void;
+  onChange?: (value: string) => void;
   styleProps?: string;
   disable?: boolean;
   type?: string;
@@ -39,5 +39,8 @@ export const InputComponent: React.FC<InputProp> = (props: InputProp) => {
 };
 
 const onChangeInput = (props: InputProp) => (e: React.ChangeEvent<HTMLInputElement>) => {
-  props.onChange(e.target.value);
+  if(props.onChange){
+    props.onChange(e.target.value);
+  }
+  
 };

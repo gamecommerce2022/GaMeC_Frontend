@@ -13,8 +13,7 @@ let defaultGame: Game = {
   releaseDate: Date.now().toString(),
   platform: '',
   total: 0,
-  priceDefault: 0,
-  priceOffical: 0,
+  price: 0,
   description: '',
 };
 

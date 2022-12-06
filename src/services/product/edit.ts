@@ -13,12 +13,10 @@ export const editGame: (game: Game) => Promise<boolean> = async (game: Game) => 
   }
 };
 
-export const editImage: (props: { image: File; id: string }) => Promise<boolean> = async (props: {
+export const editImage: (props: { image: File }) => Promise<any> = async (props: {
   image: File;
-  id: string;
 }) => {
   var bodyFormData = new FormData();
-  bodyFormData.append('id', props.id);
   bodyFormData.append('image', props.image);
   let res = await axios({
     method: 'post',
@@ -26,11 +24,10 @@ export const editImage: (props: { image: File; id: string }) => Promise<boolean>
     data: bodyFormData,
     headers: { 'Content-Type': 'multipart/form-data' },
   });
-  console.log(res);
-  let code = res.data.code;
-  if (code === 200) {
-    return true;
+  let imagePath = res.data.imagePath;
+  if (imagePath) {
+    return imagePath;
   } else {
-    return false;
+    return null;
   }
 };

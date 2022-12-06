@@ -28,8 +28,8 @@ export const ProductItemComponent: React.FC<{ index: number; product: Game }> = 
           />
         </div>
       </td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.priceDefault}</td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.priceOffical}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.discount}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.price}</td>
       <td className="py-4 px-6">
         <div className="flex flex-row h-full items-center justify-around">
           <PencilIcon

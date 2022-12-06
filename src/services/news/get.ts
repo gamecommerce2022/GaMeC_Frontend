@@ -2,30 +2,30 @@ import axios from "axios"
 import { News } from "../../model/news_model";
 import { newsUrl } from "../url"
 
-export const get : (page: number, perPage: number, filter?: string|null, order?: string|null, query?: string|null) => Promise<News[]> = async (page: number, perPage: number, filter?: string|null, order?: string|null, query?:string|null) => {
+export const get : (page: number, perPage: number, filter?: number|null, query?: string|null) => Promise<News[]> = async (page: number, perPage: number, filter?: number|null, query?:string|null) => {
     let rawNews = [];
     let filterText= '';
-    if(filter !== undefined && order !== undefined){
-        filterText=`&sort=${filter}&order=${order}`;
+    if(filter){
+        filterText=`&sort=${filter}`;
     }
     let queryText = '';
-    if(query !== undefined){
+    if(query){
         queryText=`&q=${query}`;
     }
 
     let response: any = await axios.get(`${newsUrl}?page=${page}&perPage=${perPage}${filterText}${queryText}`);
-    rawNews = response.data.listNews;
+    rawNews = response.data.newsList;
     let newsList : News[] = []
     for(let i = 0; i < rawNews.length; i++){
         let news: News = {
             _id: rawNews[i]._id,
             title: rawNews[i].title,
-            type: rawNews[i].type,
+            category: rawNews[i].category,
             date: rawNews[i].date,
             description: rawNews[i].description,
             shortDescription: rawNews[i].shortDescription,
             author: rawNews[i].author,
-            image:rawNews[i].image,
+            mainImage:rawNews[i].mainImage,
         };  
         newsList.push(news);
     }
@@ -51,12 +51,12 @@ export const getNewsById: (id: string) => Promise<News> = async (id: string) => 
     let news: News = {
         _id: rawNews._id,
             title: rawNews.title,
-            type: rawNews.type,
+            category: rawNews.category,
             date: rawNews.date,
             description: rawNews.description,
             shortDescription: rawNews.shortDescription,
             author: rawNews.author,
-            image:rawNews.image,
+            mainImage:rawNews.mainImage,
     };  
     return news;
 }

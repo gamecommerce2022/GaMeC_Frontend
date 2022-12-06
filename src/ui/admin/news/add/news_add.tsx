@@ -44,21 +44,25 @@ export const NewsAddComponent: React.FC = () => {
     }
 
     if (errorCount === 0) {
+      let resImages = []
+      if(!image.includes('game-ecomemerce.appspot.com', 0)){
+        const imageData = await uploadImage({ list: image });
+        if(imageData){
+          resImages.push(imageData)
+        }
+      }
       let descriptions = description!.split('\n');
       let news: News = {
         title: title,
-        type: type,
+        category: type,
         author: '',
         date: Date.now().toString(),
         description: descriptions,
         shortDescription: shortDescription,
-        image: '',
+        mainImage: '',
       };
 
       let response = await NewsService.add(news);
-      if (response !== null) {
-        uploadImage({ image: image, id: response });
-      }
       return response;
     }
   }
@@ -167,12 +171,14 @@ export const NewsAddComponent: React.FC = () => {
   );
 };
 
-const uploadImage = async (props: { image: string[]; id: string }) => {
-  let response = await fetch(props.image[0]);
-  let data = await response.blob();
-  let metadata = {
-    type: 'image/jpeg',
-  };
-  let file = new File([data], `${props.image[0]}.jpeg`, metadata);
-  await NewsService.editImage({ image: file, id: props.id });
+const uploadImage = async (props: { list: string[]}) => {
+  for (let i = 0; i < props.list.length; i++) {
+    let response = await fetch(props.list[i]);
+    let data = await response.blob();
+    let metadata = {
+      type: 'image/jpeg',
+    };
+    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
+    return await NewsService.editImage({ image: file});
+  }
 };

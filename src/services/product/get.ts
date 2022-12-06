@@ -2,11 +2,11 @@ import axios from "axios";
 import { Game } from "../../model/product_model";
 import { productUrl } from "../url";
 
-export const get : (page: number, perPage: number, filter?: string|null, order?: string|null, query?: string|null) => Promise<Game[]> = async (page: number, perPage: number, filter?: string|null, order?: string|null, query?:string|null) => {
+export const get : (page: number, perPage: number, filter?: number|null,  query?: string|null) => Promise<Game[]> = async (page: number, perPage: number, filter?: number|null, query?:string|null) => {
     let rawProducts = [];
     let filterText= '';
-    if(filter !== undefined && order !== undefined){
-        filterText=`&sort=${filter}&order=${order}`;
+    if(filter !== undefined ){
+        filterText=`&sort=${filter}`;
     }
     let queryText = '';
     if(query !== undefined){
@@ -24,8 +24,7 @@ export const get : (page: number, perPage: number, filter?: string|null, order?:
             releaseDate: rawProducts[i].releaseDate,
             platform: rawProducts[i].platform,
             total: rawProducts[i].total,
-            priceDefault:parseFloat(rawProducts[i].priceDefault ?? "0"),
-            priceOffical:parseFloat(rawProducts[i].priceOffical ?? "0"),
+            price:parseFloat(rawProducts[i].price ?? "0"),
             description: rawProducts[i].description,
             maxPlayer:parseInt(rawProducts[i].maxPlayer ?? "0"),
             discount: parseFloat(rawProducts[i].discount ?? "0.0"),
@@ -64,8 +63,7 @@ export const getProductById: (id: string) => Promise<Game> = async (id: string) 
             releaseDate: rawProduct.releaseDate,
             platform: rawProduct.platform,
             total: rawProduct.total,
-            priceDefault:parseFloat(rawProduct.priceDefault ?? "0"),
-            priceOffical:parseFloat(rawProduct.priceOffical ?? "0"),
+            price:parseFloat(rawProduct.price ?? "0"),
             description: rawProduct.description,
             maxPlayer:parseInt(rawProduct.maxPlayer ?? "0"),
             discount: parseFloat(rawProduct.discount ?? "0.0"),

@@ -4,6 +4,7 @@ import { ProductItem } from '../component';
 import { Game } from '../../../../../model/product_model';
 import * as ProductService from '../../../../../services/product/product';
 import { useSearchParams } from 'react-router-dom';
+import { discountCalc, withCurrency } from '../../../../../utils/product_utils';
 
 export const ListProducts = () => {
   const [searchParams] = useSearchParams();
@@ -24,7 +25,7 @@ export const ListProducts = () => {
       console.log(length);
       setDefaultPage(length);
     });
-    ProductService.get(0, 30, undefined, undefined, query).then((products) => {
+    ProductService.get(0, 30, undefined, query).then((products) => {
       console.log(products);
       setProducts(products);
       setLoading(false);
@@ -33,7 +34,7 @@ export const ListProducts = () => {
 
   function goToNextPage(page: number) {
     setLoading(true);
-    ProductService.get(page, 30, undefined, undefined, query).then((products) => {
+    ProductService.get(page, 30, undefined, query).then((products) => {
       setProducts(products);
       setLoading(false);
     });
@@ -52,7 +53,7 @@ export const ListProducts = () => {
                       id={product._id!}
                       name={product.title}
                       img={product.imageList![0]}
-                      price={product.priceOffical}
+                      price={discountCalc(product.discount, product.price)}
                       type={product.platform}
                       discount={product.discount || 0}
                     />
