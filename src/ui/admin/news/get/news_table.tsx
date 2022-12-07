@@ -15,7 +15,7 @@ const filters = [
   { id: 1, name: 'A - Z', value: 1 },
   { id: 2, name: 'Z - A', value: 2 },
   { id: 3, name: 'Old - New', value: 3 },
-  { id: 4, name: 'New - Old', value: 4 },  
+  { id: 4, name: 'New - Old', value: 4 },
 ];
 
 const maxPerPages = [20, 30, 40];
@@ -38,20 +38,13 @@ export const NewsTableComponent = () => {
     }
   }, []);
 
-  function searchText(
-    page?: number,
-    perPage?: number,
-    filter?: number,
-    query?: string,
-  ) {
+  function searchText(page?: number, perPage?: number, filter?: number, query?: string) {
     setLoading(true);
-    NewsService.get(page || 0, perPage || 30, filter, query).then(
-      (response) => {
-        setNewsList(response);
-        console.log(`News: ${response}`)
-        setLoading(false);
-      },
-    );
+    NewsService.get(page || 0, perPage || 30, filter, query).then((response) => {
+      setNewsList(response);
+      console.log(`News: ${response}`);
+      setLoading(false);
+    });
   }
 
   function getMaxPage(perPage?: number, query?: string) {
@@ -81,7 +74,7 @@ export const NewsTableComponent = () => {
             }}
             onClick={() => {
               getMaxPage(perPage, search);
-              searchText(currentPage, perPage, selectedFilter.value,search);
+              searchText(currentPage, perPage, selectedFilter.value, search);
             }}
           />
         </div>
@@ -184,7 +177,6 @@ export const NewsTableComponent = () => {
               </div>
             </Listbox>
           </div>
-
         </div>
 
         <div className="relative">
@@ -227,7 +219,7 @@ export const NewsTableComponent = () => {
           initialPage={currentPage}
           onChange={(selected) => {
             setCurrentPage(selected.selected);
-            searchText(selected.selected, perPage, selectedFilter.value,  search);
+            searchText(selected.selected, perPage, selectedFilter.value, search);
           }}
         />
       </div>

@@ -6,7 +6,6 @@ import * as ProductService from '../../../../services/product/product';
 
 export interface IGamePageProps {}
 
-
 export const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
   const [product, setProduct]: [Game | undefined, (products: Game) => void] = useState();

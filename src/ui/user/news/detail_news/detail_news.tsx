@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { News } from '../../../../model/news_model';
 import { TemplateNews } from './components';
-import * as NewsService from '../../../../services/news/news'
+import * as NewsService from '../../../../services/news/news';
 
 export const DetailNewsPage = () => {
   const { newsId } = useParams<{ newsId: string }>();

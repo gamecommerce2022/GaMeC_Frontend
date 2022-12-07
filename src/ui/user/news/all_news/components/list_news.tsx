@@ -22,7 +22,7 @@ export const ListNews = () => {
     setQuery(query === null ? '' : query);
     NewsSerivce.getTotalPage(30, query).then((length) => {
       setDefaultPage(length);
-    }); 
+    });
     NewsSerivce.get(0, 30, sortBy, query).then((products) => {
       setNewsList(products);
       setLoading(false);
@@ -45,9 +45,16 @@ export const ListNews = () => {
           <div className="text-3xl font-semibold capitalize lg:text-4xl text-white">
             {Array.isArray(newsList)
               ? newsList.map((news) => {
-                
                   return (
-                    <NewsCard id={news._id || '1234567'} title={news.title} type={news.category} author={news.author || ''} date={news.date} shortDescription={news.shortDescription} mainImage={news.mainImage} />    
+                    <NewsCard
+                      id={news._id || '1234567'}
+                      title={news.title}
+                      type={news.category}
+                      author={news.author || ''}
+                      date={news.date}
+                      shortDescription={news.shortDescription}
+                      mainImage={news.mainImage}
+                    />
                   );
                 })
               : null}

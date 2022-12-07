@@ -1,4 +1,3 @@
-
 import { useNavigate } from 'react-router-dom';
 import { classNames } from '../../../../../utils/Classnames';
 import { discountCalc, withCurrency } from '../../../../../utils/product_utils';

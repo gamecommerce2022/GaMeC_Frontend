@@ -16,12 +16,9 @@ export const Discounted = ({ discount, price }: IPriceProps) => (
   </>
 );
 
-export const Price = ({ price, discount,  classes }: IPriceProps) => {
+export const Price = ({ price, discount, classes }: IPriceProps) => {
   const CreatePrice = () => {
-    if (discount)
-      return (
-        <Discounted discount={discount} price={price} />
-      );
+    if (discount) return <Discounted discount={discount} price={price} />;
     return withCurrency(price);
   };
 

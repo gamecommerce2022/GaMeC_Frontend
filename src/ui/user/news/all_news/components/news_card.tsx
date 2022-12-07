@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 
 export interface INewsCard {
-  id: string
-  title: string
-  mainImage: string
-  shortDescription: string
-  author: string
-  date: string
-  type: string
+  id: string;
+  title: string;
+  mainImage: string;
+  shortDescription: string;
+  author: string;
+  date: string;
+  type: string;
 }
 export const NewsCard = (props: INewsCard) => {
   return (
@@ -25,9 +25,7 @@ export const NewsCard = (props: INewsCard) => {
           {props.title}
         </span>
 
-        <p className="mt-3 text-sm text-gray-300 md:text-sm">
-        {props.shortDescription}
-        </p>
+        <p className="mt-3 text-sm text-gray-300 md:text-sm">{props.shortDescription}</p>
 
         <span className="inline-block mt-2 text-blue-500 underline hover:text-blue-400">
           Read more

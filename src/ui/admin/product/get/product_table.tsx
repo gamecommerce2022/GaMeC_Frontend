@@ -15,7 +15,7 @@ const filters = [
   { id: 1, name: 'A - Z', value: 1 },
   { id: 2, name: 'Z - A', value: 2 },
   { id: 3, name: 'Low - High', value: 3 },
-  { id: 4, name: 'High - Low', value: 4},
+  { id: 4, name: 'High - Low', value: 4 },
 ];
 
 const maxPerPages = [20, 30, 40];
@@ -38,19 +38,12 @@ export const ProductTableComponent = () => {
     }
   }, []);
 
-  function searchText(
-    page?: number,
-    perPage?: number,
-    filter?: number,
-    query?: string,
-  ) {
+  function searchText(page?: number, perPage?: number, filter?: number, query?: string) {
     setLoading(true);
-    ProductService.get(page || 0, perPage || 30, filter,  query).then(
-      (response) => {
-        setProducts(response);
-        setLoading(false);
-      },
-    );
+    ProductService.get(page || 0, perPage || 30, filter, query).then((response) => {
+      setProducts(response);
+      setLoading(false);
+    });
   }
 
   function getMaxPage(perPage?: number, query?: string) {
@@ -80,7 +73,7 @@ export const ProductTableComponent = () => {
             }}
             onClick={() => {
               getMaxPage(perPage, search);
-              searchText(currentPage, perPage, selectedFilter.value,  search);
+              searchText(currentPage, perPage, selectedFilter.value, search);
             }}
           />
         </div>
@@ -141,7 +134,7 @@ export const ProductTableComponent = () => {
               onChange={(value: number) => {
                 setPerPage(value);
                 getMaxPage(value, search);
-                searchText(currentPage, value, selectedFilter.value,  search);
+                searchText(currentPage, value, selectedFilter.value, search);
               }}
             >
               <div className="relative">

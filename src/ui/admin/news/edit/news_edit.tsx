@@ -23,9 +23,9 @@ export const NewsEditComponent: React.FC = () => {
 
   useEffect(() => {
     try {
-        NewsService.getNewsById(newsId || '').then((response) => {
+      NewsService.getNewsById(newsId || '').then((response) => {
         let images: string[] = [];
-        console.log(response)
+        console.log(response);
         images.push(response.mainImage);
         let descriptions = response.description !== null ? response.description.join('\n') : '';
         setTitle(response.title);
@@ -55,21 +55,21 @@ export const NewsEditComponent: React.FC = () => {
       errorCount++;
     }
     if (description === null || description === undefined || description === '') {
-      console.log('Error in Description')
+      console.log('Error in Description');
       errorCount++;
     }
     if (listImage === null || listImage === undefined || listImage.length === 0) {
-      console.log('Error in Image')
+      console.log('Error in Image');
       errorCount++;
     }
     if (errorCount === 0) {
-      let resImages = []
-      for(let i = 0; i < listImage.length; i++){
-        if(listImage[i].includes('game-ecomemerce.appspot.com')){
-          resImages.push(listImage[i])
+      let resImages = [];
+      for (let i = 0; i < listImage.length; i++) {
+        if (listImage[i].includes('game-ecomemerce.appspot.com')) {
+          resImages.push(listImage[i]);
         } else {
-          const image = await uploadImage({image: listImage[i]})
-          resImages.push(image)
+          const image = await uploadImage({ image: listImage[i] });
+          resImages.push(image);
         }
       }
       let descriptions = description!.split('\n');
@@ -192,12 +192,12 @@ export const NewsEditComponent: React.FC = () => {
   );
 };
 
-const uploadImage = async (props: { image: string}) => {
+const uploadImage = async (props: { image: string }) => {
   let response = await fetch(props.image);
   let data = await response.blob();
   let metadata = {
     type: 'image/jpeg',
   };
   let file = new File([data], `${props.image}.jpeg`, metadata);
-  return await NewsService.editImage({ image: file});
+  return await NewsService.editImage({ image: file });
 };

@@ -23,7 +23,7 @@ export const ListProducts = () => {
     setQuery(query === null ? '' : query);
     ProductService.getTotalPage(30, query).then((length) => {
       setDefaultPage(length);
-    }); 
+    });
     ProductService.get(0, 30, sortBy, query).then((products) => {
       setProducts(products);
       setLoading(false);

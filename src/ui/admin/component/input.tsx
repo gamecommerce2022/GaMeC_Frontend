@@ -39,8 +39,7 @@ export const InputComponent: React.FC<InputProp> = (props: InputProp) => {
 };
 
 const onChangeInput = (props: InputProp) => (e: React.ChangeEvent<HTMLInputElement>) => {
-  if(props.onChange){
+  if (props.onChange) {
     props.onChange(e.target.value);
   }
-  
 };

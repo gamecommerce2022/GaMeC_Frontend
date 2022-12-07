@@ -93,8 +93,8 @@ export const ProductEditComponent = () => {
       errorCount++;
     }
 
-    if(discount !== undefined && (parseFloat(discount) > 1 || parseFloat(discount) < 0)){
-      setErrorDiscount('Giảm giá không hợp lệ')
+    if (discount !== undefined && (parseFloat(discount) > 1 || parseFloat(discount) < 0)) {
+      setErrorDiscount('Giảm giá không hợp lệ');
       errorCount++;
     }
 
@@ -108,13 +108,13 @@ export const ProductEditComponent = () => {
     }
 
     if (errorCount === 0) {
-      let resImages = []
-      for(let i = 0; i < listImage.length; i++){
-        if(listImage[i].includes('game-ecomemerce.appspot.com')){
-          resImages.push(listImage[i])
+      let resImages = [];
+      for (let i = 0; i < listImage.length; i++) {
+        if (listImage[i].includes('game-ecomemerce.appspot.com')) {
+          resImages.push(listImage[i]);
         } else {
-          const image = await uploadImage({image: listImage[i]})
-          resImages.push(image)
+          const image = await uploadImage({ image: listImage[i] });
+          resImages.push(image);
         }
       }
       let game: Game = {
@@ -131,10 +131,10 @@ export const ProductEditComponent = () => {
         maxPlayer: maxPlayer,
         note: note,
         tags: tags,
-        imageList: resImages
+        imageList: resImages,
       };
 
-      let response = await ProductService.editGame(game);  
+      let response = await ProductService.editGame(game);
       return response;
     }
   }
@@ -332,12 +332,12 @@ export const ProductEditComponent = () => {
   );
 };
 
-const uploadImage = async (props: { image: string}) => {
+const uploadImage = async (props: { image: string }) => {
   let response = await fetch(props.image);
   let data = await response.blob();
   let metadata = {
     type: 'image/jpeg',
   };
   let file = new File([data], `${props.image}.jpeg`, metadata);
-  return await ProductService.editImage({ image: file});
+  return await ProductService.editImage({ image: file });
 };

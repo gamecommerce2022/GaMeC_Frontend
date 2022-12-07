@@ -1,9 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import {
-  ProductCard,
-  ProductFeatureBox,
-  ProductImage,
-} from './component';
+import { ProductCard, ProductFeatureBox, ProductImage } from './component';
 import { Game } from '../../../../model/product_model';
 
 export interface IGamePageTemplateProps {
