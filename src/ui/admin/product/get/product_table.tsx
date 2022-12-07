@@ -1,4 +1,4 @@
-import { Listbox, Switch, Transition } from '@headlessui/react';
+import { Listbox, Transition } from '@headlessui/react';
 import { Fragment, useEffect, useState } from 'react';
 import { Game } from '../../../../model/product_model';
 import * as ProductService from '../../../../services/product/product';
@@ -12,11 +12,10 @@ import { SearchComponent } from '../../component/search';
 import { TableComponent } from '../../component/table';
 
 const filters = [
-  { id: 1, name: 'ID', value: '_id' },
-  { id: 2, name: 'Title', value: 'title' },
-  { id: 3, name: 'Platform', value: 'platform' },
-  { id: 4, name: 'Price Before', value: 'price_before' },
-  { id: 5, name: 'Price After', value: 'price_after' },
+  { id: 1, name: 'A - Z', value: 1 },
+  { id: 2, name: 'Z - A', value: 2 },
+  { id: 3, name: 'Low - High', value: 3 },
+  { id: 4, name: 'High - Low', value: 4 },
 ];
 
 const maxPerPages = [20, 30, 40];
@@ -27,7 +26,6 @@ export const ProductTableComponent = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [loading, setLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState(filters[0]);
-  const [isDES, setIsDES] = useState(false);
   const [search, setSearch] = useState('');
   const [perPage, setPerPage] = useState(maxPerPages[1]);
   let navigate = useNavigate();
@@ -40,20 +38,12 @@ export const ProductTableComponent = () => {
     }
   }, []);
 
-  function searchText(
-    page?: number,
-    perPage?: number,
-    filter?: string,
-    isDES?: boolean,
-    query?: string,
-  ) {
+  function searchText(page?: number, perPage?: number, filter?: number, query?: string) {
     setLoading(true);
-    ProductService.get(page || 0, perPage || 30, filter, isDES ? 'DES' : 'ASC', query).then(
-      (response) => {
-        setProducts(response);
-        setLoading(false);
-      },
-    );
+    ProductService.get(page || 0, perPage || 30, filter, query).then((response) => {
+      setProducts(response);
+      setLoading(false);
+    });
   }
 
   function getMaxPage(perPage?: number, query?: string) {
@@ -83,7 +73,7 @@ export const ProductTableComponent = () => {
             }}
             onClick={() => {
               getMaxPage(perPage, search);
-              searchText(currentPage, perPage, selectedFilter.value, isDES, search);
+              searchText(currentPage, perPage, selectedFilter.value, search);
             }}
           />
         </div>
@@ -93,9 +83,9 @@ export const ProductTableComponent = () => {
             <span className="truncate font-bold mr-1">Sort by:</span>
             <Listbox
               value={selectedFilter}
-              onChange={(value: { id: number; name: string; value: string }) => {
+              onChange={(value: { id: number; name: string; value: number }) => {
                 setSelectedFilter(value);
-                searchText(currentPage, perPage, value.value, isDES, search);
+                searchText(currentPage, perPage, value.value, search);
               }}
             >
               <div className="relative">
@@ -144,7 +134,7 @@ export const ProductTableComponent = () => {
               onChange={(value: number) => {
                 setPerPage(value);
                 getMaxPage(value, search);
-                searchText(currentPage, value, selectedFilter.value, isDES, search);
+                searchText(currentPage, value, selectedFilter.value, search);
               }}
             >
               <div className="relative">
@@ -186,39 +176,6 @@ export const ProductTableComponent = () => {
               </div>
             </Listbox>
           </div>
-
-          <div className="flex flex-row">
-            <span
-              className={`ml-3 mr-2 ${
-                isDES ? 'font-medium text-gray-500' : 'font-bold text-gray-900'
-              }`}
-            >
-              ASC
-            </span>
-            <Switch
-              checked={isDES}
-              onChange={(value: boolean) => {
-                setIsDES(value);
-                searchText(currentPage, perPage, selectedFilter.value, value, search);
-              }}
-              className={`${isDES ? 'bg-gray-700' : 'bg-gray-300'}
-          relative inline-flex h-[24px] w-[48px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-            >
-              <span className="sr-only">Order</span>
-              <span
-                aria-hidden="true"
-                className={`${isDES ? 'translate-x-4' : 'translate-x-0'}
-            pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-              />
-            </Switch>
-            <span
-              className={`mr-3 ml-2 ${
-                isDES ? 'font-bold text-gray-900' : 'font-medium text-gray-500'
-              }`}
-            >
-              DES
-            </span>
-          </div>
         </div>
 
         <div className="relative">
@@ -238,7 +195,7 @@ export const ProductTableComponent = () => {
       {/** Table */}
       <TableComponent
         key="table-component-key"
-        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'PRICE BEFORE', 'PRICE AFTER', '']}
+        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'DISCOUNT', 'PRICE', '']}
         bodyList={products.map((product, index) => {
           return (
             <ProductItemComponent
@@ -267,7 +224,7 @@ export const ProductTableComponent = () => {
           initialPage={currentPage}
           onChange={(selected) => {
             setCurrentPage(selected.selected);
-            searchText(selected.selected, perPage, selectedFilter.value, isDES, search);
+            searchText(selected.selected, perPage, selectedFilter.value, search);
           }}
         />
       </div>

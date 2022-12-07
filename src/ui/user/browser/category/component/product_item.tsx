@@ -1,7 +1,6 @@
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import { classNames } from '../../../../../utils/Classnames';
-import { getProductPrice } from '../../../../../utils/product_utils';
+import { discountCalc, withCurrency } from '../../../../../utils/product_utils';
 
 interface ProductItemProps {
   id: string;
@@ -41,11 +40,11 @@ export const ProductItem: React.FC<ProductItemProps> = (props) => {
                 : 'text-gray-500 font-bold',
             )}
           >
-            {props.price > 0 ? `₫ ${getProductPrice(props.price)}` : 'Free'}
+            {props.price > 0 ? `${withCurrency(props.price)}` : 'Free'}
           </div>
           {props.discount > 0 && (
             <h3 className="text-white text-base font-bold">
-              ₫ {getProductPrice(props.price * (1 - props.discount))}
+              {withCurrency(discountCalc(props.discount, props.price))}
             </h3>
           )}
         </div>

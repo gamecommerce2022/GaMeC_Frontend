@@ -6,6 +6,7 @@ import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { InputComponent } from '../../component/input';
 import * as ProductService from '../../../../services/product/product';
 import { UploadListImageComponent } from '../../component/upload_list_image';
+import { discountCalc, withCurrency } from '../../../../utils/product_utils';
 
 export const ProductAddComponent: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -16,9 +17,8 @@ export const ProductAddComponent: React.FC = () => {
   const [total, setTotal] = useState(0);
   const [tags, setTags] = useState<string[]>([]);
   const [status, setStatus] = useState('CÓ SẴN');
-  const [defaultPrice, setDefaultPrice] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [officalPrice, setOfficalPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState<string>('');
   const [shortDescription, setShortDescription] = useState('');
   const [note, setNote] = useState('');
   const [listImage, setListImage] = useState<string[]>([]);
@@ -26,9 +26,9 @@ export const ProductAddComponent: React.FC = () => {
   const [errorTitle, setErrorTitle] = useState<string>();
   const [errorType, setErrorType] = useState<string>();
   const [errorPlatform, setErrorPlatform] = useState<string>();
+  const [errorDiscount, setErrorDiscount] = useState<string>();
   const [errorTotal, setErrorTotal] = useState<string>();
   const [errorDefaultPrice, setErrorDefaultPrice] = useState<string>();
-  const [errorOfficalPrice, setErrorOfficalPrice] = useState<string>();
   const [errorShortDescription, setErrorShortDescription] = useState<string>();
   let navigate = useNavigate();
 
@@ -54,13 +54,13 @@ export const ProductAddComponent: React.FC = () => {
       errorCount++;
     }
 
-    if (defaultPrice === null || defaultPrice === undefined || defaultPrice === 0) {
+    if (price === null || price === undefined || price === 0) {
       setErrorDefaultPrice('Giá ban đầu không được để trống');
       errorCount++;
     }
 
-    if (officalPrice === null || officalPrice === undefined || officalPrice === 0) {
-      setErrorOfficalPrice('Giá chính thức không được để trống');
+    if (discount !== undefined && (parseFloat(discount) > 1 || parseFloat(discount) < 0)) {
+      setErrorDiscount('Giảm giá không hợp lệ');
       errorCount++;
     }
 
@@ -74,26 +74,32 @@ export const ProductAddComponent: React.FC = () => {
     }
 
     if (errorCount === 0) {
+      let resImages = [];
+      for (let i = 0; i < listImage.length; i++) {
+        if (listImage[i].includes('game-ecomemerce.appspot.com')) {
+          resImages.push(listImage[i]);
+        } else {
+          const image = await uploadImage({ image: listImage[i] });
+          resImages.push(image);
+        }
+      }
       let game: Game = {
         title: title,
         type: type,
         releaseDate: releaseDate,
         platform: platform,
         total: total,
-        priceDefault: defaultPrice,
-        priceOffical: officalPrice,
+        price: price,
         description: description,
         shortDescription: shortDescription,
-        discount: discount,
+        discount: parseFloat(discount),
         maxPlayer: maxPlayer,
         note: note,
         tags: tags,
+        imageList: resImages,
       };
 
       let response = await ProductService.addGame(game);
-      if (response !== null) {
-        uploadImage({ list: listImage, id: response });
-      }
       return response;
     }
   }
@@ -149,9 +155,9 @@ export const ProductAddComponent: React.FC = () => {
                 <InputComponent
                   title="Giá mặc định"
                   placeHolder="10000000"
-                  value={defaultPrice.toString()}
+                  value={price.toString()}
                   error={errorDefaultPrice}
-                  onChange={(value) => setDefaultPrice(parseFloat(value ? value : '0'))}
+                  onChange={(value) => setPrice(parseFloat(value ? value : '0'))}
                   styleProps="w-full lg:w-[90%]"
                 />
                 <InputComponent
@@ -211,15 +217,15 @@ export const ProductAddComponent: React.FC = () => {
                   title="Giảm giá"
                   placeHolder="0.5"
                   value={discount.toString()}
-                  onChange={(value) => setDiscount(parseInt(value ? value : '0'))}
+                  onChange={(value) => setDiscount(value)}
+                  error={errorDiscount}
                   styleProps="w-full lg:w-[90%]"
                 />
                 <InputComponent
                   title="Giá chính thức"
-                  placeHolder="10000000"
-                  value={officalPrice.toString()}
-                  error={errorOfficalPrice}
-                  onChange={(value) => setOfficalPrice(parseFloat(value ? value : '0'))}
+                  placeHolder="0"
+                  value={withCurrency(discountCalc(parseFloat(discount), price))}
+                  disable={true}
                   styleProps="w-full lg:w-[90%]"
                 />
               </div>
@@ -290,14 +296,12 @@ export const ProductAddComponent: React.FC = () => {
   );
 };
 
-const uploadImage = async (props: { list: string[]; id: string }) => {
-  for (let i = 0; i < props.list.length; i++) {
-    let response = await fetch(props.list[i]);
-    let data = await response.blob();
-    let metadata = {
-      type: 'image/jpeg',
-    };
-    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
-    await ProductService.editImage({ image: file, id: props.id });
-  }
+const uploadImage = async (props: { image: string }) => {
+  let response = await fetch(props.image);
+  let data = await response.blob();
+  let metadata = {
+    type: 'image/jpeg',
+  };
+  let file = new File([data], `${props.image}.jpeg`, metadata);
+  return await ProductService.editImage({ image: file });
 };

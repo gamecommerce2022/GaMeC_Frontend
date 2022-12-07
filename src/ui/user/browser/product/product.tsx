@@ -6,21 +6,9 @@ import * as ProductService from '../../../../services/product/product';
 
 export interface IGamePageProps {}
 
-let defaultGame: Game = {
-  _id: '',
-  title: '',
-  type: [],
-  releaseDate: Date.now().toString(),
-  platform: '',
-  total: 0,
-  priceDefault: 0,
-  priceOffical: 0,
-  description: '',
-};
-
 export const ProductPage = () => {
   const { productId } = useParams<{ productId: string }>();
-  const [product, setProduct]: [Game, (products: Game) => void] = useState(defaultGame);
+  const [product, setProduct]: [Game | undefined, (products: Game) => void] = useState();
   const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true);
   useEffect(() => {
     if (productId !== undefined) {
@@ -29,6 +17,6 @@ export const ProductPage = () => {
         setLoading(false);
       });
     }
-  }, []);
-  return <div>{loading ? null : <ProductPageTemplate product={product} />}</div>;
+  }, [productId]);
+  return <div>{loading ? null : product ? <ProductPageTemplate product={product} /> : null}</div>;
 };

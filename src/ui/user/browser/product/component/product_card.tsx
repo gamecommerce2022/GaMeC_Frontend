@@ -30,12 +30,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
       </div>
 
       <Badge className="mt-4">{'base product'.toUpperCase()}</Badge>
-      <Price
-        priceDefault={product.priceDefault}
-        discount={product.discount}
-        priceOffical={product.priceOffical}
-        classes="mt-2"
-      />
+      <Price discount={product.discount} price={product.price} classes="mt-2" />
       {
         <>
           <button

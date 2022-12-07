@@ -11,7 +11,7 @@ export const NewsAddComponent: React.FC = () => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [image, setImage] = useState<string[]>([]);
+  const [listImage, setListImage] = useState<string[]>([]);
   const [description, setDescription] = useState<string>();
   const [errorTitle, setErrorTitle] = useState<string>();
   const [errorType, setErrorType] = useState<string>();
@@ -39,26 +39,32 @@ export const NewsAddComponent: React.FC = () => {
       errorCount++;
     }
 
-    if (image === null || image === undefined || image.length === 0) {
+    if (listImage === null || listImage === undefined || listImage.length === 0) {
       errorCount++;
     }
 
     if (errorCount === 0) {
+      let resImages = [];
+      for (let i = 0; i < listImage.length; i++) {
+        if (listImage[i].includes('game-ecomemerce.appspot.com')) {
+          resImages.push(listImage[i]);
+        } else {
+          const image = await uploadImage({ image: listImage[i] });
+          resImages.push(image);
+        }
+      }
       let descriptions = description!.split('\n');
       let news: News = {
         title: title,
-        type: type,
+        category: type,
         author: '',
         date: Date.now().toString(),
         description: descriptions,
         shortDescription: shortDescription,
-        image: '',
+        mainImage: '',
       };
 
       let response = await NewsService.add(news);
-      if (response !== null) {
-        uploadImage({ image: image, id: response });
-      }
       return response;
     }
   }
@@ -117,8 +123,8 @@ export const NewsAddComponent: React.FC = () => {
             *Cần có ít nhất 1 ảnh làm ảnh đại diện sản phẩm
           </h4>
           <UploadListImageComponent
-            images={image}
-            onImages={setImage}
+            images={listImage}
+            onImages={setListImage}
             multiple={false}
             key="upload-multiple-image"
             styleProps="w-[100%]"
@@ -167,12 +173,12 @@ export const NewsAddComponent: React.FC = () => {
   );
 };
 
-const uploadImage = async (props: { image: string[]; id: string }) => {
-  let response = await fetch(props.image[0]);
+const uploadImage = async (props: { image: string }) => {
+  let response = await fetch(props.image);
   let data = await response.blob();
   let metadata = {
     type: 'image/jpeg',
   };
-  let file = new File([data], `${props.image[0]}.jpeg`, metadata);
-  await NewsService.editImage({ image: file, id: props.id });
+  let file = new File([data], `${props.image}.jpeg`, metadata);
+  return await NewsService.editImage({ image: file });
 };

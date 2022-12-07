@@ -29,7 +29,7 @@ export const getProductPrice: (price: number) => string = function (
 };
 
 export const discountCalc = (disc = 0, price: number) =>
- +(price - (price * disc) / 100).toFixed(2);
+ +(price - (price * disc)).toFixed(2);
 
 export const withCurrency = (price: number) => `đ${price.toFixed(2)}`;
 

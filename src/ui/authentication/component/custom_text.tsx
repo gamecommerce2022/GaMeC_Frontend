@@ -1,4 +1,4 @@
-import clsx from "clsx";
+import clsx from 'clsx';
 
 type CustomTextFieldProps = {
   label: string;
@@ -16,7 +16,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
   className,
 }) => {
   return (
-    <div className={clsx("flex flex-col text-gray-400 py-2", className)}>
+    <div className={clsx('flex flex-col text-gray-400 py-2', className)}>
       <label htmlFor="">{label}</label>
       <input
         onChange={(e) => {
@@ -24,7 +24,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
         }}
         value={value}
         className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
-        type={isPassword ? "password" : "text"}
+        type={isPassword ? 'password' : 'text'}
       />
     </div>
   );

@@ -14,7 +14,7 @@ const CarouselCard = (item: {
   return (
     <div className="flex flex-row cursor-pointer">
       <img
-        className="rounded-md w-3/5 transition duration-1000 h-[600px]  object-fill"
+        className="rounded-md w-3/5 transition duration-1000 h-s"
         src={currentThumbnail}
         alt=""
       />

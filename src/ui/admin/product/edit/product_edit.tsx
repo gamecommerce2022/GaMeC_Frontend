@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Game } from '../../../../model/product_model';
 import * as ProductService from '../../../../services/product/product';
+import { discountCalc, withCurrency } from '../../../../utils/product_utils';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { InputComponent } from '../../component/input';
 import { UploadListImageComponent } from '../../component/upload_list_image';
@@ -18,20 +19,19 @@ export const ProductEditComponent = () => {
   const [total, setTotal] = useState(0);
   const [tags, setTags] = useState<string[]>([]);
   const [status, setStatus] = useState('CÓ SẴN');
-  const [defaultPrice, setDefaultPrice] = useState(0);
-  const [discount, setDiscount] = useState(0);
-  const [officalPrice, setOfficalPrice] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState<string>('');
   const [shortDescription, setShortDescription] = useState('');
   const [note, setNote] = useState('');
   const [listImage, setListImage] = useState<string[]>([]);
   const [description, setDescription] = useState<string>('');
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [errorTitle, setErrorTitle] = useState<string>();
   const [errorType, setErrorType] = useState<string>();
   const [errorPlatform, setErrorPlatform] = useState<string>();
   const [errorTotal, setErrorTotal] = useState<string>();
   const [errorDefaultPrice, setErrorDefaultPrice] = useState<string>();
-  const [errorOfficalPrice, setErrorOfficalPrice] = useState<string>();
+  const [errorDiscount, setErrorDiscount] = useState<string>();
   const [errorShortDescription, setErrorShortDescription] = useState<string>();
   let navigate = useNavigate();
 
@@ -54,9 +54,8 @@ export const ProductEditComponent = () => {
         setTotal(response.total);
         setTags(response.tags ?? tags);
         setStatus(response.status ?? status);
-        setDefaultPrice(response.priceDefault);
-        setDiscount(response.discount ?? discount);
-        setOfficalPrice(response.priceOffical);
+        setPrice(response.price);
+        setDiscount(response.discount?.toString() ?? discount);
         setShortDescription(response.shortDescription ?? shortDescription);
         setNote(response.note ?? note);
         setDescription(response.description);
@@ -89,13 +88,13 @@ export const ProductEditComponent = () => {
       errorCount++;
     }
 
-    if (defaultPrice === null || defaultPrice === undefined || defaultPrice === 0) {
+    if (price === null || price === undefined || price === 0) {
       setErrorDefaultPrice('Giá ban đầu không được để trống');
       errorCount++;
     }
 
-    if (officalPrice === null || officalPrice === undefined || officalPrice === 0) {
-      setErrorOfficalPrice('Giá chính thức không được để trống');
+    if (discount !== undefined && (parseFloat(discount) > 1 || parseFloat(discount) < 0)) {
+      setErrorDiscount('Giảm giá không hợp lệ');
       errorCount++;
     }
 
@@ -109,6 +108,15 @@ export const ProductEditComponent = () => {
     }
 
     if (errorCount === 0) {
+      let resImages = [];
+      for (let i = 0; i < listImage.length; i++) {
+        if (listImage[i].includes('game-ecomemerce.appspot.com')) {
+          resImages.push(listImage[i]);
+        } else {
+          const image = await uploadImage({ image: listImage[i] });
+          resImages.push(image);
+        }
+      }
       let game: Game = {
         _id: productId,
         title: title,
@@ -116,21 +124,17 @@ export const ProductEditComponent = () => {
         releaseDate: releaseDate,
         platform: platform,
         total: total,
-        priceDefault: defaultPrice,
-        priceOffical: officalPrice,
+        price: price,
         description: description,
         shortDescription: shortDescription,
-        discount: discount,
+        discount: parseFloat(discount),
         maxPlayer: maxPlayer,
         note: note,
-        imageList: [],
         tags: tags,
+        imageList: resImages,
       };
 
       let response = await ProductService.editGame(game);
-      if (response !== null) {
-        uploadImage({ list: listImage, id: productId! });
-      }
       return response;
     }
   }
@@ -186,9 +190,9 @@ export const ProductEditComponent = () => {
                 <InputComponent
                   title="Giá mặc định"
                   placeHolder="10000000"
-                  value={defaultPrice.toString()}
+                  value={price.toString()}
                   error={errorDefaultPrice}
-                  onChange={(value) => setDefaultPrice(parseFloat(value ? value : '0'))}
+                  onChange={(value) => setPrice(parseFloat(value ? value : '0'))}
                   styleProps="w-full lg:w-[90%]"
                 />
                 <InputComponent
@@ -248,15 +252,15 @@ export const ProductEditComponent = () => {
                   title="Giảm giá"
                   placeHolder="0.5"
                   value={discount.toString()}
-                  onChange={(value) => setDiscount(parseInt(value ? value : '0'))}
+                  onChange={(value) => setDiscount(value)}
+                  error={errorDiscount}
                   styleProps="w-full lg:w-[90%]"
                 />
                 <InputComponent
                   title="Giá chính thức"
                   placeHolder="10000000"
-                  value={officalPrice.toString()}
-                  error={errorOfficalPrice}
-                  onChange={(value) => setOfficalPrice(parseFloat(value ? value : '0'))}
+                  value={withCurrency(discountCalc(parseFloat(discount), price))}
+                  disable={true}
                   styleProps="w-full lg:w-[90%]"
                 />
               </div>
@@ -313,7 +317,8 @@ export const ProductEditComponent = () => {
           className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg"
           onClick={async () => {
             let res = await editGame();
-            if (res !== null) {
+            console.log('Editing Product');
+            if (res) {
               navigate(-1);
             } else {
               console.log('Edit Product Failed');
@@ -327,14 +332,12 @@ export const ProductEditComponent = () => {
   );
 };
 
-const uploadImage = async (props: { list: string[]; id: string }) => {
-  for (let i = 0; i < props.list.length; i++) {
-    let response = await fetch(props.list[i]);
-    let data = await response.blob();
-    let metadata = {
-      type: 'image/jpeg',
-    };
-    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
-    await ProductService.editImage({ image: file, id: props.id });
-  }
+const uploadImage = async (props: { image: string }) => {
+  let response = await fetch(props.image);
+  let data = await response.blob();
+  let metadata = {
+    type: 'image/jpeg',
+  };
+  let file = new File([data], `${props.image}.jpeg`, metadata);
+  return await ProductService.editImage({ image: file });
 };

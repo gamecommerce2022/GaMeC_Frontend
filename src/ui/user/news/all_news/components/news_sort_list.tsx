@@ -7,11 +7,11 @@ const categoriesSort = [
   { id: 1, name: 'All', tag: 0 },
   { id: 2, name: 'Alphabetical: A - Z', tag: 1 },
   { id: 2, name: 'Alphabetical: Z - A', tag: 2 },
-  { id: 3, name: 'Price: High to Low', tag: 3 },
-  { id: 4, name: 'Price: Low to High', tag: 4 },
+  { id: 3, name: 'Date: New - Old', tag: 3 },
+  { id: 4, name: 'Date: Old - New', tag: 4 },
 ];
 
-export const ProductSortList = () => {
+export const NewsSortList = () => {
   const [selectedCategorySort, setSelectedCategorySort] = useState(categoriesSort[0]);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
