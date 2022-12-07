@@ -1,15 +1,8 @@
-import { useRef } from 'react';
 import { Navigate } from 'react-router-dom';
-import Slider from 'react-slick';
-import { reviews } from '../../../../data/DataProduct';
-import { singleSettings } from '../../../../config/carousel_setting';
-import { getRandomNumber } from '../../../../utils/date_utils';
 import {
   ProductCard,
   ProductFeatureBox,
   ProductImage,
-  ProductReviewSection,
-  ProductSpecifications,
 } from './component';
 import { Game } from '../../../../model/product_model';
 
@@ -17,7 +10,6 @@ export interface IGamePageTemplateProps {
   product: Game | null;
 }
 export const ProductPageTemplate = ({ product }: IGamePageTemplateProps) => {
-  const sliderRef = useRef<Slider>(null);
   if (!product) <Navigate to="/404" />;
   return (
     <div className="lg:mx-80 md:mx-20 sm:mx-20">

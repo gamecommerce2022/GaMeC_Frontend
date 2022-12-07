@@ -9,7 +9,7 @@ export const get : (page: number, perPage: number, filter?: number|null,  query?
         filterText=`&sort=${filter}`;
     }
     let queryText = '';
-    if(query !== undefined){
+    if(query !== undefined && query !== null){
         queryText=`&q=${query}`;
     }
 

@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { Pagination } from '../../../../global/component/pagination';
 import { ProductItem } from '../component';
 import { Game } from '../../../../../model/product_model';
 import * as ProductService from '../../../../../services/product/product';
 import { useSearchParams } from 'react-router-dom';
-import { discountCalc, withCurrency } from '../../../../../utils/product_utils';
 
 export const ListProducts = () => {
   const [searchParams] = useSearchParams();
@@ -12,21 +12,19 @@ export const ListProducts = () => {
   const [defaultPage, setDefaultPage]: [number, (defaultPage: number) => void] = useState(0);
   const [products, setProducts]: [Game[], (products: Game[]) => void] = useState(defaultProducts);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true);
-  const [query, setQuery] = useState<string | null>();
-  const [sortBy, setSortBy] = useState<string | null>();
+  const [query, setQuery] = useState<string>();
+  const [sortBy, setSortBy] = useState<number | null>();
 
   useEffect(() => {
     // TODO - get products
-    const sortBy = searchParams.get('sortBy');
+    const strSortBy = searchParams.get('sortBy') as string;
     const query = searchParams.get('q') || '';
-    setSortBy(sortBy);
-    setQuery(query);
-    ProductService.getTotalPage(30).then((length) => {
-      console.log(length);
+    setSortBy(parseInt(strSortBy));
+    setQuery(query === null ? '' : query);
+    ProductService.getTotalPage(30, query).then((length) => {
       setDefaultPage(length);
-    });
-    ProductService.get(0, 30, undefined, query).then((products) => {
-      console.log(products);
+    }); 
+    ProductService.get(0, 30, sortBy, query).then((products) => {
       setProducts(products);
       setLoading(false);
     });
@@ -34,7 +32,7 @@ export const ListProducts = () => {
 
   function goToNextPage(page: number) {
     setLoading(true);
-    ProductService.get(page, 30, undefined, query).then((products) => {
+    ProductService.get(page, 30, sortBy, query).then((products) => {
       setProducts(products);
       setLoading(false);
     });
@@ -53,7 +51,7 @@ export const ListProducts = () => {
                       id={product._id!}
                       name={product.title}
                       img={product.imageList![0]}
-                      price={discountCalc(product.discount, product.price)}
+                      price={product.price}
                       type={product.platform}
                       discount={product.discount || 0}
                     />

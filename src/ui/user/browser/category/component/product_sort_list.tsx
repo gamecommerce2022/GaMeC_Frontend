@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const categoriesSort = [
-  { id: 1, name: 'All', tag: 'all' },
-  { id: 2, name: 'Alphabetical', tag: 'alphabetical' },
-  { id: 3, name: 'Price: High to Low', tag: 'priceHighLow' },
-  { id: 4, name: 'Price: Low to High', tag: 'priceLowHigh' },
+  { id: 1, name: 'All', tag: 0 },
+  { id: 2, name: 'Alphabetical: A - Z', tag: 1 },
+  { id: 2, name: 'Alphabetical: Z - A', tag: 2 },
+  { id: 3, name: 'Price: High to Low', tag: 3 },
+  { id: 4, name: 'Price: Low to High', tag: 4 },
 ];
 
 export const ProductSortList = () => {
@@ -18,9 +19,9 @@ export const ProductSortList = () => {
     <div className="relative">
       <Listbox
         value={selectedCategorySort}
-        onChange={(value: { id: number; name: string; tag: string }) => {
+        onChange={(value: { id: number; name: string; tag: number }) => {
           let query = searchParams.get('q');
-          navigate(`?sortBy=${value.tag}&q=${query}`, { replace: true });
+          navigate(`?sortBy=${value.tag}&q=${query === null ? '' : query}`, { replace: true });
           setSelectedCategorySort(value);
         }}
       >

@@ -19,7 +19,7 @@ export const UserPage = () => {
           <Route key="user-product-page" path="products/:productId" element={<ProductPage />} />
           <Route key="user-search-page" path="searched/:search" element={<SearchPage />} />
           <Route key="user-all-news-page" path="news" element={<AllNewsPage />} />
-          <Route key="user-detail-news-page" path="news/:newsID" element={<DetailNewsPage />} />
+          <Route key="user-detail-news-page" path="news/:newsId" element={<DetailNewsPage />} />
           <Route key="user-info-page" path="info" element={<UserInfoPage />} />
           <Route key="user-not found-page" path="*" element={<NotFoundPage />} />
         </Routes>

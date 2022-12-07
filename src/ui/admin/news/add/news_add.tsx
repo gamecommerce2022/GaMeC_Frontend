@@ -11,7 +11,7 @@ export const NewsAddComponent: React.FC = () => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [image, setImage] = useState<string[]>([]);
+  const [listImage, setListImage] = useState<string[]>([]);
   const [description, setDescription] = useState<string>();
   const [errorTitle, setErrorTitle] = useState<string>();
   const [errorType, setErrorType] = useState<string>();
@@ -39,16 +39,18 @@ export const NewsAddComponent: React.FC = () => {
       errorCount++;
     }
 
-    if (image === null || image === undefined || image.length === 0) {
+    if (listImage === null || listImage === undefined || listImage.length === 0) {
       errorCount++;
     }
 
     if (errorCount === 0) {
       let resImages = []
-      if(!image.includes('game-ecomemerce.appspot.com', 0)){
-        const imageData = await uploadImage({ list: image });
-        if(imageData){
-          resImages.push(imageData)
+      for(let i = 0; i < listImage.length; i++){
+        if(listImage[i].includes('game-ecomemerce.appspot.com')){
+          resImages.push(listImage[i])
+        } else {
+          const image = await uploadImage({image: listImage[i]})
+          resImages.push(image)
         }
       }
       let descriptions = description!.split('\n');
@@ -121,8 +123,8 @@ export const NewsAddComponent: React.FC = () => {
             *Cần có ít nhất 1 ảnh làm ảnh đại diện sản phẩm
           </h4>
           <UploadListImageComponent
-            images={image}
-            onImages={setImage}
+            images={listImage}
+            onImages={setListImage}
             multiple={false}
             key="upload-multiple-image"
             styleProps="w-[100%]"
@@ -171,14 +173,12 @@ export const NewsAddComponent: React.FC = () => {
   );
 };
 
-const uploadImage = async (props: { list: string[]}) => {
-  for (let i = 0; i < props.list.length; i++) {
-    let response = await fetch(props.list[i]);
-    let data = await response.blob();
-    let metadata = {
-      type: 'image/jpeg',
-    };
-    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
-    return await NewsService.editImage({ image: file});
-  }
+const uploadImage = async (props: { image: string}) => {
+  let response = await fetch(props.image);
+  let data = await response.blob();
+  let metadata = {
+    type: 'image/jpeg',
+  };
+  let file = new File([data], `${props.image}.jpeg`, metadata);
+  return await NewsService.editImage({ image: file});
 };

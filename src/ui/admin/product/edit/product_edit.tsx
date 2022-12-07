@@ -109,9 +109,11 @@ export const ProductEditComponent = () => {
 
     if (errorCount === 0) {
       let resImages = []
-      if(!listImage.includes('game-ecomemerce.appspot.com', 0)){
-        const image = await uploadImage({ list: listImage });
-        if(image){
+      for(let i = 0; i < listImage.length; i++){
+        if(listImage[i].includes('game-ecomemerce.appspot.com')){
+          resImages.push(listImage[i])
+        } else {
+          const image = await uploadImage({image: listImage[i]})
           resImages.push(image)
         }
       }
@@ -330,14 +332,12 @@ export const ProductEditComponent = () => {
   );
 };
 
-const uploadImage = async (props: { list: string[]}) => {
-  for (let i = 0; i < props.list.length; i++) {
-    let response = await fetch(props.list[i]);
-    let data = await response.blob();
-    let metadata = {
-      type: 'image/jpeg',
-    };
-    let file = new File([data], `${props.list[i]}.jpeg`, metadata);
-    return await ProductService.editImage({ image: file});
-  }
+const uploadImage = async (props: { image: string}) => {
+  let response = await fetch(props.image);
+  let data = await response.blob();
+  let metadata = {
+    type: 'image/jpeg',
+  };
+  let file = new File([data], `${props.image}.jpeg`, metadata);
+  return await ProductService.editImage({ image: file});
 };
