@@ -38,7 +38,7 @@ export const ListNews = () => {
   }
 
   return (
-    <div className="px-6 py-10 mx-auto">
+    <div className="px-2 mx-auto">
       {loading ? null : (
         <div>
           {/** Product List */}

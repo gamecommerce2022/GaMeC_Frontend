@@ -13,7 +13,7 @@ export const NewsCard = (props: INewsCard) => {
   return (
     <Link to={`/user/news/${props.id}`} className="container mt-8 lg:-mx-6 lg:flex lg:items-center">
       <img
-        className="object-cover w-full lg:mx-6 lg:w-1/2 rounded-xl h-72 lg:h-96"
+        className="object-cover w-full lg:mx-6 lg:w-1/2 rounded-xl h-[120px] lg:h-[240px]"
         src={props.mainImage}
         alt={props.title}
       />
@@ -21,13 +21,13 @@ export const NewsCard = (props: INewsCard) => {
       <div className="mt-6 lg:w-1/2 lg:mt-0 lg:mx-6 ">
         <p className="text-sm text-blue-500 uppercase">{props.type}</p>
 
-        <span className="block mt-4 text-2xl font-semibold hover:underline text-white md:text-3xl">
+        <span className="block mt-4 text-xl font-semibold hover:underline text-white md:text-3xl">
           {props.title}
         </span>
 
         <p className="mt-3 text-sm text-gray-300 md:text-sm">{props.shortDescription}</p>
 
-        <span className="inline-block mt-2 text-blue-500 underline hover:text-blue-400">
+        <span className="inline-block mt-2 text-blue-500 underline hover:text-blue-400 text-sm">
           Read more
         </span>
 
