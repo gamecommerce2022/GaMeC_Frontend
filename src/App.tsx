@@ -20,7 +20,7 @@ function App() {
         <Route key="user-page" path="user/*" element={<UserPage />} />
         <Route key="admin-page" path="admin/*" element={<AdminPage />} />
         <Route key="login-page" path="login" element={<LoginPage />} />
-        <Route key="signup-page" path="signup" element={<SignUpPage />} />
+        <Route key="signup-page" path="sign-up" element={<SignUpPage />} />
         <Route key="upcoming-page" path="upcoming" element={<OnDevelopPage />} />
         <Route key="not-found-page" path="404" element={<NotFoundPage />} />
         <Route
