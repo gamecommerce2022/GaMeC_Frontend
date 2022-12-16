@@ -8,7 +8,7 @@ import {
   Avatar,
 } from '@material-tailwind/react';
 import { Bars3Icon, XMarkIcon, HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export const Headers = () => {
   const [openNav, setOpenNav] = useState<boolean>(false);
@@ -17,6 +17,8 @@ export const Headers = () => {
   useEffect(() => {
     window.addEventListener('resize', () => window.innerWidth >= 960 && setOpenNav(false));
   }, []);
+
+  const navigate = useNavigate();
 
   const navList = (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -50,7 +52,7 @@ export const Headers = () => {
         <div className="flex flex-row justify-evenly items-center">
           {/**Wishlist */}
           <IconButton variant="outlined" size="sm" className="hidden lg:inline-block mx-2">
-            <Link to="user/wishlist">
+            <Link to="wishlist">
               <HeartIcon className="text-blue-400 w-4 h-4" />
             </Link>
           </IconButton>
@@ -62,7 +64,7 @@ export const Headers = () => {
             color="red"
             className="hidden lg:inline-block mx-2"
           >
-            <Link to="user/cart">
+            <Link to="cart">
               <ShoppingCartIcon className="text-red-400 w-4 h-4" />
             </Link>
           </IconButton>
@@ -101,10 +103,22 @@ export const Headers = () => {
       {/*Mobile Nav */}
       <MobileNav open={openNav}>
         {navList}
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
+        <Button
+          variant="gradient"
+          size="sm"
+          fullWidth
+          className="mb-2"
+          onClick={() => navigate('/wishlist')}
+        >
           <span>Wishlist</span>
         </Button>
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
+        <Button
+          variant="gradient"
+          size="sm"
+          fullWidth
+          className="mb-2"
+          onClick={() => navigate('/cart')}
+        >
           <span>Cart</span>
         </Button>
         <Button variant="gradient" size="sm" fullWidth className="mb-2">

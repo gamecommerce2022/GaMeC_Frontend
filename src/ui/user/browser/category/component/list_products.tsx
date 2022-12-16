@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { Pagination } from '../../../../global/component/pagination';
+import { Pagination } from '../../../../global/component/pagination/pagination';
 import { ProductItem } from '../component';
-import { Game } from '../../../../../model/product_model';
+import { Product } from '../../../../../model/product_model';
 import * as ProductService from '../../../../../services/product/product';
 import { useSearchParams } from 'react-router-dom';
 
 export const ListProducts = () => {
   const [searchParams] = useSearchParams();
-  const defaultProducts: Game[] = [];
+  const defaultProducts: Product[] = [];
   const [defaultPage, setDefaultPage]: [number, (defaultPage: number) => void] = useState(0);
-  const [products, setProducts]: [Game[], (products: Game[]) => void] = useState(defaultProducts);
+  const [products, setProducts]: [Product[], (products: Product[]) => void] =
+    useState(defaultProducts);
   const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true);
   const [query, setQuery] = useState<string>();
   const [sortBy, setSortBy] = useState<number | null>();

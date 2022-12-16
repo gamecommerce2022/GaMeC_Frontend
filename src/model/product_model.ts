@@ -1,4 +1,4 @@
-export type Game = {
+export type Product = {
   _id?: string;
   title: string;
   type: string[];

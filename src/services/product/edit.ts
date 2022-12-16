@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Game } from '../../model/product_model';
+import { Product } from '../../model/product_model';
 import { productUrl } from '../url';
 
-export const editGame: (game: Game) => Promise<boolean> = async (game: Game) => {
+export const editGame: (game: Product) => Promise<boolean> = async (game: Product) => {
   let res = await axios.put(`${productUrl}/${game._id}`, game);
   console.log(res)
   let code = res.data.code;

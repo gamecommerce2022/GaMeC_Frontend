@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { News } from '../../../../../model/news_model';
-import { Pagination } from '../../../../global/component/pagination';
+import { Pagination } from '../../../../global/component/pagination/pagination';
 import { NewsCard } from './news_card';
 import * as NewsSerivce from '../../../../../services/news/news';
 

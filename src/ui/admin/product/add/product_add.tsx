@@ -1,7 +1,7 @@
 import { BriefcaseIcon, HomeIcon, PlusIcon } from '@heroicons/react/24/outline';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game } from '../../../../model/product_model';
+import { Product } from '../../../../model/product_model';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { InputComponent } from '../../component/input';
 import * as ProductService from '../../../../services/product/product';
@@ -83,7 +83,7 @@ export const ProductAddComponent: React.FC = () => {
           resImages.push(image);
         }
       }
-      let game: Game = {
+      let game: Product = {
         title: title,
         type: type,
         releaseDate: releaseDate,

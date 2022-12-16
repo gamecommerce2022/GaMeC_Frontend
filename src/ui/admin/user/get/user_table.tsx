@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { SearchComponent } from '../../component/search';
 import { Listbox, Switch, Transition } from '@headlessui/react';
 import { TableComponent } from '../../component/table';
-import { Pagination } from '../../../global/component/pagination';
+import { Pagination } from '../../../global/component/pagination/pagination';
 import { User } from '../../../../model/user_model';
 import { UserItemComponent } from './user_item';
 

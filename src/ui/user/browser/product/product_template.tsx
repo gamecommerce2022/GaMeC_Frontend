@@ -1,9 +1,9 @@
 import { Navigate } from 'react-router-dom';
 import { ProductCard, ProductFeatureBox, ProductImage } from './component';
-import { Game } from '../../../../model/product_model';
+import { Product } from '../../../../model/product_model';
 
 export interface IGamePageTemplateProps {
-  product: Game | null;
+  product: Product | null;
 }
 export const ProductPageTemplate = ({ product }: IGamePageTemplateProps) => {
   if (!product) <Navigate to="/404" />;

@@ -1,9 +1,9 @@
-import { Game } from '../../../../../model/product_model';
+import { Product } from '../../../../../model/product_model';
 import { Badge } from './badge';
 import { Price } from './price';
 
 export interface IProductCardProps {
-  product: Game;
+  product: Product;
 }
 
 const KeyValue = ({ label, value }: { label: string; value: string }) => (

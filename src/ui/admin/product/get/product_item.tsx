@@ -1,12 +1,12 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game } from '../../../../model/product_model';
+import { Product } from '../../../../model/product_model';
 import * as ProductService from '../../../../services/product/product';
 
-export const ProductItemComponent: React.FC<{ index: number; product: Game }> = (props: {
+export const ProductItemComponent: React.FC<{ index: number; product: Product }> = (props: {
   index: number;
-  product: Game;
+  product: Product;
 }) => {
   let navigate = useNavigate();
   const [show, setShow] = useState(false);
