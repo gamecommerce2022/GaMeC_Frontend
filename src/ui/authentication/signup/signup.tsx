@@ -62,7 +62,7 @@ const SignUpPage = () => {
           />
           <label className="ml-2 text-sm font-medium text-white dark:text-gray-300">
             I agree with the{' '}
-            <a href="/" className="text-blue-600 dark:text-blue-500 hover:underline">
+            <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">
               terms and conditions
             </a>
             .
