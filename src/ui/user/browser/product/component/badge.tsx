@@ -1,4 +1,6 @@
-import { Children } from '../../../../../model/model';
+import { ReactElement } from 'react';
+
+export type Children = ReactElement | ReactElement[] | string | null;
 
 export interface IBadgeProps {
   children: Children;

@@ -118,7 +118,7 @@ export const ProductEditComponent = () => {
         }
       }
       let game: Product = {
-        _id: productId,
+        id: productId,
         title: title,
         type: type,
         releaseDate: releaseDate,

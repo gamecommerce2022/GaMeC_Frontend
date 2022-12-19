@@ -1,5 +1,5 @@
 export type Product = {
-  _id?: string;
+  id?: string;
   title: string;
   type: string[];
   releaseDate: string;

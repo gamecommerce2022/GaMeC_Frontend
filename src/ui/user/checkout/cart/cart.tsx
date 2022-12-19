@@ -33,7 +33,7 @@ export const CartPage = () => {
       <div className="gap-3 sm:gap-6 sm:grid sm:grid-cols-2">
         <div data-testid="cart-page-list" className="sm:col-span-1">
           {productInCart.map((product) => (
-            <CartCard key={product._id} product={product} classes="mb-3" />
+            <CartCard key={product.id} product={product} classes="mb-3" />
           ))}
         </div>
         <div className="relative">

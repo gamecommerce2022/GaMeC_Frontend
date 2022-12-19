@@ -201,7 +201,7 @@ export const ProductTableComponent = () => {
             <ProductItemComponent
               product={product}
               index={index + 1}
-              key={`${index}-${product._id}`}
+              key={`${index}-${product.id}`}
             />
           );
         })}

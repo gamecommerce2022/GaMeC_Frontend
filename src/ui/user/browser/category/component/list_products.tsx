@@ -49,7 +49,7 @@ export const ListProducts = () => {
               ? products.map((product) => {
                   return (
                     <ProductItem
-                      id={product._id!}
+                      id={product.id!}
                       name={product.title}
                       img={product.imageList![0]}
                       price={product.price}
