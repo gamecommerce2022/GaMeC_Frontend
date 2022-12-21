@@ -1,4 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import { Product } from '../../../../../model/product_model';
+import { updateUserProduct } from '../../../../../services/user/getProduct';
 import { Badge } from './badge';
 import { Price } from './price';
 
@@ -21,6 +23,8 @@ export const ProductCard = ({ product }: IProductCardProps) => {
     { label: 'Platform', value: product.platform },
   ];
 
+  const navigate = useNavigate();
+
   // const { uid } = useAppSelector(selectUser)
 
   return (
@@ -36,16 +40,14 @@ export const ProductCard = ({ product }: IProductCardProps) => {
           <button
             className="w-full py-2 mt-4 bg-[#a63822] btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none hover:bg-[#b45745] active:bg-[#b45745] active:ring-2 active:ring-white"
             type="button"
-            onClick={
-              () => {}
-              // updateUserGames({
-              //  uid: uid || '',
-              //  gameId: product.id,
-              //  status:
-              //   product.status === 'IN_CART' ? 'REMOVED_FROM_CART' : 'IN_CART',
-              //  history,
-              // })
-            }
+            onClick={() => {
+              updateUserProduct({
+                userId: '',
+                product: product,
+                status: 'IN_CART',
+                navigation: navigate,
+              });
+            }}
           >
             {'GET'}
           </button>
@@ -53,8 +55,13 @@ export const ProductCard = ({ product }: IProductCardProps) => {
           <button
             className="w-full py-2 mt-4 bg-transparent btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none ring-1 ring-white hover:bg-[#404040] active:bg-[#404040] active:ring-2"
             type="button"
-            onClick={
-              () => {}
+            onClick={() => {
+              updateUserProduct({
+                userId: '',
+                product: product,
+                status: 'WISHLISTED',
+                navigation: navigate,
+              });
               // updateUserGames({
               //  uid: uid || '',
               //  gameId: product.id,
@@ -62,8 +69,8 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               //   ? 'REMOVED_FROM_WISHLIST'
               //   : 'WISHLISTED',
               //  history,
-              // })
-            }
+              // }) }
+            }}
           >
             {false ? 'IN CART' : 'ADD TO CART'}
           </button>

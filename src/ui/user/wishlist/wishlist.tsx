@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useAppSelector } from '../../../store/hook';
+import { selectWishlisted } from '../../../store/user_product_slice';
 import { EmptyList } from '../../global/component/emptylist/empty_list';
 import { Pagination } from '../../global/component/pagination/pagination';
 import { WishlistCard } from './component';
 
 export const WishListPage = () => {
-  const wishlist: any[] = [];
-  const wishlistIds = [5, 6, 7, 8];
+  const wishlist = useAppSelector(selectWishlisted);
   const [defaultPage, setDefaultPage] = useState(0);
 
   function goToNextPage(page: number) {}
@@ -28,23 +29,23 @@ export const WishListPage = () => {
         <title>Wishlist</title>
         <meta
           name="description"
-          content={`The wishlisted games appear here. There are currently ${wishlistIds.length} games in this page now.`}
+          content={`The wishlisted games appear here. There are currently ${wishlist.length} games in this page now.`}
         />
       </Helmet>
       <div
         aria-label="wishlist-page-list"
         className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
       >
-        {wishlist.map((game) => (
+        {wishlist.map((product) => (
           <WishlistCard
-            key={game.id}
-            id={game.id}
+            key={product.id}
+            id={product.id || '100001'}
             date="2021-06-10T08:30:00Z"
-            imageUrl={game.imageUrl}
-            title={game.title}
-            discount={game.discount}
-            price={game.price}
-            realeaseDate={game.realeaseDate}
+            imageUrl={product.imageList![0]}
+            title={product.title}
+            discount={product.discount || 0}
+            price={product.price}
+            realeaseDate={product.releaseDate}
           />
         ))}
       </div>
