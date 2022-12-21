@@ -1,21 +1,36 @@
 import axios from 'axios';
 import clsx from 'clsx';
 import { useState } from 'react';
-import loginImg from '../../../assets/images/app_icon.png';
+
 import CustomTextField from '../component/custom_text';
+import Cookies from 'universal-cookie';
 
 const LoginPage = () => {
+  const cookies = new Cookies();
   const [currentEmail, setCurrentEmail] = useState<string>('');
   const [currentPassword, setCurrentPassword] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isError, setIsError] = useState<boolean>(false);
+  const signIn = () => {
+    axios
+      .post(`http://localhost:5000/api/auth/login`, {
+        email: currentEmail,
+        password: currentPassword,
+      })
+      .then(async (res: any) => {
+        console.log(res.data);
+        console.log(res.data.accessToken);
 
-  const signIn=()=>{
-    axios.post(`http://localhost:5000/api/auth/login`,
-      {email:currentEmail,
-      password:currentPassword})
-      .then((res)=>{
-      console.log(res.data)
-    })
-  }
+        const accessToken = res.data.accessToken;
+
+        cookies.set('accessToken', accessToken);
+      })
+      .catch((res: any) => {
+        console.log(res.response.data.message);
+        setErrorMessage(res.response.data.message);
+        setIsError(true);
+      });
+  };
   return (
     <div className="bg-black h-screen flex flex-col justify-center items-center">
       <div className="max-w-[400px] w-full mx-auto bg-gray-900 p-8 px-8 rounded-lg">
@@ -36,7 +51,7 @@ const LoginPage = () => {
           value={currentPassword}
           setValue={setCurrentPassword}
         />
-
+        {isError ? <div className="text-red-600">{errorMessage}</div> : null}
         <div className="flex justify-between items-center text-gray-400 py-2">
           <p className="flex items-center ">
             <input className="mr-2 " type="checkbox" />
@@ -62,7 +77,7 @@ const LoginPage = () => {
 
         <div className="flex items-center justify-center">
           <span className="text-gray-400">Don't have an account?</span>
-          <a target="_blank" className="text-white ml-2" href="sign-up">
+          <a className="text-white ml-2" href="sign-up">
             Sign up now
           </a>
         </div>

@@ -21,7 +21,7 @@ const SignUpPage = () => {
         email: email,
         password: password,
       })
-      .then((res) => {
+      .then((res:any) => {
         console.log(res.data);
       });
   };
@@ -62,7 +62,7 @@ const SignUpPage = () => {
           />
           <label className="ml-2 text-sm font-medium text-white dark:text-gray-300">
             I agree with the{' '}
-            <a href="/" className="text-blue-600 dark:text-blue-500 hover:underline">
+            <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">
               terms and conditions
             </a>
             .
@@ -83,7 +83,7 @@ const SignUpPage = () => {
 
         <div className="flex items-center justify-center">
           <span className="text-gray-400">Already have account?</span>
-          <a className="text-white ml-2" href="login">
+          <a className="text-white ml-2" href="signin">
             Sign in
           </a>
         </div>
