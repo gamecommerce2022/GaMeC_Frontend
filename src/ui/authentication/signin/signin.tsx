@@ -1,28 +1,31 @@
 import axios from 'axios';
 import clsx from 'clsx';
 import { useState } from 'react';
-import loginImg from '../../../assets/images/app_icon.png';
+
 import CustomTextField from '../component/custom_text';
+import Cookies from 'universal-cookie';
 
 const LoginPage = () => {
+  const cookies = new Cookies();
   const [currentEmail, setCurrentEmail] = useState<string>('');
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isError, setIsError] = useState<boolean>(false);
-  const [accessToken, setAccessToken] = useState<string>();
   const signIn = () => {
     axios
       .post(`http://localhost:5000/api/auth/login`, {
         email: currentEmail,
         password: currentPassword,
       })
-      .then((res) => {
+      .then(async (res: any) => {
         console.log(res.data);
         console.log(res.data.accessToken);
-        
-        setAccessToken(res.data.accessToken)
+
+        const accessToken = res.data.accessToken;
+
+        cookies.set('accessToken', accessToken);
       })
-      .catch((res) => {
+      .catch((res: any) => {
         console.log(res.response.data.message);
         setErrorMessage(res.response.data.message);
         setIsError(true);
