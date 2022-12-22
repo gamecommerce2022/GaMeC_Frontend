@@ -16,11 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const menuList = [
   // { title: 'Dashboard', link: '/admin', component: <HomeIcon className="w-6 h-6" /> },
-  // {
-  //   title: 'Inbox',
-  //   link: '/admin/inbox',
-  //   component: <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6" />,
-  // },
+
   {
     title: 'Accounts',
     link: '/admin/accounts',
@@ -39,6 +35,11 @@ const menuList = [
     link: '/admin/news',
     component: <NewspaperIcon className="w-6 h-6" />,
     gap: true,
+  },
+  {
+    title: 'Report',
+    link: '/admin/report',
+    component: <ChatBubbleOvalLeftEllipsisIcon className="w-6 h-6" />,
   },
   { title: 'About', link: '/admin/info', component: <HomeModernIcon className="w-6 h-6" /> },
 ];

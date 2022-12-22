@@ -4,7 +4,8 @@ import { NotFoundPage } from '../page';
 import { CartDetailComponent } from './cart/get/cart_detail';
 import { CartTableComponent } from './cart/get/cart_table';
 import { SidebarComponent } from './component/side_navigator';
-import { InfoTableComponent } from './info/info_table';
+import { InfoComponent } from './info/info_component';
+import { ReportTableComponent } from './info/report_table';
 import { NewsAddComponent } from './news/add/news_add';
 import { NewsEditComponent } from './news/edit/news_edit';
 import { NewsTableComponent } from './news/get/news_table';
@@ -45,7 +46,8 @@ export const AdminPage = () => {
             path="accounts/:accountId"
             element={<EditAdminComponent />}
           />
-          <Route key="admin-info-page" path="info" element={<InfoTableComponent />} />
+          <Route key="admin-report-page" path="report" element={<ReportTableComponent />} />
+          <Route key="admin-info-page" path="info" element={<InfoComponent />} />
           <Route key="admin-cart-page" path="carts" element={<CartTableComponent />} />
           <Route
             key="admin-cart-detailed-page"
