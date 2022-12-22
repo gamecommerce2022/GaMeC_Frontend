@@ -1,7 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { NotFoundPage } from '../page';
+import { CartDetailComponent } from './cart/get/cart_detail';
+import { CartTableComponent } from './cart/get/cart_table';
 import { SidebarComponent } from './component/side_navigator';
+import { InfoTableComponent } from './info/info_table';
 import { NewsAddComponent } from './news/add/news_add';
 import { NewsEditComponent } from './news/edit/news_edit';
 import { NewsTableComponent } from './news/get/news_table';
@@ -42,8 +45,13 @@ export const AdminPage = () => {
             path="accounts/:accountId"
             element={<EditAdminComponent />}
           />
-          <Route key="admin-info-page" path="info" element={<div></div>} />
-          <Route key="admin-cart-page" path="carts" element={<div></div>} />
+          <Route key="admin-info-page" path="info" element={<InfoTableComponent />} />
+          <Route key="admin-cart-page" path="carts" element={<CartTableComponent />} />
+          <Route
+            key="admin-cart-detailed-page"
+            path="carts/cartId"
+            element={<CartDetailComponent />}
+          />
           <Route key="admin-not-found-page" path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
