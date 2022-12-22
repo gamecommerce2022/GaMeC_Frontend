@@ -23,7 +23,7 @@ const CustomTextField: React.FC<CustomTextFieldProps> = ({
           setValue(e.target.value);
         }}
         value={value}
-        className="rounded-lg bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
+        className="rounded-lg text-white bg-gray-700 mt-2 p-2 focus:border-blue-500 focus:bg-gray-800 focus:outline-none"
         type={isPassword ? 'password' : 'text'}
       />
     </div>

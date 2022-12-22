@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import appIcon from '../../../assets/images/app_icon.png';
 import CustomTextField from '../component/custom_text';
+import axios from 'axios';
 
 const SignUpPage = () => {
   const [firstName, setFirstName] = useState<string>('');
@@ -10,9 +11,23 @@ const SignUpPage = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
+
+  const signUp = () => {
+    axios
+      .post(`http://localhost:5000/api/auth/register`, {
+        firstName: firstName,
+        lastName: lastName,
+        displayName: displayName,
+        email: email,
+        password: password,
+      })
+      .then((res: any) => {
+        console.log(res.data);
+      });
+  };
   return (
     <div className="bg-black h-screen flex flex-col justify-center items-center">
-      <form className="w-auto mx-auto bg-gray-900 p-8 px-8 rounded-lg" action="">
+      <div className="w-auto mx-auto bg-gray-900 p-8 px-8 rounded-lg" onSubmit={signUp}>
         <div className=" flex items-center justify-center">
           <img className="w-1/2 rounded-lg" src={appIcon} alt="" />
         </div>
@@ -47,7 +62,7 @@ const SignUpPage = () => {
           />
           <label className="ml-2 text-sm font-medium text-white dark:text-gray-300">
             I agree with the{' '}
-            <a href="/" className="text-blue-600 dark:text-blue-500 hover:underline">
+            <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">
               terms and conditions
             </a>
             .
@@ -60,17 +75,19 @@ const SignUpPage = () => {
               ? 'cursor-not-allowed opacity-60'
               : 'cursor-pointer ',
           )}
+          onClick={signUp}
+          type="submit"
         >
           Sign Up
         </button>
 
         <div className="flex items-center justify-center">
           <span className="text-gray-400">Already have account?</span>
-          <a className="text-white ml-2" href="login">
+          <a className="text-white ml-2" href="signin">
             Sign in
           </a>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
