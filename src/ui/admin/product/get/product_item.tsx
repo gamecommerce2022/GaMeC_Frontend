@@ -1,12 +1,12 @@
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Game } from '../../../../model/product_model';
+import { Product } from '../../../../model/product_model';
 import * as ProductService from '../../../../services/product/product';
 
-export const ProductItemComponent: React.FC<{ index: number; product: Game }> = (props: {
+export const ProductItemComponent: React.FC<{ index: number; product: Product }> = (props: {
   index: number;
-  product: Game;
+  product: Product;
 }) => {
   let navigate = useNavigate();
   const [show, setShow] = useState(false);
@@ -35,7 +35,7 @@ export const ProductItemComponent: React.FC<{ index: number; product: Game }> = 
           <PencilIcon
             className="w-4 h-4 text-blue-500 hover:text-orange-500"
             onClick={() => {
-              navigate(`/admin/products/${props.product._id}`);
+              navigate(`/admin/products/${props.product.id}`);
             }}
           />
 
@@ -95,8 +95,8 @@ export const ProductItemComponent: React.FC<{ index: number; product: Game }> = 
                     type="button"
                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                     onClick={async () => {
-                      if (props.product._id) {
-                        let res = await ProductService.deleteGame(props.product._id);
+                      if (props.product.id) {
+                        let res = await ProductService.deleteGame(props.product.id);
                         if (res === true) {
                           navigate(0);
                         } else {

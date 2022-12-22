@@ -21,7 +21,7 @@ const SignUpPage = () => {
         email: email,
         password: password,
       })
-      .then((res:any) => {
+      .then((res: any) => {
         console.log(res.data);
       });
   };

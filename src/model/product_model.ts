@@ -1,5 +1,5 @@
-export type Game = {
-  _id?: string;
+export type Product = {
+  id?: string;
   title: string;
   type: string[];
   releaseDate: string;

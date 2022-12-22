@@ -67,7 +67,7 @@ module.exports = withMT({
   },
   variants: {
     extend: {
-      visibility: ["group-hover"],
+      visibility: ['group-hover'],
       height: {
         128: '32rem',
       },

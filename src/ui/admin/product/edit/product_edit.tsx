@@ -2,7 +2,7 @@
 import { BriefcaseIcon, HomeIcon, PencilIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Game } from '../../../../model/product_model';
+import { Product } from '../../../../model/product_model';
 import * as ProductService from '../../../../services/product/product';
 import { discountCalc, withCurrency } from '../../../../utils/product_utils';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
@@ -117,8 +117,8 @@ export const ProductEditComponent = () => {
           resImages.push(image);
         }
       }
-      let game: Game = {
-        _id: productId,
+      let game: Product = {
+        id: productId,
         title: title,
         type: type,
         releaseDate: releaseDate,
