@@ -1,95 +1,85 @@
 import Slider from 'react-slick';
 import GameCard from './component/game_card';
 import CarouselCard from './component/carousel_card';
-import { carouselData } from '../../../data/CarouselData';
-import { dataDigitalBestSeller } from '../../../data/Data';
+import { useEffect, useState } from 'react';
+import { settings, singleSettings } from '../../../config/carousel_setting';
+import axios from 'axios';
+import { Product } from '../../../model/product_model';
 export const HomePage = () => {
-  const customPagingSetting = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrow: false,
-    initialSlide: 0,
-    arrows: false,
-  };
-  const settings = {
-    dots: true,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 3,
-    initialSlide: 0,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  const [products, setProducts] = useState<Product[]>();
+  useEffect(() => {
+    let results = new Array<Product>();
+    const getProductData = async () => {
+      const result = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/products?page=0&perPage=10&q&sort=1`,
+      );
+      result.data.products.forEach((product: any) => {
+        const result: Product = {
+          id: product._id,
+          title: product.title,
+          type: product.type,
+          releaseDate: product.releaseDate,
+          platform: product.platform,
+          maxPlayer: product.maxPlayer,
+          total: product.total,
+          status: product.status,
+          discount: product.discount,
+          price: product.price,
+          shortDescription: product.shortDescription,
+          note: product.note,
+          tags: product.tags,
+          imageList: product.imageList,
+          videoList: product.videoList,
+          description: product.description,
+        };
+        results.push(result);
+      });
+      setProducts(results);
+    };
+    getProductData();
+  }, []);
+
   return (
     <div className="m-6">
       <div className="text-2xl text-white">FEATURED & RECOMMENDED</div>
-      <Slider {...customPagingSetting}>
-        {carouselData.map((item) => (
-          <CarouselCard {...item} />
+      <Slider {...singleSettings}>
+        {products?.map((product) => (
+          <CarouselCard {...product} />
         ))}
       </Slider>
       <div className="text-2xl text-white mt-20">Halloween Spotlight</div>
 
       <Slider {...settings}>
-        {dataDigitalBestSeller.map((item) => (
-          <GameCard {...item} />
+        {products?.map((product) => (
+          <GameCard {...product} />
         ))}
       </Slider>
 
       <div className="text-2xl text-white">Most Popular</div>
       <Slider {...settings}>
-        {dataDigitalBestSeller.map((item) => (
-          <GameCard {...item} />
+        {products?.map((product) => (
+          <GameCard {...product} />
         ))}
       </Slider>
 
       <div className="text-2xl text-white">Game with Achievements</div>
       <Slider {...settings}>
-        {dataDigitalBestSeller.map((item) => (
-          <GameCard {...item} />
+        {products?.map((product) => (
+          <GameCard {...product} />
         ))}
       </Slider>
 
       <div className="text-2xl text-white">Recently Updated</div>
       <Slider {...settings}>
-        {dataDigitalBestSeller.map((item) => (
-          <GameCard {...item} />
+        {products?.map((product) => (
+          <GameCard {...product} />
         ))}
       </Slider>
 
       <div className="text-2xl text-white">New on GameC</div>
       <Slider {...settings}>
-        {dataDigitalBestSeller.map((item) => (
-          <GameCard {...item} />
+        {products?.map((product) => (
+          <GameCard {...product} />
         ))}
       </Slider>
     </div>

@@ -1,33 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Product } from '../../../../model/product_model';
 
-const CarouselCard = (item: {
-  id: number;
-  title: string;
-  originalPrice: number;
-  discountPercent: number;
-  category: string;
-  thumbnailUrl: string;
-  subThumbnails: string[];
-}) => {
-  const [currentThumbnail, setCurrentThumbnail] = useState(item.thumbnailUrl);
-  const realPrice = (item.originalPrice * (100 - item.discountPercent)) / 100;
+const CarouselCard = (product: Product) => {
+  const [images, setImages] = useState<string[]>();
+  useEffect(() => {
+    return () => {
+      setImages(product.imageList?.splice(0, 4));
+    };
+  }, []);
+
+  const [currentThumbnail, setCurrentThumbnail] = useState(product.imageList![0] ?? '');
+  const realPrice =
+    product.price * (product.discount == null ? 1 : product.discount === 0 ? 1 : product.discount);
+  const discount = product.discount === null ? 0 : product.discount! * 100;
   return (
     <div className="flex flex-row cursor-pointer">
       <img
-        className="rounded-md w-3/5 transition duration-1000 h-s"
+        className="rounded-md w-3/5 transition duration-1000 h-[800px]"
         src={currentThumbnail}
         alt=""
       />
       <div className="w-2/5 ml-4 flex flex-col">
-        <p className="text-white text-2xl">{item.title}</p>
+        <p className="text-white text-2xl">{product.title}</p>
         <div className="grid grid-cols-2 gap-2">
-          {item.subThumbnails.map((subThumbnail) => (
+          {images?.map((image: any) => (
             <img
-              onMouseEnter={() => setCurrentThumbnail(subThumbnail)}
-              onMouseLeave={() => setCurrentThumbnail(item.thumbnailUrl)}
-              className="w-full transition duration-300 filter brightness-50 hover:brightness-100"
+              onMouseEnter={() => setCurrentThumbnail(image)}
+              onMouseLeave={() => setCurrentThumbnail(product.imageList![0])}
+              className="w-full h-full transition duration-300 filter brightness-50 hover:brightness-100 object-cover"
               alt=""
-              src={subThumbnail}
+              src={image}
             />
           ))}
         </div>
@@ -38,19 +40,36 @@ const CarouselCard = (item: {
         </div>
 
         <div className="flex-grow"></div>
-        {realPrice !== item.originalPrice ? (
+        {realPrice !== product.price ? (
           <div className="flex">
-            <span className="text-green-banana bg-green-dark font-semibold px-1">
-              -{item.discountPercent}%
-            </span>
-
+            {discount !== 0 ? (
+              <span className="text-green-banana bg-green-dark font-semibold px-1">
+                -{discount}%
+              </span>
+            ) : (
+              <span className="text-green-banana bg-green-dark font-semibold px-1"></span>
+            )}
             <span className="bg-gray-dark">
-              <span className="text-gray-600 line-through pl-1">{item.originalPrice}</span>
-              <span className="text-green-banana no-underline px-1">{realPrice}</span>
+              <span className="text-gray-600 line-through pl-1">
+                {product.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+              </span>
+              <span className="text-green-banana no-underline px-1">
+                {realPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+              </span>
             </span>
           </div>
         ) : (
-          <p className="text-white text-xs">{realPrice !== 0 ? realPrice : 'Free to play'}</p>
+          <div className="flex">
+            <span className="bg-gray-dark">
+              <span className="text-white pl-1">
+                {realPrice !== 0
+                  ? realPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })
+                  : 'Free to play'}
+              </span>
+              {/* <span className="text-green-banana no-underline px-1">{realPrice}</span>
+            <p className="text-white text-xs">{realPrice !== 0 ? realPrice : 'Free to play'}</p> */}
+            </span>
+          </div>
         )}
       </div>
     </div>
