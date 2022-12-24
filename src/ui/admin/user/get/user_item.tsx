@@ -17,7 +17,7 @@ export const UserItemComponent: React.FC<{ index: number; user: User }> = (props
       <th scope="row" className="py-4 px-6 font-medium text-gray-900 ">
         {props.index}
       </th>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.name}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.firstName}</td>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.email}</td>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.address}</td>
       <td className="py-4 px-6">
@@ -25,7 +25,7 @@ export const UserItemComponent: React.FC<{ index: number; user: User }> = (props
           <MagnifyingGlassCircleIcon
             className="w-4 h-4 text-blue-500 hover:text-orange-500"
             onClick={() => {
-              navigate(`/admin/accounts/${props.user._id}`);
+              navigate(`/admin/accounts/${props.user.id}`);
             }}
           />
 
@@ -85,8 +85,8 @@ export const UserItemComponent: React.FC<{ index: number; user: User }> = (props
                     type="button"
                     className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
                     onClick={async () => {
-                      if (props.user._id) {
-                        let res = await UserService.deleteUser(props.user._id);
+                      if (props.user.id) {
+                        let res = await UserService.deleteUser(props.user.id);
                         if (res === true) {
                           navigate(0);
                         } else {

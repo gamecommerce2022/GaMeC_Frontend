@@ -238,7 +238,7 @@ export const UserTableComponent = () => {
         key="table-component-key"
         headerList={['ID', 'NAME', 'EMAIL', 'ADDRESS', '']}
         bodyList={userList.map((user, index) => {
-          return <UserItemComponent user={user} index={index + 1} key={`${index}-${user._id}`} />;
+          return <UserItemComponent user={user} index={index + 1} key={`${index}-${user.id}`} />;
         })}
       />
 

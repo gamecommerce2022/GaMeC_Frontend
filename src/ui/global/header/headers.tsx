@@ -9,13 +9,42 @@ import {
 } from '@material-tailwind/react';
 import { Bars3Icon, XMarkIcon, HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/solid';
 import { Link, useNavigate } from 'react-router-dom';
-
+import { User } from '../../../model/user_model';
+import * as jwt from 'jsonwebtoken';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 export const Headers = () => {
   const [openNav, setOpenNav] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<boolean>(false);
+  const [currentUser, setCurrentUser] = useState<User>();
 
   useEffect(() => {
     window.addEventListener('resize', () => window.innerWidth >= 960 && setOpenNav(false));
+
+    const getCurrentUser = async () => {
+      const accessToken = await new Cookies().get('accessToken');
+      console.log(accessToken);
+
+      let config = { headers: { Authorization: 'Bearer ' + accessToken } };
+      const result = await axios.post(
+        `http://localhost:5000/api/user/get-current-user`,
+        {},
+        config,
+      );
+      const userInJson = result.data.user;
+      console.log(userInJson);
+      const user: User = {
+        id: userInJson.id,
+        firstName: userInJson.firstName,
+        lastName: userInJson.lastName,
+        displayName: userInJson.displayName,
+        address: '99 van xuan',
+        favorites: userInJson.favorites,
+        email: userInJson.email,
+      };
+      setCurrentUser(user);
+    };
+    getCurrentUser();
   }, []);
 
   const navigate = useNavigate();
@@ -70,23 +99,17 @@ export const Headers = () => {
           </IconButton>
 
           {/** Avatar User or Login Button */}
-          {!avatar ? (
+          {!currentUser ? (
             <Button
               variant="gradient"
               size="sm"
               className="hidden lg:inline-block mx-2"
-              onClick={() => setAvatar(true)}
+              onClick={() => navigate('/signin')}
             >
-              <Link to="/signin">Sign in</Link>
+              <span>Sign in</span>
             </Button>
           ) : (
-            <Button
-              variant="text"
-              className="hidden lg:flex flex-row items-center py-0"
-              onClick={() => setAvatar(false)}
-            >
-              <Typography variant="small">User Special Name</Typography>
-            </Button>
+            <Typography variant="small">{currentUser.displayName}</Typography>
           )}
         </div>
 
