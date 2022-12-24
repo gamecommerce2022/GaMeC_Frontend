@@ -20,8 +20,8 @@ const GameCard = (product: Product) => {
         <FontAwesomeIcon
           title="Add to wishlist"
           onClick={() => {
-            const cookie = new Cookies().get('accessToken');
-            if (!cookie) {
+            const accessToken = new Cookies().get('accessToken');
+            if (!accessToken) {
               navigate('/signin');
               
             }

@@ -13,6 +13,8 @@ const LoginPage = () => {
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signIn = async () => {
+    console.log('signing in...');
+
     setIsLoading(true);
     axios
       .post(`${process.env.REACT_APP_API_URL}/api/auth/login`, {
@@ -67,7 +69,7 @@ const LoginPage = () => {
         </div>
 
         <button
-          onClick={async () => await signIn}
+          onClick={signIn}
           className={clsx(
             'w-full my-5 py-2 bg-blue-600 shadow-lg text-white font-semibold rounded-lg h-12',
             !currentEmail || !currentPassword ? 'cursor-not-allowed opacity-60' : 'cursor-pointer ',
