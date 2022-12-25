@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
+import { useNavigate } from 'react-router-dom';
+import { getWishlist } from '../../../services/user/getProduct';
 import { useAppSelector } from '../../../store/hook';
 import { selectWishlisted } from '../../../store/user_product_slice';
 import { EmptyList } from '../../global/component/emptylist/empty_list';
@@ -7,16 +9,22 @@ import { Pagination } from '../../global/component/pagination/pagination';
 import { WishlistCard } from './component';
 
 export const WishListPage = () => {
-  const wishlist = useAppSelector(selectWishlisted);
-  const [defaultPage, setDefaultPage] = useState(0);
+  const [wishlist, setWishlist] = useState<any[]>([])
+  const navigate = useNavigate()
 
-  function goToNextPage(page: number) {}
+  useEffect(() => {
+   getWishlist(navigate).then((productList) => {
+    console.log(productList)
+      setWishlist(productList)
+    })
+  }, [])
+  console.log(wishlist.length)
 
   if (wishlist.length === 0) {
     return (
       <EmptyList
         title="Your wishlist is empty"
-        description="Games added to your wishlist will appear here"
+        description="Product added to your wishlist will appear here"
         buttonText="back to store"
         linkTo="/"
       />
@@ -46,16 +54,10 @@ export const WishListPage = () => {
             discount={product.discount || 0}
             price={product.price}
             realeaseDate={product.releaseDate}
+            navigation={navigate}
           />
         ))}
       </div>
-      <Pagination
-        pagesCount={defaultPage}
-        pageRangeDisplayed={5}
-        onChange={(selected) => {
-          goToNextPage(selected.selected);
-        }}
-      />
     </div>
   );
 };

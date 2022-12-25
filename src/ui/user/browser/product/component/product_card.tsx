@@ -42,8 +42,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
             type="button"
             onClick={() => {
               updateUserProduct({
-                userId: '',
-                product: product,
+                produtId: product.id!,
                 status: 'IN_CART',
                 navigation: navigate,
               });
@@ -57,9 +56,8 @@ export const ProductCard = ({ product }: IProductCardProps) => {
             type="button"
             onClick={() => {
               updateUserProduct({
-                userId: '',
-                product: product,
-                status: 'WISHLISTED',
+                produtId: product.id!,
+                status: 'IN_WISHLIST',
                 navigation: navigate,
               });
               // updateUserGames({
@@ -79,15 +77,13 @@ export const ProductCard = ({ product }: IProductCardProps) => {
             className="w-full py-2 mt-4 bg-transparent btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none ring-1 ring-white hover:bg-[#404040] active:bg-[#404040] active:ring-2"
             type="button"
             onClick={
-              () => {}
-              // updateUserGames({
-              //  uid: uid || '',
-              //  gameId: product.id,
-              //  status: product.wishlisted
-              //   ? 'REMOVED_FROM_WISHLIST'
-              //   : 'WISHLISTED',
-              //  history,
-              // })
+              () => {
+                updateUserProduct({
+                  produtId: product.id!,
+                  status: 'IN_WISHLIST',
+                  navigation: navigate,
+                });
+              }             
             }
           >
             {false ? 'IN WISHLIST' : 'ADD TO WISHLIST'}

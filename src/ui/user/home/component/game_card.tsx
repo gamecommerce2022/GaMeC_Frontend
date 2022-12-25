@@ -9,7 +9,9 @@ const GameCard = (product: Product) => {
   const realPrice = product.price * (product.discount! !== 0 ? product.discount! : 1);
   const navigate = useNavigate();
   return (
-    <div className="mr-10 cursor-pointer group h-[380px] flex flex-col">
+    <div className="mr-10 cursor-pointer group h-[380px] flex flex-col" onClick={() => {
+      navigate(`/user/products/${product.id}`)
+    }}>
       <div className="relative">
         <img
           className="w-full h-[150px] rounded brightness-90 hover:brightness-100"
