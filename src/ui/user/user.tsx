@@ -1,6 +1,7 @@
-import { Footer } from 'flowbite-react';
+
 import { Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import FooterApp from '../global/footer/footer';
 import { Headers } from '../global/header/headers';
 import { NotFoundPage } from '../page';
 import { CategoryPage, ProductPage, SearchPage } from './browser/browser';
@@ -38,7 +39,8 @@ export const UserPage = () => {
           />
           <Route key="user-not found-page" path="*" element={<NotFoundPage />} />
         </Routes>
-        <Footer />
+<FooterApp />
+        
       </div>
     </Fragment>
   );

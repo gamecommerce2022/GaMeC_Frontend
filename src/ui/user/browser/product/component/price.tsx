@@ -7,13 +7,16 @@ export interface IPriceProps {
 }
 
 export const Discounted = ({ discount, price }: IPriceProps) => (
-  <>
-    <span className={`px-1 py-0.5 mr-2 bg-green-700 text-white rounded-sm`}>
+  <div className='flex flex-row items-center gap-x-4'>
+    <div className={`px-1 py-0.5 mr-2 bg-green-700 text-white rounded-sm`}>
       -{(discount as number) * 100}%
-    </span>
-    <span className="mr-2 text-gray-400 line-through">{withCurrency(price)}</span>
-    <span className="">{withCurrency(discountCalc(discount, price))}</span>
-  </>
+    </div>
+    <div>
+    <div className="mr-2 text-gray-400 line-through">{withCurrency(price)}</div>
+    <div className="">{withCurrency(discountCalc(discount, price))}</div>
+    </div>
+  
+  </div>
 );
 
 export const Price = ({ price, discount, classes }: IPriceProps) => {

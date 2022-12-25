@@ -1,6 +1,6 @@
 export type UserProductStatus =
   | 'IN_CART'
-  | 'WISHLISTED'
+  | 'IN_WISHLIST'
   | 'PURCHASED'
   | 'REMOVED_FROM_CART'
   | 'REMOVED_FROM_WISHLIST'
