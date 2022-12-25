@@ -1,13 +1,16 @@
 import { Product } from '../../../../../model/product_model';
 import { Price } from '../../../browser/product/component/price';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { updateUserProduct } from '../../../../../services/user/getProduct';
+import { NavigateFunction } from 'react-router-dom';
 
 export interface ICartCardProps {
   product: Product;
   classes?: string;
+  navigation: NavigateFunction;
 }
 
-export const CartCard = ({ product, classes }: ICartCardProps) => {
+export const CartCard = ({ product, classes, navigation }: ICartCardProps) => {
   return (
     <div className={`flex relative items-start bg-gray-800 shadow-lg rounded h-24  ${classes}`}>
       <img src={product.imageList![0]} alt="" className="object-cover w-16 h-full mr-2 rounded-l" />
@@ -19,11 +22,13 @@ export const CartCard = ({ product, classes }: ICartCardProps) => {
 
       <button
         type="button"
-        className="absolute top-0 right-0 ml-auto"
+        className="absolute top-0 right-0 ml-auto bg-transparent"
         aria-label="close"
-        onClick={() => {}}
+        onClick={() => {
+          updateUserProduct({ produtId: product.id!, status: 'REMOVED_FROM_CART', navigation });
+        }}
       >
-        <XMarkIcon className="w-8 h-8 p-1 text-gray-400" />
+        <XMarkIcon className="w-8 h-8 p-1 text-red-500 hover:text-red-300" />
       </button>
     </div>
   );

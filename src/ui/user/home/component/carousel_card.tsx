@@ -4,7 +4,7 @@ import { Product } from '../../../../model/product_model';
 
 const CarouselCard = (product: Product) => {
   const [images, setImages] = useState<string[]>();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     return () => {
       setImages(product.imageList?.splice(0, 4));
@@ -16,9 +16,12 @@ const CarouselCard = (product: Product) => {
     product.price * (product.discount == null ? 1 : product.discount === 0 ? 1 : product.discount);
   const discount = product.discount === null ? 0 : product.discount! * 100;
   return (
-    <div className="flex flex-row cursor-pointer" onClick={() => {
-      navigate(`/user/products/${product.id}`)
-    }}>
+    <div
+      className="flex flex-row cursor-pointer"
+      onClick={() => {
+        navigate(`/user/products/${product.id}`);
+      }}
+    >
       <img
         className="rounded-md w-3/5 transition duration-1000 h-[800px]"
         src={currentThumbnail}

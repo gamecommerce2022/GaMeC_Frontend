@@ -1,4 +1,3 @@
-
 import { Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FooterApp from '../global/footer/footer';
@@ -39,8 +38,7 @@ export const UserPage = () => {
           />
           <Route key="user-not found-page" path="*" element={<NotFoundPage />} />
         </Routes>
-<FooterApp />
-        
+        <FooterApp />
       </div>
     </Fragment>
   );

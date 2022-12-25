@@ -9,16 +9,14 @@ import { Pagination } from '../../global/component/pagination/pagination';
 import { WishlistCard } from './component';
 
 export const WishListPage = () => {
-  const [wishlist, setWishlist] = useState<any[]>([])
-  const navigate = useNavigate()
+  const [wishlist, setWishlist] = useState<any[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-   getWishlist(navigate).then((productList) => {
-    console.log(productList)
-      setWishlist(productList)
-    })
-  }, [])
-  console.log(wishlist.length)
+    getWishlist(navigate).then((productList) => {
+      setWishlist(productList);
+    });
+  }, []);
 
   if (wishlist.length === 0) {
     return (

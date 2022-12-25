@@ -1,14 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Product } from '../../../../model/product_model';
+import { getCarts } from '../../../../services/user/getProduct';
 import { withCurrency } from '../../../../utils/product_utils';
 import { EmptyList } from '../../../global/component/emptylist/empty_list';
 import { CartCard } from './component';
 
 export const CartPage = () => {
-  const productInCart: Product[] = [];
+  const [productInCart, setProductInCart] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const findTotalAmount = 1000000;
-  const findTax = 600;
+  const [findTotalAmount, setFindTotalAmount] = useState(0);
+  const [findTax, setFindTax] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getCarts(navigate).then((productList) => {
+      setProductInCart(productList);
+      let total = 0;
+      productList.map((item) => (total = total + item.price * (1 - (item.discount || 0))));
+      setFindTotalAmount(total);
+      setFindTax(total * 0.05);
+    });
+  }, []);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -33,7 +46,7 @@ export const CartPage = () => {
       <div className="gap-3 sm:gap-6 sm:grid sm:grid-cols-2">
         <div data-testid="cart-page-list" className="sm:col-span-1">
           {productInCart.map((product) => (
-            <CartCard key={product.id} product={product} classes="mb-3" />
+            <CartCard key={product.id} product={product} classes="mb-3" navigation={navigate} />
           ))}
         </div>
         <div className="relative">
@@ -42,13 +55,13 @@ export const CartPage = () => {
             className="flex flex-col font-mono text-sm top-4 sm:sticky sm:mt-0"
           >
             <div className="mb-3 text-base font-semibold">Order summary</div>
-            <div className="flex justify-between py-1">
+            <div className="flex justify-between py-1 text-gray-300">
               <div>Subtotal</div>
-              <div className="tracking-wider ">{withCurrency(findTotalAmount)}</div>
+              <div className="tracking-wider text-white">{withCurrency(findTotalAmount)}</div>
             </div>
-            <div className="flex justify-between py-1">
+            <div className="flex justify-between py-1 text-gray-300">
               <div>Tax</div>
-              <div className="tracking-wider ">{withCurrency(findTax)}</div>
+              <div className="tracking-wider text-white">{withCurrency(findTax)}</div>
             </div>
             <div className="my-1 border-t border-gray-700" />
             <div className="flex justify-between py-1 font-semibold">

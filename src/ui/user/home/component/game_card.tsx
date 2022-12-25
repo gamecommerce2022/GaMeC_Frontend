@@ -9,9 +9,12 @@ const GameCard = (product: Product) => {
   const realPrice = product.price * (product.discount! !== 0 ? product.discount! : 1);
   const navigate = useNavigate();
   return (
-    <div className="mr-10 cursor-pointer group h-[380px] flex flex-col" onClick={() => {
-      navigate(`/user/products/${product.id}`)
-    }}>
+    <div
+      className="mr-10 cursor-pointer group h-[380px] flex flex-col"
+      onClick={() => {
+        navigate(`/user/products/${product.id}`);
+      }}
+    >
       <div className="relative">
         <img
           className="w-full h-[150px] rounded brightness-90 hover:brightness-100"
@@ -25,7 +28,6 @@ const GameCard = (product: Product) => {
             const accessToken = new Cookies().get('accessToken');
             if (!accessToken) {
               navigate('/signin');
-              
             }
           }}
           className="absolute invisible mt-1 mr-1 top-0 right-0 group-hover:visible cursor-pointer "

@@ -12,7 +12,7 @@ export interface IWishlistCardProps {
   imageUrl: string;
   realeaseDate: string;
   date: string;
-  navigation: NavigateFunction,
+  navigation: NavigateFunction;
 }
 
 export const WishlistCard = ({
@@ -52,7 +52,13 @@ export const WishlistCard = ({
           </button>
         </div>
       </div>
-      <button type="button" className="absolute top-0 right-0 z-10 bg-transparent" onClick={() => {updateUserProduct({produtId: id,status: 'REMOVED_FROM_WISHLIST', navigation})}}>
+      <button
+        type="button"
+        className="absolute top-0 right-0 z-10 bg-transparent"
+        onClick={() => {
+          updateUserProduct({ produtId: id, status: 'REMOVED_FROM_WISHLIST', navigation });
+        }}
+      >
         <XMarkIcon className="w-8 h-8 p-2 text-red-500 bg-transparent hover:text-red-200 " />
       </button>
     </div>

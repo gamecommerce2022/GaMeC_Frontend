@@ -57,7 +57,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
             onClick={() => {
               updateUserProduct({
                 produtId: product.id!,
-                status: 'IN_WISHLIST',
+                status: 'IN_CART',
                 navigation: navigate,
               });
               // updateUserGames({
@@ -76,15 +76,13 @@ export const ProductCard = ({ product }: IProductCardProps) => {
           <button
             className="w-full py-2 mt-4 bg-transparent btn btn-xl text-gray-50 rounded text-sm lg:text-base border-none ring-1 ring-white hover:bg-[#404040] active:bg-[#404040] active:ring-2"
             type="button"
-            onClick={
-              () => {
-                updateUserProduct({
-                  produtId: product.id!,
-                  status: 'IN_WISHLIST',
-                  navigation: navigate,
-                });
-              }             
-            }
+            onClick={() => {
+              updateUserProduct({
+                produtId: product.id!,
+                status: 'IN_WISHLIST',
+                navigation: navigate,
+              });
+            }}
           >
             {false ? 'IN WISHLIST' : 'ADD TO WISHLIST'}
           </button>
