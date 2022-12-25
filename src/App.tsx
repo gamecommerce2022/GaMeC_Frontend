@@ -21,7 +21,7 @@ function App() {
         <Route key="forgot-password-page" path="forgot-password" element={<ForgotPasswordPage />} />
         <Route
           key="verify-email-page"
-          path="activate/:activation_token"
+          path="verify-account/:email/:token"
           element={<VerifyEmailPage />}
         />
         <Route
