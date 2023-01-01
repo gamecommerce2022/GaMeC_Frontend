@@ -31,13 +31,20 @@ const CarouselCard = (product: Product) => {
         <p className="text-white text-2xl">{product.title}</p>
         <div className="grid grid-cols-2 gap-2">
           {images?.map((image: any) => (
-            <img
+            <div
+              className="mt-6 bg-black aspect-w-2 aspect-h-2 mx-3 transition duration-300 filter brightness-50 hover:brightness-100"
               onMouseEnter={() => setCurrentThumbnail(image)}
               onMouseLeave={() => setCurrentThumbnail(product.imageList![0])}
-              className="w-full h-full transition duration-300 filter brightness-50 hover:brightness-100 object-cover"
-              alt=""
-              src={image}
-            />
+            >
+              <img className="object-fill w-full h-full rounded-sm" src={image} alt={image} />
+            </div>
+            // <img
+            //   onMouseEnter={() => setCurrentThumbnail(image)}
+            //   onMouseLeave={() => setCurrentThumbnail(product.imageList![0])}
+            //   className="w-full h-full transition duration-300 filter brightness-50 hover:brightness-100 object-cover"
+            //   alt=""
+            //   src={image}
+            // />
           ))}
         </div>
         <p className="text-white text-2xl">Now Available</p>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Product } from '../../model/product_model';
-import { config } from '../cofig';
+import { config } from '../config';
 import { productUrl } from '../url';
 
 export const editGame: (game: Product) => Promise<boolean> = async (game: Product) => {

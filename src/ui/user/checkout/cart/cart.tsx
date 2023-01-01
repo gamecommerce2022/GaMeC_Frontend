@@ -1,18 +1,21 @@
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../../../../model/product_model';
 import { getCarts } from '../../../../services/user/getProduct';
+import { CheckoutUtils } from '../../../../utils/checkout_utils';
+import { CircularProgressIndicator } from '../../../../utils/circular_progress_indicator';
 import { withCurrency } from '../../../../utils/product_utils';
 import { EmptyList } from '../../../global/component/emptylist/empty_list';
 import { CartCard } from './component';
 
 export const CartPage = () => {
   const [productInCart, setProductInCart] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [findTotalAmount, setFindTotalAmount] = useState(0);
   const [findTax, setFindTax] = useState(0);
   const navigate = useNavigate();
-
+  const productsId: string[] = [];
   useEffect(() => {
     getCarts(navigate).then((productList) => {
       setProductInCart(productList);
@@ -25,7 +28,12 @@ export const CartPage = () => {
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
-    setLoading(true);
+    for (const product of productInCart) {
+      console.log(product.id);
+      productsId.push(product.id ?? '');
+    }
+    console.log(productsId);
+    setIsLoading(true);
   };
 
   if (productInCart.length === 0)
@@ -37,7 +45,18 @@ export const CartPage = () => {
         linkTo="/user"
       />
     );
+  const startCheckoutProcess = async () => {
+    for (const product of productInCart) {
+      console.log(product.id);
+      productsId.push(product.id ?? '');
+    }
+    console.log(productsId);
+    setIsLoading(true);
+    const checkoutUrl = await CheckoutUtils.getCheckoutUrl(productsId);
+    window.location.href = checkoutUrl ?? window.location.href;
 
+    setIsLoading(false);
+  };
   return (
     <div className="flex flex-col mx-12 mt-12 lg:mx-40 md:mx-20">
       <div className="text-gray-100 text-2xl">Cart</div>
@@ -69,36 +88,15 @@ export const CartPage = () => {
               <div className="tracking-wider ">{withCurrency(findTax + findTotalAmount)}</div>
             </div>
             <button
-              className="w-full px-4 py-3 mt-4 tracking-widest bg-primary btn hover:bg-primary-600"
-              type="submit"
+              onClick={startCheckoutProcess}
+              className={clsx(
+                'w-full my-5 py-2 bg-blue-600 shadow-lg text-white font-semibold rounded-lg h-12',
+
+                'cursor-pointer ',
+              )}
             >
-              {loading ? 'Purchasing...' : 'Checkout'}
+              {isLoading ? <CircularProgressIndicator /> : <span>Sign In</span>}
             </button>
-            <div className="mt-2 text-xs text-gray-400">
-              <div>Stripe payment is temporarily disabled in this project.</div>
-              <div>
-                Please refer to{' '}
-                <a
-                  target="_blank"
-                  className="text-primary"
-                  href="https://ikea.iamkarthick.com"
-                  rel="noreferrer"
-                >
-                  IKEA Clone
-                </a>
-                or
-                <a
-                  target="_blank"
-                  className="text-primary"
-                  href="https://zillow.iamkarthick.com"
-                  rel="noreferrer"
-                >
-                  Zillow Clone
-                </a>{' '}
-                to see stripe payment in action.
-                <div>Thankyou</div>
-              </div>
-            </div>
           </form>
         </div>
       </div>

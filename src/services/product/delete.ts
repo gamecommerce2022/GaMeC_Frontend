@@ -1,5 +1,5 @@
 import axios from "axios";
-import { config } from "../cofig";
+import { config } from "../config";
 import { productUrl } from "../url";
 
 export const deleteGame : (id: string) => Promise<boolean> = async (id: string) => {

@@ -4,6 +4,9 @@ import * as FreeSolidIcon from '@fortawesome/free-solid-svg-icons';
 import { Product } from '../../../../model/product_model';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { config } from '../../../../services/config';
+import { toast, ToastContainer } from 'react-toastify';
 
 const GameCard = (product: Product) => {
   const realPrice = product.price * (product.discount! !== 0 ? product.discount! : 1);
@@ -15,6 +18,7 @@ const GameCard = (product: Product) => {
         navigate(`/user/products/${product.id}`);
       }}
     >
+      <ToastContainer />
       <div className="relative">
         <img
           className="w-full h-[150px] rounded brightness-90 hover:brightness-100"
@@ -23,11 +27,31 @@ const GameCard = (product: Product) => {
         />
 
         <FontAwesomeIcon
-          title="Add to wishlist"
-          onClick={() => {
+          title="Add to favorites"
+          onClick={async () => {
             const accessToken = new Cookies().get('accessToken');
             if (!accessToken) {
               navigate('/signin');
+            } else {
+              await axios
+                .post(
+                  `${process.env.REACT_APP_API_URL}/api/shopping/add-to-favorites`,
+                  {
+                    productId: product.id,
+                  },
+                  config,
+                )
+                .then((response) => {
+                  console.log(response);
+                  if (response.data.statusCode === 200) {
+                    toast.success('Adding success', { theme: 'dark' });
+                  } else {
+                    toast.error(response.data.message, { theme: 'dark' });
+                  }
+                })
+                .catch((err) => {
+                  toast.error(err.response.data.message, { theme: 'dark' });
+                });
             }
           }}
           className="absolute invisible mt-1 mr-1 top-0 right-0 group-hover:visible cursor-pointer "

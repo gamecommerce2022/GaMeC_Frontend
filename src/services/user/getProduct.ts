@@ -1,7 +1,7 @@
 import { UserProductStatus } from "../../data/status"
 import { Product } from "../../model/product_model"
 import { NavigateFunction  } from 'react-router-dom'
-import { config, token } from "../cofig"
+import { config, token } from "../config"
 import { shoppingUrl } from "../url"
 import axios from "axios"
 import { getProductById } from "../product/get"

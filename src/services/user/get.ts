@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
 import { User } from '../../model/user_model';
-import { config, token } from '../cofig';
+import { config, token } from '../config';
 import { userUrl } from '../url';
 
 export const get: (
