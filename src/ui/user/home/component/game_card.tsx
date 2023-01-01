@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 const GameCard = (product: Product) => {
-  const realPrice = product.price * (product.discount! !== 0 ? product.discount! : 1);
+  const realPrice = product.price * (product.discount! !== 0 ? 1 - product.discount! : 1);
   const navigate = useNavigate();
   return (
     <a href={`http://localhost:3000/user/products/${product.id}`}>

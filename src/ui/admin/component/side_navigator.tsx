@@ -12,7 +12,7 @@ import {
   PresentationChartLineIcon,
   HomeModernIcon,
 } from '@heroicons/react/24/outline';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const menuList = [
   // { title: 'Dashboard', link: '/admin', component: <HomeIcon className="w-6 h-6" /> },
@@ -59,20 +59,22 @@ export const SidebarComponent = () => {
         {open && <ChevronLeftIcon className={`w-6 h-6 ${open ? 'rotate-180 block ' : 'hidden'}`} />}
         {!open && <Bars3Icon className={`w-6 h-6 ${!open ? 'rotate-180 block' : 'hidden'}`} />}
       </div>
-      <div className="flex gap-x-4 items-center">
-        <img
-          src={AppIcon}
-          alt=""
-          className={`cursor-pointer duration-500 w-12 h-12 ${open && 'rotate-[360deg]'}`}
-        />
-        <h1
-          className={`text-white origin-left font-medium text-2xl duration-200 pt-3 ${
-            !open && 'scale-0'
-          }`}
-        >
-          GaMeC
-        </h1>
-      </div>
+      <Link to="/user" replace>
+        <div className="flex gap-x-4 items-center">
+          <img
+            src={AppIcon}
+            alt="app_icon"
+            className={`cursor-pointer duration-500 w-12 h-12 ${open && 'rotate-[360deg]'}`}
+          />
+          <h1
+            className={`text-white origin-left font-medium text-2xl duration-200 pt-3 ${
+              !open && 'scale-0'
+            }`}
+          >
+            GaMeC
+          </h1>
+        </div>
+      </Link>
       <ul className="pt-6">
         {menuList.map((menu, index) => (
           <li

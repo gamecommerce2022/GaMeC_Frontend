@@ -43,6 +43,8 @@ export const Headers = () => {
         address: '99 van xuan',
         favorites: userInJson.favorites,
         email: userInJson.email,
+        isVerified: userInJson.isVerified,
+        role: userInJson.role,
       };
       setCurrentUser(user);
     };
@@ -111,7 +113,11 @@ export const Headers = () => {
               <span>Sign in</span>
             </Button>
           ) : (
-            <Typography variant="small">{currentUser.displayName}</Typography>
+            <Link to="info">
+              <Typography variant="small" className="text-white">
+                {currentUser.displayName}
+              </Typography>
+            </Link>
           )}
         </div>
 
@@ -146,9 +152,23 @@ export const Headers = () => {
         >
           <span>Cart</span>
         </Button>
-        <Button variant="gradient" size="sm" fullWidth className="mb-2">
-          <span>Sign in</span>
-        </Button>
+        {/** Avatar User or Login Button */}
+        {!currentUser ? (
+          <Button
+            variant="gradient"
+            size="sm"
+            className="hidden lg:inline-block mx-2"
+            onClick={() => navigate('/signin')}
+          >
+            <span>Sign in</span>
+          </Button>
+        ) : (
+          <Link to="info">
+            <Typography variant="small" className="text-white">
+              {currentUser.displayName}
+            </Typography>
+          </Link>
+        )}
       </MobileNav>
     </Navbar>
   );

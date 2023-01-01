@@ -5,6 +5,9 @@ import { config, token } from "../config"
 import { shoppingUrl } from "../url"
 import axios from "axios"
 import { getProductById } from "../product/get"
+import Cookies from "universal-cookie"
+
+
 
 
 export const updateUserProduct = async ({
@@ -16,6 +19,8 @@ export const updateUserProduct = async ({
     status: UserProductStatus
     navigation: NavigateFunction
   }) => {    
+  
+     console.log(`Token: ${token}`)
     if (token === undefined) {
       navigation('/signin')
       return

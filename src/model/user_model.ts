@@ -6,4 +6,6 @@ export type User = {
   favorites?: string[];
   address: string;
   email: string;
+  isVerified: boolean;
+  role: string;
 };

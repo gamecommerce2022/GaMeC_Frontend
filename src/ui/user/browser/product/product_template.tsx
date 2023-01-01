@@ -1,11 +1,13 @@
 import { Navigate } from 'react-router-dom';
-import { ProductCard, ProductFeatureBox, ProductImage } from './component';
+import { ProductCard, ProductFeatureBox, ProductImage, ProductReviewSection } from './component';
 import { Product } from '../../../../model/product_model';
+import { Comment } from '../../../../model/comment';
 
 export interface IGamePageTemplateProps {
   product: Product | null;
+  reviews: Comment[];
 }
-export const ProductPageTemplate = ({ product }: IGamePageTemplateProps) => {
+export const ProductPageTemplate = ({ product, reviews }: IGamePageTemplateProps) => {
   if (!product) <Navigate to="/404" />;
   return (
     <div className="lg:mx-80 md:mx-20 sm:mx-20">
@@ -61,16 +63,10 @@ export const ProductPageTemplate = ({ product }: IGamePageTemplateProps) => {
         </div>
         <ProductSpecifications />
       </div> */}
-              {/* <div className="mt-6">
-                <div className="text-xl font-semibold text-gray-200">
-                  Reviews
-                </div>
-                <ProductReviewSection
-                  averageRating={product.rate}
-                  count={getRandomNumber(3, 20000)}
-                  reviews={reviews}
-                />
-              </div> */}
+              <div className="mt-6">
+                <div className="text-xl font-semibold text-gray-200">Reviews</div>
+                <ProductReviewSection count={reviews.length ?? 0} reviews={reviews} />
+              </div>
             </div>
             <div className="order-1 col-span-1 md:order-2">
               <div className="sticky top-24">

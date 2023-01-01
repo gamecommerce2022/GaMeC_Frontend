@@ -31,7 +31,7 @@ export const getProductPrice: (price: number) => string = function (
 export const discountCalc = (disc = 0, price: number) =>
  +(price - (price * disc)).toFixed(2);
 
-export const withCurrency = (price: number) => `đ${price.toFixed(2)}`;
+export const withCurrency = (price: number) => `${price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}`;
 
 export const getScoreColor = (score: number) => {
  if (score > 90) return "ring-2 ring-white";

@@ -55,7 +55,7 @@ export const CartPage = () => {
     setIsLoading(true);
     const checkoutUrl = await CheckoutUtils.getCheckoutUrl(productsId);
     window.location.href = checkoutUrl ?? window.location.href;
-
+ 
     setIsLoading(false);
   };
   return (
