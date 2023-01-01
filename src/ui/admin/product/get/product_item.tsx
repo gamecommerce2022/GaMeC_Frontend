@@ -38,10 +38,12 @@ export const ProductItemComponent: React.FC<{ index: number; product: Product }>
               navigate(`/admin/products/${props.product.id}`);
             }}
           />
-          <ChatBubbleBottomCenterIcon  className="w-4 h-4 text-blue-500 hover:text-orange-500"
+          <ChatBubbleBottomCenterIcon
+            className="w-4 h-4 text-blue-500 hover:text-orange-500"
             onClick={() => {
               navigate(`/admin/products-comments/${props.product.id}`);
-            }}/>
+            }}
+          />
 
           <TrashIcon className="w-4 h-4 text-blue-500 hover:text-orange-500" onClick={handleShow} />
 

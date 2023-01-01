@@ -25,7 +25,6 @@ export const AdminPage = () => {
       <div className="flex-1 m-4 lg:m-10 sm:m-6 shawdow drop-shadow-md p-4 rounded-xl bg-white h-[900px]">
         <Routes>
           {/* <Route key="admin-dashboard-page" path="/" element={<div>Dashboard</div>} /> */}
-          <Route key="admin-product-page" path="/" element={<ProductTableComponent />} />
           <Route key="admin-product-page" path="products" element={<ProductTableComponent />} />
           <Route
             key="admin-product-add-page"
@@ -45,6 +44,7 @@ export const AdminPage = () => {
           <Route key="admin-news-page" path="news" element={<NewsTableComponent />} />
           <Route key="admin-news-add-page" path="news/add" element={<NewsAddComponent />} />
           <Route key="admin-news-edit-page" path="news/:newsId" element={<NewsEditComponent />} />
+          <Route key="admin-account-page" path="/" element={<UserTableComponent />} />
           <Route key="admin-account-page" path="accounts" element={<UserTableComponent />} />
           <Route key="admin-user-add-page" path="accounts/add" element={<AddAdminComponent />} />
           <Route

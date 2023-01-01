@@ -1,16 +1,11 @@
-import { Comment } from "../../../../../model/comment";
+import { Comment } from '../../../../../model/comment';
 
-
-
-
-export const ReviewCard = ({
-  authorName, content, date
-}: Comment) => (
+export const ReviewCard = ({ authorName, content, date }: Comment) => (
   <div className="p-3 bg-[#404040] rounded-xl group">
     <div className="flex">
       <div className="flex flex-col ml-3">
         <div className="text-lg text-gray-300">{authorName}</div>
-        <div className="text-sm text-gray-200">{(date!.substring(0,10))}</div>
+        <div className="text-sm text-gray-200">{date!.substring(0, 10)}</div>
       </div>
     </div>
     <div className="max-w-md mt-2 text-gray-300">{content}</div>

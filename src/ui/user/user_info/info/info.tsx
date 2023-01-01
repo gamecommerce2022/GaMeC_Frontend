@@ -1,13 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ButtonComponent, TextFieldComponent } from '../component';
+import * as UserService from '../../../../services/user/user';
 
 export const UserInfoPage = () => {
   const [firstName, setFirstName] = useState('Nguyen Van');
   const [lastName, setLastName] = useState('A');
   const [email, setEmail] = useState('abc@gmail.com');
   const [displayName, setDisplayName] = useState('abc123');
+  const [id, setId] = useState('');
+  let navigate = useNavigate();
 
-  function updateUser() {}
+  useEffect(() => {
+    setTimeout(() => {
+      UserService.getCurrentUser(navigate).then((user) => {
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+        setEmail(user.email);
+        setDisplayName(user.displayName);
+        setId(user._id);
+      });
+    }, 0);
+  }, []);
+
+  async function updateUser() {
+    UserService.updateUser(firstName, lastName, displayName, id);
+  }
+
+  async function logOut() {
+    UserService.logOut(id);
+  }
+
   return (
     <div className="flex flex-col items-center justify-center my-36">
       <div className="text-white text-2xl mb-16">USER PROFILE</div>
@@ -50,14 +73,33 @@ export const UserInfoPage = () => {
           }}
         />
       </div>
-      <ButtonComponent
-        id="update"
-        title="Update"
-        className="bg-blue-500 active:bg-blue-700"
-        onClick={() => {
-          updateUser();
-        }}
-      />
+      <div className="flex flex-row gap-x-4">
+        <ButtonComponent
+          id="history"
+          title="History"
+          className="bg-orange-500 active:bg-orange-700"
+          onClick={() => {
+            navigate('/user/history');
+          }}
+        />
+        <ButtonComponent
+          id="update"
+          title="Update"
+          className="bg-blue-500 active:bg-blue-700"
+          onClick={() => {
+            updateUser();
+          }}
+        />
+        <ButtonComponent
+          id="log-out"
+          title="Log Out"
+          className="bg-red-500 active:bg-red-700"
+          onClick={async () => {
+            await logOut();
+            navigate('/signin', { replace: true });
+          }}
+        />
+      </div>
     </div>
   );
 };

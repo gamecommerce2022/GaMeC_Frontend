@@ -6,7 +6,7 @@ import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 
 const GameCard = (product: Product) => {
-  const realPrice = product.price * (product.discount! !== 0 ? (1 - product.discount!) : 1);
+  const realPrice = product.price * (product.discount! !== 0 ? 1 - product.discount! : 1);
   const navigate = useNavigate();
   return (
     <div

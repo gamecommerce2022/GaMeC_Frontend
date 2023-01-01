@@ -64,14 +64,9 @@ export const ProductPageTemplate = ({ product, reviews }: IGamePageTemplateProps
         <ProductSpecifications />
       </div> */}
               <div className="mt-6">
-                <div className="text-xl font-semibold text-gray-200">
-                  Reviews
-                </div>
-                <ProductReviewSection
-                  count={reviews.length ?? 0}
-                  reviews={reviews}
-                />
-              </div>             
+                <div className="text-xl font-semibold text-gray-200">Reviews</div>
+                <ProductReviewSection count={reviews.length ?? 0} reviews={reviews} />
+              </div>
             </div>
             <div className="order-1 col-span-1 md:order-2">
               <div className="sticky top-24">
