@@ -1,3 +1,4 @@
+import axios from 'axios';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -95,7 +96,7 @@ export const CartPage = () => {
                 'cursor-pointer ',
               )}
             >
-              {isLoading ? <CircularProgressIndicator /> : <span>Sign In</span>}
+              {isLoading ? <CircularProgressIndicator /> : <span>Purchase</span>}
             </button>
           </form>
         </div>
