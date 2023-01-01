@@ -1,16 +1,14 @@
 import { UserProductStatus } from "../../data/status"
 import { Product } from "../../model/product_model"
 import { NavigateFunction  } from 'react-router-dom'
+import { config, token } from "../config"
 import { shoppingUrl } from "../url"
 import axios from "axios"
 import { getProductById } from "../product/get"
 import Cookies from "universal-cookie"
 
-const cookies = new Cookies()
-const token = cookies.get('accessToken')
-const config = {
- headers: { Authorization: `Bearer ${token}` }
-};
+
+
 
 export const updateUserProduct = async ({
   produtId,

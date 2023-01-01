@@ -17,12 +17,16 @@ export const ProductImage: React.FC<{ images: string[] }> = ({ images }) => {
   return (
     <div className="space-x-5 ">
       <div className="mt-6 bg-black aspect-w-4 aspect-h-3 lg:mx-8 md:mx-4 sm:mx-2">
-        <img className="object-fill w-full h-full rounded" src={imgMain} alt={imgMain} />
+        <img className="object-fill w-full h-full rounded " src={imgMain} alt={imgMain} />
       </div>
       {images.length === 1 || images.length === 0 ? null : (
         <Slider ref={sliderRef} {...settings}>
           {images.map((image) => {
-            return <Card image={image} />;
+            return (
+              <div className="duration-300 filter brightness-50 hover:brightness-100 ">
+                <Card image={image} />;
+              </div>
+            );
           })}
         </Slider>
       )}

@@ -1,22 +1,32 @@
 import axios from 'axios';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import appIcon from '../../../assets/images/app_icon.png';
 
 import CustomTextField from '../component/custom_text';
 import Cookies from 'universal-cookie';
-import { log } from 'console';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgressIndicator } from '../../../utils/circular_progress_indicator';
+import UserUtils from '../../../utils/user_utils';
 
 const LoginPage = () => {
+  useEffect(() => {
+    const getCurrentUser = async () => {
+      const userRole = await UserUtils.getUserRole();
+      //user is logged in
+      if (userRole !== null) {
+        navigate(`/${userRole}`);
+      }
+    };
+    getCurrentUser();
+  }, []);
+
   const cookies = new Cookies();
   const navigate = useNavigate();
   const [currentEmail, setCurrentEmail] = useState<string>('');
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signIn = async () => {
     console.log('signing in...');
@@ -42,10 +52,9 @@ const LoginPage = () => {
         setIsLoading(false);
       })
       .catch((res: any) => {
-        console.log(res);
-        setErrorMessage(res.response.data.message);
+        console.log(res.response.data.message);
         toast.error(errorMessage, { theme: 'dark' });
-        setIsError(true);
+        setErrorMessage(res.response.data.message);
         setIsLoading(false);
       });
   };

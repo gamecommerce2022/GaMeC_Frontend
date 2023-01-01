@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { User } from '../../model/user_model';
-import { config } from '../cofig';
+import { config, token } from '../config';
 import { userUrl } from '../url';
 
 
