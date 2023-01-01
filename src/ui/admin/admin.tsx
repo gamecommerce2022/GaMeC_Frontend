@@ -10,6 +10,7 @@ import { NewsAddComponent } from './news/add/news_add';
 import { NewsEditComponent } from './news/edit/news_edit';
 import { NewsTableComponent } from './news/get/news_table';
 import { ProductAddComponent } from './product/add/product_add';
+import { CommentTableComponent } from './product/comment/get_comment';
 import { ProductEditComponent } from './product/edit/product_edit';
 import { ProductTableComponent } from './product/get/product_table';
 import { AddAdminComponent } from './user/add/user_add';
@@ -35,6 +36,11 @@ export const AdminPage = () => {
             key="admin-product-edit-page"
             path="products/:productId"
             element={<ProductEditComponent />}
+          />
+          <Route
+            key="admin-product-comments-page"
+            path="products-comments/:productId"
+            element={<CommentTableComponent />}
           />
           <Route key="admin-news-page" path="news" element={<NewsTableComponent />} />
           <Route key="admin-news-add-page" path="news/add" element={<NewsAddComponent />} />
