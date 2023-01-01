@@ -7,13 +7,13 @@ const FooterApp = () => (
         <div>
           <Footer.Title title="Company" />
           <Footer.LinkGroup col={true}>
-            <Footer.Link href="#">
-              <span className="text-white">About</span>
+            <Footer.Link href="/user/browser">
+              <span className="text-white">Browser</span>
             </Footer.Link>
-            <Footer.Link href="#">
+            <Footer.Link href="/user/contact">
               <span className="text-white">Contact</span>
             </Footer.Link>
-            <Footer.Link href="#">
+            <Footer.Link href="/user/news">
               <span className="text-white">Blog</span>
             </Footer.Link>
           </Footer.LinkGroup>
@@ -21,13 +21,13 @@ const FooterApp = () => (
         <div>
           <Footer.Title title="Categories" />
           <Footer.LinkGroup col={true}>
-            <Footer.Link href="#">
+            <Footer.Link href="/user/browser?q=PS5">
               <span className="text-white">PS5</span>
             </Footer.Link>
-            <Footer.Link href="#">
+            <Footer.Link href="/user/browser?q=PS4">
               <span className="text-white">PS4</span>
             </Footer.Link>
-            <Footer.Link href="#">
+            <Footer.Link href="/user/browser?q=Nintendo Switch">
               <span className="text-white">Switch</span>
             </Footer.Link>
           </Footer.LinkGroup>

@@ -2,7 +2,7 @@ import { Product } from '../../../../../model/product_model';
 import { Price } from '../../../browser/product/component/price';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { updateUserProduct } from '../../../../../services/user/getProduct';
-import { NavigateFunction } from 'react-router-dom';
+import { Link, NavigateFunction } from 'react-router-dom';
 
 export interface ICartCardProps {
   product: Product;
@@ -12,13 +12,14 @@ export interface ICartCardProps {
 
 export const CartCard = ({ product, classes, navigation }: ICartCardProps) => {
   return (
-    <a href={`http://localhost:3000/user/products/${product.id}`}>
-      <div className={`flex relative items-start bg-gray-800 shadow-lg rounded h-24  ${classes}`}>
+    <div className={`flex relative items-start bg-gray-800 shadow-lg rounded h-24  ${classes}`}>
+      <Link to={`/user/products/${product.id}`}>
         <img
           src={product.imageList![0]}
           alt=""
           className="object-cover w-16 h-full mr-2 rounded-l"
         />
+      </Link>
 
         <div className="p-2 mr-2 text-sm text-gray-200">
           <div>{product.title}</div>
@@ -37,6 +38,5 @@ export const CartCard = ({ product, classes, navigation }: ICartCardProps) => {
           <XMarkIcon className="w-8 h-8 p-1 text-red-500 hover:text-red-300" />
         </button>
       </div>
-    </a>
   );
 };

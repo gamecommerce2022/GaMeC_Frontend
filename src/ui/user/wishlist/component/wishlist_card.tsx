@@ -2,7 +2,7 @@ import dateFormat from 'dateformat';
 import { Price } from '../../browser/product/component/price';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { updateUserProduct } from '../../../../services/user/getProduct';
-import { NavigateFunction } from 'react-router-dom';
+import { Link, NavigateFunction } from 'react-router-dom';
 
 export interface IWishlistCardProps {
   id: string;
@@ -26,11 +26,13 @@ export const WishlistCard = ({
 }: IWishlistCardProps) => {
   return (
     <div className="relative grid grid-cols-3 p-2 bg-gray-800 rounded group">
-      <img
-        src={imageUrl}
-        className="object-cover w-full h-full col-span-1 rounded-sm cursor-pointer filter group-hover:brightness-125"
-        alt=""
-      />
+      <Link to={`/user/products/${id}`}>
+        <img
+          src={imageUrl}
+          className="object-cover w-full h-full col-span-1 rounded-sm cursor-pointer filter group-hover:brightness-125"
+          alt=""
+        />
+      </Link>
 
       <div className="flex flex-col flex-grow col-span-2 pt-2 pl-3">
         <p className="w-full text-lg line-clamp-1 text-white">{title}</p>
@@ -46,7 +48,9 @@ export const WishlistCard = ({
           <button
             type="button"
             className="w-full px-4 py-2 mt-2 text-xs border-t border-gray-700  hover:bg-primary-600 group-hover:bg-primary rounded"
-            onClick={() => {}}
+            onClick={() => {
+              updateUserProduct({ produtId: id, status: 'IN_CART', navigation });
+            }}
           >
             Add to cart
           </button>
