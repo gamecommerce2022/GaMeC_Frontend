@@ -1,5 +1,6 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import UserUtils from '../../utils/user_utils';
 import { NotFoundPage } from '../page';
 import { CartDetailComponent } from './cart/get/cart_detail';
 import { CartTableComponent } from './cart/get/cart_table';
@@ -18,6 +19,17 @@ import { EditAdminComponent } from './user/edit/edit_admin';
 import { UserTableComponent } from './user/get/user_table';
 
 export const AdminPage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const getUserRole = async () => {
+      const userRole = await UserUtils.getUserRole();
+      if (userRole !== 'admin') {
+        navigate('/user');
+      }
+    };
+    getUserRole();
+  }, []);
+
   return (
     <div className="flex flex-row h-fit bg-[#f9fafb]">
       <SidebarComponent />

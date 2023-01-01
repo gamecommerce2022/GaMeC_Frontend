@@ -13,6 +13,9 @@ import { User } from '../../../model/user_model';
 import * as jwt from 'jsonwebtoken';
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { config } from '../../../services/config';
+import appIcon from '../../../assets/images/app_icon.png';
+
 export const Headers = () => {
   const [openNav, setOpenNav] = useState<boolean>(false);
   const [avatar, setAvatar] = useState<boolean>(false);
@@ -25,7 +28,6 @@ export const Headers = () => {
       const accessToken = await new Cookies().get('accessToken');
       console.log(accessToken);
 
-      let config = { headers: { Authorization: 'Bearer ' + accessToken } };
       const result = await axios.post(
         `http://localhost:5000/api/user/get-current-user`,
         {},
@@ -75,9 +77,9 @@ export const Headers = () => {
           as="a"
           href="/user"
           variant="small"
-          className="mr-4 cursor-pointer py-1 font-normal flex flex-row items-center"
+          className="cursor-pointer font-normal flex flex-row items-center justify-center"
         >
-          <span>G a M e C </span>
+          <img src={appIcon} className="w-10 h-10" alt="app icon" />
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="flex flex-row justify-evenly items-center">

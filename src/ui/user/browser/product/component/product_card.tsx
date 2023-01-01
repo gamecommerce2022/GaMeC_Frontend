@@ -30,7 +30,11 @@ export const ProductCard = ({ product }: IProductCardProps) => {
   return (
     <div>
       <div className="mt-6 bg-primary aspect-w-1 aspect-h-1 bg-opacity-10">
-        <img className="object-fill object-center w-full p-2" src={product.imageList![0]} alt="" />
+        <img
+          className="object-fill object-center w-full p-2 "
+          src={product.imageList![0]}
+          alt=""
+        />
       </div>
 
       <Badge className="mt-4">{'base product'.toUpperCase()}</Badge>
