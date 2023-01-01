@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { NavigateFunction } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import { User } from '../../model/user_model';
-import { config, token } from '../cofig';
 import { userUrl } from '../url';
+
+
+
 
 export const get: (
   page: number,
@@ -79,11 +82,16 @@ export const getProductById: (id: string) => Promise<User> = async (id: string) 
 };
 
 export const getCurrentUser = async (navigation: NavigateFunction) => {
+  const cookies = new Cookies()
+const token = cookies.get('accessToken')
+const config = {
+ headers: { Authorization: `Bearer ${token}` }
+};
   if (token === undefined) {
     navigation('/signin')
     return
   } 
-  let res = await axios.get(`${userUrl}/get-current-user`, config)
+  let res = await axios.post(`${userUrl}/get-current-user`,{}, config)
   console.log(res.data.user)
   return res.data.user
 }

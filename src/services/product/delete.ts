@@ -1,6 +1,13 @@
 import axios from "axios";
-import { config } from "../cofig";
+import Cookies from "universal-cookie";
 import { productUrl } from "../url";
+
+const cookies = new Cookies()
+const token = cookies.get('accessToken')
+const config = {
+ headers: { Authorization: `Bearer ${token}` }
+};
+
 
 export const deleteGame : (id: string) => Promise<boolean> = async (id: string) => {
     let res = await axios.delete(`${productUrl}/${id}`, config);

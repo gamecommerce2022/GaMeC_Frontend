@@ -1,7 +1,14 @@
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import { Product } from '../../model/product_model';
-import { config } from '../cofig';
 import { productUrl } from '../url';
+
+const cookies = new Cookies()
+const token = cookies.get('accessToken')
+const config = {
+ headers: { Authorization: `Bearer ${token}` }
+};
+
 
 export const editGame: (game: Product) => Promise<boolean> = async (game: Product) => {
   let res = await axios.put(`${productUrl}/${game.id}`, game,config);

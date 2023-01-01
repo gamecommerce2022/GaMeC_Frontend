@@ -1,37 +1,20 @@
-import { getScoreColor } from '../../../../../utils/product_utils';
-import { HandThumbUpIcon, HandThumbDownIcon } from '@heroicons/react/24/outline';
+import { Comment } from "../../../../../model/comment";
 
-export interface IReviewCardProps {
-  reviewScore: number;
-  userName: string;
-  date: string;
-  review: string;
-  approvalRate: number;
-}
+
+
 
 export const ReviewCard = ({
-  reviewScore,
-  userName,
-  date,
-  review,
-  approvalRate,
-}: IReviewCardProps) => (
+  authorName, content, date
+}: Comment) => (
   <div className="p-3 bg-[#404040] rounded-xl group">
     <div className="flex">
-      <div
-        className={`${getScoreColor(
-          reviewScore,
-        )} rounded-full flex h-12 w-12 items-center justify-center text-gray-200`}
-      >
-        {reviewScore <= 100 ? reviewScore : 100}
-      </div>
       <div className="flex flex-col ml-3">
-        <div className="text-lg text-gray-300">{userName}</div>
-        <div className="text-sm text-gray-200">{date}</div>
+        <div className="text-lg text-gray-300">{authorName}</div>
+        <div className="text-sm text-gray-200">{(date!.substring(0,10))}</div>
       </div>
     </div>
-    <div className="max-w-md mt-2 text-gray-300">{review}</div>
-    <div className="flex items-baseline justify-between my-2 text-xs text-gray-300">
+    <div className="max-w-md mt-2 text-gray-300">{content}</div>
+    {/* <div className="flex items-baseline justify-between my-2 text-xs text-gray-300">
       <div>{approvalRate}% helpful</div>
       <div className="opacity-0 group-hover:opacity-100">
         <button
@@ -47,6 +30,6 @@ export const ReviewCard = ({
           <HandThumbDownIcon />
         </button>
       </div>
-    </div>
+    </div> */}
   </div>
 );
