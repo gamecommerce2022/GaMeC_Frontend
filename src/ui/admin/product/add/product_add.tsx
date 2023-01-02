@@ -97,6 +97,7 @@ export const ProductAddComponent: React.FC = () => {
         note: note,
         tags: tags,
         imageList: resImages,
+        countBuy: 0,
       };
 
       let response = await ProductService.addGame(game);
