@@ -34,6 +34,7 @@ export const get: (page: number, perPage: number, filter?: number | null, query?
             imageList: rawProducts[i].imageList,
             videoList: rawProducts[i].videoList,
             shortDescription: rawProducts[i].shortDescription,
+            countBuy: rawProducts[i].countBuy ?? 0,
         };
         products.push(product);
     }
@@ -73,6 +74,7 @@ export const getProductById: (id: string) => Promise<Product> = async (id: strin
         imageList: rawProduct.imageList,
         videoList: rawProduct.videoList,
         shortDescription: rawProduct.shortDescription,
+        countBuy: rawProduct.countBuy ?? 0,
     };
     return product;
 }

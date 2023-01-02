@@ -31,6 +31,7 @@ export const HomePage = () => {
           imageList: product.imageList,
           videoList: product.videoList,
           description: product.description,
+          countBuy: product.countBuy,
         };
         results.push(result);
       });

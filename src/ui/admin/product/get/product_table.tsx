@@ -195,7 +195,7 @@ export const ProductTableComponent = () => {
       {/** Table */}
       <TableComponent
         key="table-component-key"
-        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'DISCOUNT', 'PRICE', '']}
+        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'DISCOUNT', 'PRICE','COUNT SOLD', '']}
         bodyList={products.map((product, index) => {
           return (
             <ProductItemComponent

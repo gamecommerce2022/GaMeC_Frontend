@@ -33,6 +33,7 @@ export const ProductEditComponent = () => {
   const [errorDefaultPrice, setErrorDefaultPrice] = useState<string>();
   const [errorDiscount, setErrorDiscount] = useState<string>();
   const [errorShortDescription, setErrorShortDescription] = useState<string>();
+  const [countBuy, setCountBuy] = useState<number>()
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -59,6 +60,7 @@ export const ProductEditComponent = () => {
         setShortDescription(response.shortDescription ?? shortDescription);
         setNote(response.note ?? note);
         setDescription(response.description);
+        setCountBuy(response.countBuy)
         setLoading(false);
       });
     } catch (error) {
@@ -132,6 +134,7 @@ export const ProductEditComponent = () => {
         note: note,
         tags: tags,
         imageList: resImages,
+        countBuy: countBuy!
       };
 
       let response = await ProductService.editGame(game);
