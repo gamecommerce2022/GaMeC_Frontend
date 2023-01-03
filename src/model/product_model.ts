@@ -15,4 +15,5 @@ export type Product = {
   imageList?: string[];
   videoList?: string[];
   description: string;
+  countBuy: number;
 };
