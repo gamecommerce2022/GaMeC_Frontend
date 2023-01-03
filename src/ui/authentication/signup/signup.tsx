@@ -19,6 +19,16 @@ const SignUpPage = () => {
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signUp = async () => {
+    if(firstName === '' || lastName === '' || displayName === '' || email === '' || password === ''){
+      toast.error("Please fill all information below", { theme: 'dark' });
+      return
+    }
+    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+    if(!regex.test(email)){
+      toast.error("Invalid Email", { theme: 'dark' });
+      return
+    }
+
     setIsLoading(true);
     await axios
       .post(`${process.env.REACT_APP_API_URL}/api/auth/register`, {
