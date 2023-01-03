@@ -77,6 +77,7 @@ export class ProductUtils {
       type: rawProduct.type,
       videoList: rawProduct.videoList,
       total: rawProduct.total,
+      countBuy: rawProduct.countBuy,
     };
     return product;
   };
