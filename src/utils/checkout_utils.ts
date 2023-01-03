@@ -11,8 +11,13 @@ export class CheckoutUtils {
     return data.checkoutSession;
   };
   public static getPaymentIntent = async (id: string) => {
-    const { data } = await axios.get(`${shoppingUrl}/api/get-payment-intent/${id}`, config);
-    return data.paymentIntent;
+    const result = await axios.get(`${shoppingUrl}/get-payment-intent/${id}`, config);
+
+    return result.data.paymentIntent;
+  };
+  public static getInvoiceHtml = async (chargeId: string) => {
+    const result = await axios.get(`${shoppingUrl}/get-charge/${chargeId}`, config);
+    return result.data.data;
   };
   public static getCheckoutUrl = async (products: string[]) => {
     let checkoutUrl;

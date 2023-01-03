@@ -41,7 +41,15 @@ export const CartDetailComponent = (props: any) => {
       const rawCheckoutSession = await CheckoutUtils.getRawCheckoutSession(result.stripeId);
       console.log(rawCheckoutSession.customer_details.address);
 
-      setAddress(rawCheckoutSession.customer_details.address);
+      setAddress(
+        rawCheckoutSession.customer_details.address || {
+          city: '',
+          country: '',
+          line1: '',
+          line2: '',
+          postal_code: '',
+        },
+      );
     };
     getBill();
   }, []);
@@ -66,16 +74,14 @@ export const CartDetailComponent = (props: any) => {
         <div>
           <div className="font-bold">Bill To</div>
           <div>{`${user?.firstName} ${user?.lastName}`}</div>
-          <div>{`${address.line1 ?? ' '}`}</div>
-          <div>{`${address.city ?? ' '} ${address.state ?? ' '}, ${
-            address.postal_code ?? ' '
-          }`}</div>
+          <div>{`${address.line1}`}</div>
+          <div>{`${address.city} ${address.state ?? ' '}, ${address.postal_code}`}</div>
         </div>
 
         <div>
           <div>
             <span className="font-bold">Date: </span>
-            <span>{` ${bill?.date ?? ' '}`}</span>
+            <span>{` ${bill?.date}`}</span>
           </div>
           <div>
             <span className="font-bold">Payment Status: </span>
