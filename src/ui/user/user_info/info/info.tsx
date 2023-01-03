@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ButtonComponent, TextFieldComponent } from '../component';
 import * as UserService from '../../../../services/user/user';
+import { toast, ToastContainer } from 'react-toastify';
 
 export const UserInfoPage = () => {
+  const [isUpdatingInfo, setIsUpdatingInfo] = useState<boolean>(false);
   const [firstName, setFirstName] = useState('Nguyen Van');
   const [lastName, setLastName] = useState('A');
   const [email, setEmail] = useState('abc@gmail.com');
@@ -24,15 +26,22 @@ export const UserInfoPage = () => {
   }, []);
 
   async function updateUser() {
-    UserService.updateUser(firstName, lastName, displayName, id);
+    const result = await UserService.updateUser(firstName, lastName, displayName);
+    console.log(result);
+    if (result.statusCode === 200) {
+      toast.success(result.message, { theme: 'dark' });
+    } else {
+      toast.error(result.message, { theme: 'dark' });
+    }
   }
 
   async function logOut() {
-    UserService.logOut(id);
+    UserService.logOut();
   }
 
   return (
     <div className="flex flex-col items-center justify-center my-36">
+      <ToastContainer />
       <div className="text-white text-2xl mb-16">USER PROFILE</div>
       <div className="grid grid-cols-2 gap-12 mb-16">
         <TextFieldComponent
@@ -85,9 +94,12 @@ export const UserInfoPage = () => {
         <ButtonComponent
           id="update"
           title="Update"
+          isLoading={isUpdatingInfo}
           className="bg-blue-500 active:bg-blue-700"
-          onClick={() => {
+          onClick={async () => {
+            setIsUpdatingInfo(true);
             updateUser();
+            setIsUpdatingInfo(false);
           }}
         />
         <ButtonComponent

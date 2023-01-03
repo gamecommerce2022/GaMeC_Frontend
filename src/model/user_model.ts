@@ -4,7 +4,6 @@ export type User = {
   lastName: string;
   displayName: string;
   favorites?: string[];
-  address: string;
   email: string;
   isVerified: boolean;
   role: string;

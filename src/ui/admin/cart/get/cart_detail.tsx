@@ -1,19 +1,53 @@
 import { HomeIcon, ShoppingCartIcon, TruckIcon } from '@heroicons/react/24/outline';
+import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { BillDetailedItemComponent } from '../../../user/user_info/component';
+import { Product } from '../../../../model/product_model';
+import { User } from '../../../../model/user_model';
+import { getUserById } from '../../../../services/user/get';
+import { CheckoutUtils } from '../../../../utils/checkout_utils';
+import { getPaymentStatusColor, ProductUtils } from '../../../../utils/product_utils';
+import { ProductDetailedItemComponent } from '../../../user/user_info/component';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { TableComponent } from '../../component/table';
+import { IBill } from './cart_item';
 
 export const CartDetailComponent = (props: any) => {
+  const [user, setUser] = useState<User>();
+  const [bill, setBill] = useState<IBill>();
+  const [products, setProducts] = useState<Product[]>([]);
+  // const [rawCheckoutSession, setRawCheckoutSession] = useState();
+  const [address, setAddress] = useState<any>({
+    city: '',
+    country: '',
+    line1: '',
+    line2: '',
+    postal_code: '',
+  });
   const cartId = useParams<{ cartId: string }>();
-  let billDetailedList: any[] = [];
-  let date = '21/12/2022';
-  let total = 10000000;
-  let customerName = 'Nguyen Van A';
-  let customerPhoneNumber = '012345678';
-  let status = 'IN PROGRESS';
+  useEffect(() => {
+    const getBill = async () => {
+      const result = await CheckoutUtils.getBillById(cartId.cartId ?? '');
+
+      setBill(result);
+      const user = await getUserById(result.customer);
+      setUser(user);
+      const products = await ProductUtils.getProducts(result.products);
+      console.log(result);
+
+      setProducts(products);
+      console.log(result.stripeId);
+
+      const rawCheckoutSession = await CheckoutUtils.getRawCheckoutSession(result.stripeId);
+      console.log(rawCheckoutSession.customer_details.address);
+
+      setAddress(rawCheckoutSession.customer_details.address);
+    };
+    getBill();
+  }, []);
+
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <div className="mb-1 shadow-sm">
         <BreadCrumbComponent
           key="bread-crumb-component-key"
@@ -28,26 +62,51 @@ export const CartDetailComponent = (props: any) => {
           ]}
         />
       </div>
+      <div className="flex justify-between">
+        <div>
+          <div className="font-bold">Bill To</div>
+          <div>{`${user?.firstName} ${user?.lastName}`}</div>
+          <div>{`${address.line1 ?? ' '}`}</div>
+          <div>{`${address.city ?? ' '} ${address.state ?? ' '}, ${
+            address.postal_code ?? ' '
+          }`}</div>
+        </div>
 
-      <div className="text-white text-2xl mt-16 mb-8 mx-16">BILL IN {date}</div>
-      <div className="text-white text-2xl mb-8 mt-8 mx-16">
-        {customerName} - {customerPhoneNumber}
+        <div>
+          <div>
+            <span className="font-bold">Date: </span>
+            <span>{` ${bill?.date ?? ' '}`}</span>
+          </div>
+          <div>
+            <span className="font-bold">Payment Status: </span>
+            <span className={clsx(getPaymentStatusColor(bill?.paymentStatus ?? ''))}>{` ${
+              bill?.paymentStatus.toUpperCase() ?? ''
+            }`}</span>
+          </div>
+        </div>
+        <div></div>
       </div>
-      <div className="text-white text-2xl mb-16 mt-8 mx-16">Status: {status}</div>
+
       <TableComponent
         key="table-component-key"
-        headerList={['ID', 'TITLE', 'TOTAL', 'PRICE', 'DISCOUNT']}
-        bodyList={billDetailedList.map((billDetailed, index) => {
+        headerList={['ID', 'TITLE', 'PRICE', 'DISCOUNT', 'SUBTOTAL']}
+        bodyList={products.map((product, index) => {
+          console.log('product');
+          console.log(product);
+
           return (
-            <BillDetailedItemComponent
-              billDetailed={billDetailed}
+            <ProductDetailedItemComponent
+              product={product}
               index={index + 1}
-              key={`${index}-${billDetailed.id}`}
+              key={`${index}-${product.id}`}
             />
           );
         })}
       />
-      <div className="text-white text-2xl m-16">TOTAL: {total}</div>
+      <div className="flex justify-between">
+        <div></div>
+        <div className="text-black text-2xl ">TOTAL: {bill?.total}</div>
+      </div>
     </div>
   );
 };
