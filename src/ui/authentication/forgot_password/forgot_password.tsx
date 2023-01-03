@@ -11,6 +11,16 @@ const ForgotPasswordPage = () => {
   const [email, setEmail] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const sendForgotEmail = async () => {
+    if(email === ''){
+      toast.error("Email can't not empty.", { theme: 'dark' });
+      return
+    }
+    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+    if(!regex.test(email)){
+      toast.error("Invalid Email", { theme: 'dark' });
+      return
+    }
+
     console.log('Sending email');
     setIsLoading(true);
     axios
