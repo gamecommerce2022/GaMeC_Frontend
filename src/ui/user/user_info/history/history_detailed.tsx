@@ -1,4 +1,3 @@
-import { HomeIcon, ShoppingCartIcon, TruckIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -8,7 +7,6 @@ import { getUserById } from '../../../../services/user/get';
 import { CheckoutUtils } from '../../../../utils/checkout_utils';
 import { ProductUtils, getPaymentStatusColor } from '../../../../utils/product_utils';
 import { IBill } from '../../../admin/cart/get/cart_item';
-import { BreadCrumbComponent } from '../../../admin/component/breadcrumb';
 import { TableComponent } from '../../../admin/component/table';
 import { ProductDetailedItemComponent } from '../component';
 
@@ -101,4 +99,22 @@ export const HistoryDetailPage = () => {
       </div>
     </div>
   );
+};
+
+const SuccessComponent = () => {
+  const [htmlCode, setHtmlCode] = useState('<div></div>');
+  const billId = useParams<{ billId: string }>();
+  useEffect(() => {
+    const getBill = async () => {
+      const bill = await CheckoutUtils.getBillById(billId.billId || '');
+      const rawCheckoutSession = await CheckoutUtils.getRawCheckoutSession(bill.stripeId);
+
+      const paymentIntent = await CheckoutUtils.getPaymentIntent(rawCheckoutSession.payment_intent);
+      const htmlCode = await CheckoutUtils.getInvoiceHtml(paymentIntent.latest_charge);
+      setHtmlCode(htmlCode);
+    };
+    getBill();
+  }, []);
+
+  return <div dangerouslySetInnerHTML={{ __html: `${htmlCode}` }}></div>;
 };
