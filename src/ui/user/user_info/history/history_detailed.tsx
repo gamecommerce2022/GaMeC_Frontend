@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Product } from '../../../../model/product_model';
 import { TableComponent } from '../../../admin/component/table';
-import { BillDetailedItemComponent } from '../component';
+import { ProductDetailedItemComponent } from '../component';
 
 export const HistoryDetailPage = () => {
   const billId = useParams<{ billId: string }>();
+  const [products, setProducts] = useState<Product[]>([]);
   let billDetailedList: any[] = [];
   let date = '21/12/2022';
   let total = 10000000;
@@ -13,12 +16,12 @@ export const HistoryDetailPage = () => {
       <TableComponent
         key="table-component-key"
         headerList={['ID', 'TITLE', 'TOTAL', 'PRICE', 'DISCOUNT']}
-        bodyList={billDetailedList.map((billDetailed, index) => {
+        bodyList={products.map((product, index) => {
           return (
-            <BillDetailedItemComponent
-              billDetailed={billDetailed}
+            <ProductDetailedItemComponent
+              product={product}
               index={index + 1}
-              key={`${index}-${billDetailed.id}`}
+              key={`${index}-${product.id}`}
             />
           );
         })}

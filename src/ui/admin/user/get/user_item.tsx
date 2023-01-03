@@ -25,7 +25,7 @@ export const UserItemComponent: React.FC<{ index: number; user: User }> = (props
       </td>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.displayName}</td>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.email}</td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.address}</td>
+      {/* <td className="py-4 px-6 font-medium text-gray-900 ">{props.user.}</td> */}
       <td className="py-4 px-6 font-medium text-gray-900 ">
         {props.user.isVerified ? 'true' : 'false'}
       </td>

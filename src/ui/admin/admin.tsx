@@ -69,7 +69,7 @@ export const AdminPage = () => {
           <Route key="admin-cart-page" path="carts" element={<CartTableComponent />} />
           <Route
             key="admin-cart-detailed-page"
-            path="carts/cartId"
+            path="carts/:cartId"
             element={<CartDetailComponent />}
           />
           <Route key="admin-not-found-page" path="*" element={<NotFoundPage />} />
