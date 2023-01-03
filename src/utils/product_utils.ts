@@ -56,6 +56,7 @@ export const getPaymentStatusColor = (paymentStatus: string) => {
       return 'text-gray-600';
   }
 };
+
 export class ProductUtils {
   public static getProductById = async (productId: string) => {
     const result = await axios.get(`${productUrl}/get/${productId}`);
@@ -65,6 +66,7 @@ export class ProductUtils {
       description: rawProduct.description,
       discount: rawProduct.discount,
       imageList: rawProduct.imageList,
+      countBuy: rawProduct.countBuy,
       maxPlayer: rawProduct.maxPlayer,
       note: rawProduct.note,
       platform: rawProduct.platform,
