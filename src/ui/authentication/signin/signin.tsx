@@ -29,6 +29,16 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signIn = async () => {
+    if(currentPassword === '' || currentEmail === ''){
+      toast.error("Email or Password can't not empty.", { theme: 'dark' });
+      return
+    }
+    let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+    if(!regex.test(currentEmail)){
+      toast.error("Invalid Email", { theme: 'dark' });
+      return
+    }
+
     console.log('signing in...');
 
     setIsLoading(true);
