@@ -5,7 +5,8 @@ import { HomeIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { SearchComponent } from '../../component/search';
 import { TableComponent } from '../../component/table';
-import { CartItemComponent } from './cart_item';
+import { CartItemComponent, IBill } from './cart_item';
+import { CheckoutUtils } from '../../../../utils/checkout_utils';
 
 const filters = [
   { id: 1, name: 'A - Z', value: 1 },
@@ -17,7 +18,7 @@ const filters = [
 const maxPerPages = [20, 30, 40];
 
 export const CartTableComponent = () => {
-  const [bills, setBills] = useState<any[]>([]);
+  const [bills, setBills] = useState<IBill[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -33,18 +34,33 @@ export const CartTableComponent = () => {
     }
   }, []);
 
-  function searchText(page?: number, perPage?: number, filter?: number, query?: string) {
+  async function searchText(page?: number, perPage?: number, filter?: number, queryEmail?: string) {
     setLoading(true);
-    // ProductService.get(page || 0, perPage || 30, filter, query).then((response) => {
-    //   setBills(response);
-    //   setLoading(false);
-    // });
+    const bills = await CheckoutUtils.getAllCheckoutSessions(
+      queryEmail || '',
+      page || 0,
+      perPage || 30,
+      filter,
+    );
+    console.log(bills);
+
+    setBills(bills);
+
+    setLoading(false);
   }
 
-  function getMaxPage(perPage?: number, query?: string) {
+  async function getMaxPage(page?: number, perPage?: number, filter?: number, queryEmail?: string) {
     // ProductService.getTotalPage(perPage || 30, query).then((response) => {
     //   setTotalPage(response);
     // });
+    const result = await CheckoutUtils.getAllCheckoutSessions(
+      queryEmail || '',
+      page || 0,
+      perPage || 30,
+      filter,
+    );
+    const totalPage = Math.ceil(result.length / (perPage ?? 1));
+    setTotalPage(totalPage);
   }
 
   return (
@@ -62,13 +78,15 @@ export const CartTableComponent = () => {
         <div className="col-span-2">
           <SearchComponent
             key="search-component-key"
-            placeHolder="Search Product...."
+            placeHolder="Search Checkout...."
             onChange={(e) => {
               setSearch(e.target.value);
             }}
-            onClick={() => {
-              getMaxPage(perPage, search);
-              searchText(currentPage, perPage, selectedFilter.value, search);
+            onClick={async () => {
+              console.log('getting search');
+
+              getMaxPage(currentPage, perPage, selectedFilter.value, search);
+              await searchText(currentPage, perPage, selectedFilter.value, search);
             }}
           />
         </div>
@@ -128,8 +146,8 @@ export const CartTableComponent = () => {
               value={perPage}
               onChange={(value: number) => {
                 setPerPage(value);
-                getMaxPage(value, search);
-                searchText(currentPage, value, selectedFilter.value, search);
+                getMaxPage(totalPage, perPage, selectedFilter.value, search);
+                searchText(totalPage, perPage, selectedFilter.value, search);
               }}
             >
               <div className="relative">
@@ -177,7 +195,7 @@ export const CartTableComponent = () => {
       {/** Table */}
       <TableComponent
         key="table-component-key"
-        headerList={['ID', 'TITLE', 'CUSTOMER', 'DISCOUNT', 'TOTAL', 'STATUS', '']}
+        headerList={['ID', 'STRIPE ID', 'CUSTOMER', 'TOTAL', 'DATE', 'PAYMENT STATUS']}
         bodyList={bills.map((bill, index) => {
           return <CartItemComponent bill={bill} index={index + 1} key={`${index}-${bill.id}`} />;
         })}

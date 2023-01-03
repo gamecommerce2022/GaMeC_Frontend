@@ -57,7 +57,7 @@ const LoginPage = () => {
         if (user.role === 'admin') {
           navigate('/admin');
         } else {
-          navigate('/user');
+          navigate('/user', { replace: true });
         }
         setIsLoading(false);
       })
