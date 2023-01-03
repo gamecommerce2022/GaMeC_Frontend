@@ -66,7 +66,6 @@ export class ProductUtils {
       description: rawProduct.description,
       discount: rawProduct.discount,
       imageList: rawProduct.imageList,
-      countBuy: rawProduct.countBuy,
       maxPlayer: rawProduct.maxPlayer,
       note: rawProduct.note,
       platform: rawProduct.platform,
