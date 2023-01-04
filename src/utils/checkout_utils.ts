@@ -17,7 +17,7 @@ export class CheckoutUtils {
   };
   public static getInvoiceHtml = async (chargeId: string) => {
     const result = await axios.get(`${shoppingUrl}/get-charge/${chargeId}`, config);
-    return result.data.data;
+    return result.data.html;
   };
   public static getCheckoutUrl = async (products: string[]) => {
     let checkoutUrl;
@@ -60,7 +60,7 @@ export class CheckoutUtils {
     sort?: number,
   ) => {
     const response = await axios.get(
-      `${shoppingUrl}/get-checkout-sessions/?email=${email}&page=${page}&perPage=${perPage}&sort=${sort}`,
+      `${shoppingUrl}/get-checkout-sessions/?email=${email}&pageNumber=${page}&perPage=${perPage}&sort=${sort}`,
       config,
     );
 
@@ -79,6 +79,16 @@ export class CheckoutUtils {
       };
       bills.push(bill);
     }
+
     return bills;
+  };
+
+  public static sendInvoice = async (userId: string, shoppingId: string) => {
+    const response = await axios.post(
+      `${shoppingUrl}/send-invoice`,
+      { userId, shoppingId },
+      config,
+    );
+    return response.data.statusCode;
   };
 }

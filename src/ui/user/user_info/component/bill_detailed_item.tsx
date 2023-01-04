@@ -7,7 +7,9 @@ export const ProductDetailedItemComponent = (props: { index: number; product: Pr
         {props.index}
       </th>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.title}</td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.price}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">
+        {props.product.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+      </td>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.product.discount}</td>
       <td className="py-4 px-6 font-medium text-gray-900 ">
         {props.product.price * (1 - (props.product.discount ?? 0))}

@@ -9,6 +9,9 @@ import { ProductUtils, getPaymentStatusColor } from '../../../../utils/product_u
 import { IBill } from '../../../admin/cart/get/cart_item';
 import { TableComponent } from '../../../admin/component/table';
 import { ProductDetailedItemComponent } from '../component';
+import { default as dayjs } from 'dayjs';
+import { CircularProgressIndicator } from '../../../../utils/circular_progress_indicator';
+import { ToastContainer, toast } from 'react-toastify';
 
 export const HistoryDetailPage = () => {
   const [user, setUser] = useState<User>();
@@ -22,6 +25,7 @@ export const HistoryDetailPage = () => {
     line2: '',
     postal_code: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
   const billId = useParams<{ billId: string }>();
   useEffect(() => {
     const getBill = async () => {
@@ -52,8 +56,31 @@ export const HistoryDetailPage = () => {
     getBill();
   }, []);
 
+  const SendingInvoiceButton = () => {
+    return (
+      <button
+        onClick={async () => {
+          setIsLoading(true);
+          const statusCode = await CheckoutUtils.sendInvoice(user?.id || '', bill?.id || '');
+          setIsLoading(false);
+          if (statusCode === 200) {
+            toast.success('An email receipt has been sent to your email', { theme: 'dark' });
+          } else {
+            toast.error('Error sending email, please try again later', { theme: 'dark' });
+          }
+        }}
+        className={clsx(
+          'w-auto my-5 py-2 bg-blue-600 brightness-90 hover:brightness-100 shadow-lg text-white font-semibold rounded-lg h-12 hover:cursor-pointer ',
+        )}
+      >
+        {isLoading ? <CircularProgressIndicator /> : <span>Send invoice</span>}
+      </button>
+    );
+  };
+
   return (
     <div className="bg-white h-screen">
+      <ToastContainer />
       <div className="flex justify-between p-16">
         <div>
           <div className="font-bold">Bill To</div>
@@ -65,7 +92,8 @@ export const HistoryDetailPage = () => {
         <div>
           <div>
             <span className="font-bold">Date: </span>
-            <span>{` ${bill?.date}`}</span>
+
+            <span> {dayjs(bill?.date).format('DD-MM-YYYY HH:mm:ss')}</span>
           </div>
           <div>
             <span className="font-bold ">Payment Status: </span>
@@ -74,7 +102,8 @@ export const HistoryDetailPage = () => {
             }`}</span>
           </div>
         </div>
-        <div></div>
+
+        {bill?.paymentStatus === 'success' ? <SendingInvoiceButton /> : <div></div>}
       </div>
 
       <TableComponent
@@ -99,22 +128,4 @@ export const HistoryDetailPage = () => {
       </div>
     </div>
   );
-};
-
-const SuccessComponent = () => {
-  const [htmlCode, setHtmlCode] = useState('<div></div>');
-  const billId = useParams<{ billId: string }>();
-  useEffect(() => {
-    const getBill = async () => {
-      const bill = await CheckoutUtils.getBillById(billId.billId || '');
-      const rawCheckoutSession = await CheckoutUtils.getRawCheckoutSession(bill.stripeId);
-
-      const paymentIntent = await CheckoutUtils.getPaymentIntent(rawCheckoutSession.payment_intent);
-      const htmlCode = await CheckoutUtils.getInvoiceHtml(paymentIntent.latest_charge);
-      setHtmlCode(htmlCode);
-    };
-    getBill();
-  }, []);
-
-  return <div dangerouslySetInnerHTML={{ __html: `${htmlCode}` }}></div>;
 };
