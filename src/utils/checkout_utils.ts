@@ -91,4 +91,10 @@ export class CheckoutUtils {
     );
     return response.data.statusCode;
   };
+
+  public static getTotalPage = async (email: string, perPage: number) => {
+    const response = await axios.get(`${shoppingUrl}/get-length?email=${email}`, config);
+    const totalPage = response.data.length;
+    return Math.ceil(totalPage / perPage);
+  };
 }

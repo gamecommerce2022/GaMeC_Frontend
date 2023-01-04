@@ -50,16 +50,10 @@ export const CartTableComponent = () => {
   }
 
   async function getMaxPage(page?: number, perPage?: number, filter?: number, queryEmail?: string) {
-    // ProductService.getTotalPage(perPage || 30, query).then((response) => {
-    //   setTotalPage(response);
-    // });
-    const result = await CheckoutUtils.getAllCheckoutSessions(
-      queryEmail || '',
-      page || 0,
-      perPage || 30,
-      filter,
-    );
-    const totalPage = Math.ceil(result.length / (perPage ?? 1));
+
+    const totalPage = await CheckoutUtils.getTotalPage(queryEmail || '', perPage || maxPerPages[1]);
+    console.log('totalPage ' + totalPage);
+
     setTotalPage(totalPage);
   }
 

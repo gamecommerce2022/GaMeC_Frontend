@@ -18,8 +18,8 @@ export const UserHistoryPage = () => {
     setBills(response);
   }
   async function getTotalPages(email: string) {
-    const response = await CheckoutUtils.getAllCheckoutSessions(email, 0, 1000, 1);
-    setTotalPage(response.length / 5);
+    const totalPage = await CheckoutUtils.getTotalPage(email, 5);
+    setTotalPage(totalPage);
   }
   useEffect(() => {
     const getBill = async () => {
@@ -60,7 +60,7 @@ export const UserHistoryPage = () => {
         pageRangeDisplayed={5}
         onChange={(selected) => {
           console.log(selected);
-
+          
           searchText(currentUser?.email || '', selected.selected, 5, 1);
         }}
       />
