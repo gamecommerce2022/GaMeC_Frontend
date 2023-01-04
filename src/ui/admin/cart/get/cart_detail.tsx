@@ -11,6 +11,7 @@ import { ProductDetailedItemComponent } from '../../../user/user_info/component'
 import { BreadCrumbComponent } from '../../component/breadcrumb';
 import { TableComponent } from '../../component/table';
 import { IBill } from './cart_item';
+import { default as dayjs } from 'dayjs';
 
 export const CartDetailComponent = (props: any) => {
   const [user, setUser] = useState<User>();
@@ -81,7 +82,7 @@ export const CartDetailComponent = (props: any) => {
         <div>
           <div>
             <span className="font-bold">Date: </span>
-            <span>{` ${bill?.date}`}</span>
+            <span>{` ${dayjs(bill?.date).format('DD-MM-YYYY HH:mm:ss')}`}</span>
           </div>
           <div>
             <span className="font-bold">Payment Status: </span>
