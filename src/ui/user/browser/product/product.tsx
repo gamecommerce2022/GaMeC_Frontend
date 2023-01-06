@@ -15,19 +15,29 @@ export const ProductPage = () => {
   const [loading, setLoading]: [boolean, (loading: boolean) => void] = useState<boolean>(true);
   const [comment, setComment] = useState<string>();
   const [author, setAuthor] = useState<any>();
+  const [isWishlist, setIsWishlist] = useState(false)
+  const [isInCart, setIsInCart] = useState(false)
   const navigate = useNavigate();
   useEffect(() => {
     if (productId !== undefined) {
       getCurrentUser(navigate).then((user) => {
         setAuthor(user);
-        console.log(`Author: ${user}`);
+        const foundWishlist = (user.favorites as Array<string>).find(element => element === productId)
+        if(foundWishlist !== undefined){
+          setIsWishlist(true)
+        } 
+        const foundInCart = (user.carts as Array<string>).find(element => element === productId)
+        if(foundInCart !== undefined){
+          setIsInCart(true)
+        } 
+        console.log(`Author: ${user} \n Wishlist: ${foundWishlist} \n InCart: ${foundInCart}`);
       });
       ProductService.getProductById(productId).then((product) => {
         ProductService.getCommentByProduct(productId).then((review) => {
           setReviews(review);
           console.log(review);
         });
-        setProduct(product);
+        setProduct(product);        
         setLoading(false);
       });
     }
@@ -36,7 +46,7 @@ export const ProductPage = () => {
     <div>
       {loading ? null : product ? (
         <div>
-          <ProductPageTemplate product={product} reviews={reviews} />
+          <ProductPageTemplate product={product} reviews={reviews} isInCart={isInCart} isWishlist={isWishlist} />
           <div className="lg:ml-80 lg:mr-[40rem] md:mx-20 sm:mx-20 mb-20">
             <div className="text-lg font-medium leading-6 text-gray-100 mb-4">Comment</div>
             <div className="flex flex-row">

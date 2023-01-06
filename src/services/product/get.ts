@@ -78,3 +78,34 @@ export const getProductById: (id: string) => Promise<Product> = async (id: strin
     };
     return product;
 }
+
+export const getRandomProduct: () => Promise<Product[]> = async () => {
+    let rawProducts = [];
+
+    let response: any = await axios.get(`${productUrl}/get5Products`);
+    rawProducts = response.data.products;
+    let products: Product[] = []
+    for (let i = 0; i < rawProducts.length; i++) {
+        let product: Product = {
+            id: rawProducts[i]._id,
+            title: rawProducts[i].title,
+            type: (rawProducts[i].type ?? []),
+            releaseDate: rawProducts[i].releaseDate,
+            platform: rawProducts[i].platform,
+            total: rawProducts[i].total,
+            price: parseFloat(rawProducts[i].price ?? "0"),
+            description: rawProducts[i].description,
+            maxPlayer: parseInt(rawProducts[i].maxPlayer ?? "0"),
+            discount: parseFloat(rawProducts[i].discount ?? "0.0"),
+            status: rawProducts[i].status,
+            tags: (rawProducts[i].tags ?? []),
+            note: rawProducts[i].note,
+            imageList: rawProducts[i].imageList,
+            videoList: rawProducts[i].videoList,
+            shortDescription: rawProducts[i].shortDescription,
+            countBuy: rawProducts[i].countBuy ?? 0,
+        };
+        products.push(product);
+    }
+    return products;
+}
