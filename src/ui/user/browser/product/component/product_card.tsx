@@ -6,6 +6,8 @@ import { Price } from './price';
 
 export interface IProductCardProps {
   product: Product;
+  isWishlist: boolean;
+  isInCart: boolean;
 }
 
 const KeyValue = ({ label, value }: { label: string; value: string }) => (
@@ -15,7 +17,7 @@ const KeyValue = ({ label, value }: { label: string; value: string }) => (
   </div>
 );
 
-export const ProductCard = ({ product }: IProductCardProps) => {
+export const ProductCard = ({ product , isWishlist, isInCart}: IProductCardProps) => {
   const getDate = (date: string) => new Date(date).toLocaleDateString();
 
   const values = [
@@ -74,7 +76,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               // }) }
             }}
           >
-            {false ? 'IN CART' : 'ADD TO CART'}
+            {isInCart ? 'IN CART' : 'ADD TO CART'}
           </button>
 
           <button
@@ -88,7 +90,7 @@ export const ProductCard = ({ product }: IProductCardProps) => {
               });
             }}
           >
-            {false ? 'IN WISHLIST' : 'ADD TO WISHLIST'}
+            {isWishlist ? 'IN WISHLIST' : 'ADD TO WISHLIST'}
           </button>
         </>
       }
