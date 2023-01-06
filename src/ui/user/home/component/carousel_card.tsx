@@ -2,25 +2,38 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Product } from '../../../../model/product_model';
 
-const CarouselCard = (product: Product) => {
+const CarouselCard = (props: { product: Product }) => {
   const [images, setImages] = useState<string[]>();
   const navigate = useNavigate();
   useEffect(() => {
     return () => {
-      setImages(product.imageList?.splice(0, 4));
-    };
-  }, []);
+      console.log('image list');
+      console.log(props.product.title);
 
-  const [currentThumbnail, setCurrentThumbnail] = useState(product.imageList![0] ?? '');
+      if (props.product.imageList.length < 4) {
+        setImages(props.product.imageList);
+      } else {
+        setImages(props.product.imageList?.slice(0, 4));
+      }
+      console.log(images);
+    };
+  }, [props.product.imageList, props.product.title]);
+
+  const [currentThumbnail, setCurrentThumbnail] = useState(props.product.imageList[0]);
   const realPrice =
-    product.price * (product.discount == null ? 1 : product.discount === 0 ? 1 : product.discount);
-  const discount = product.discount === null ? 0 : product.discount! * 100;
+    props.product.price *
+    (props.product.discount == null
+      ? 1
+      : props.product.discount === 0
+      ? 1
+      : props.product.discount);
+  const discount = props.product.discount === null ? 0 : props.product.discount! * 100;
   return (
-    <a href={`http://localhost:3000/user/products/${product.id}`}>
+    <a href={`http://localhost:3000/user/products/${props.product.id}`}>
       <div
         className="flex flex-row cursor-pointer"
         onClick={() => {
-          navigate(`/user/products/${product.id}`);
+          navigate(`/user/products/${props.product.id}`);
         }}
       >
         <img
@@ -29,19 +42,19 @@ const CarouselCard = (product: Product) => {
           alt=""
         />
         <div className="w-2/5 ml-4 flex flex-col">
-          <p className="text-white text-2xl">{product.title}</p>
+          <p className="text-white text-2xl">{props.product.title}</p>
           <div className="grid grid-cols-2 gap-2">
             {images?.map((image: any) => (
               <div
                 className="mt-6 bg-black aspect-w-2 aspect-h-2 mx-3 transition duration-300 filter brightness-50 hover:brightness-100"
                 onMouseEnter={() => setCurrentThumbnail(image)}
-                onMouseLeave={() => setCurrentThumbnail(product.imageList![0])}
+                onMouseLeave={() => setCurrentThumbnail(props.product.imageList![0])}
               >
                 <img className="object-fill w-full h-full rounded-sm" src={image} alt={image} />
               </div>
               // <img
               //   onMouseEnter={() => setCurrentThumbnail(image)}
-              //   onMouseLeave={() => setCurrentThumbnail(product.imageList![0])}
+              //   onMouseLeave={() => setCurrentThumbnail(props.product.imageList![0])}
               //   className="w-full h-full transition duration-300 filter brightness-50 hover:brightness-100 object-cover"
               //   alt=""
               //   src={image}
@@ -55,7 +68,7 @@ const CarouselCard = (product: Product) => {
           </div>
 
           <div className="flex-grow"></div>
-          {realPrice !== product.price ? (
+          {realPrice !== props.product.price ? (
             <div className="flex">
               {discount !== 0 ? (
                 <span className="text-green-banana bg-green-dark font-semibold px-1">
@@ -66,7 +79,10 @@ const CarouselCard = (product: Product) => {
               )}
               <span className="bg-gray-dark">
                 <span className="text-gray-600 line-through pl-1">
-                  {product.price.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
+                  {props.product.price.toLocaleString('it-IT', {
+                    style: 'currency',
+                    currency: 'VND',
+                  })}
                 </span>
                 <span className="text-green-banana no-underline px-1">
                   {realPrice.toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}
