@@ -6,8 +6,10 @@ import { Comment } from '../../../../model/comment';
 export interface IGamePageTemplateProps {
   product: Product | null;
   reviews: Comment[];
+  isWishlist: boolean;
+  isInCart: boolean;
 }
-export const ProductPageTemplate = ({ product, reviews }: IGamePageTemplateProps) => {
+export const ProductPageTemplate = ({ product, reviews, isWishlist, isInCart }: IGamePageTemplateProps) => {
   if (!product) <Navigate to="/404" />;
   return (
     <div className="lg:mx-80 md:mx-20 sm:mx-20">
@@ -70,7 +72,7 @@ export const ProductPageTemplate = ({ product, reviews }: IGamePageTemplateProps
             </div>
             <div className="order-1 col-span-1 md:order-2">
               <div className="sticky top-24">
-                <ProductCard product={product} />
+                <ProductCard product={product} isWishlist={isWishlist} isInCart={isInCart} />
               </div>
             </div>
           </div>
