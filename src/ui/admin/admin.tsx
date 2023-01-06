@@ -23,7 +23,7 @@ export const AdminPage = () => {
   useEffect(() => {
     const getUserRole = async () => {
       const userRole = await UserUtils.getUserRole();
-      if (userRole !== 'admin') {
+      if (userRole !== 'admin' || userRole === null) {
         navigate('/user');
       }
     };

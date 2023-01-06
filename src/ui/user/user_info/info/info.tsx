@@ -37,6 +37,7 @@ export const UserInfoPage = () => {
 
   async function logOut() {
     UserService.logOut();
+    navigate('/user');
   }
 
   return (
