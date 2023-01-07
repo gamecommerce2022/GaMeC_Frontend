@@ -109,7 +109,7 @@ export const UserInfoPage = () => {
           className="bg-red-500 active:bg-red-700"
           onClick={async () => {
             await logOut();
-            navigate('/signin', { replace: true });
+            navigate('/', { replace: true });
           }}
         />
       </div>

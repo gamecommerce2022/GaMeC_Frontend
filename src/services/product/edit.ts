@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import { Product } from '../../model/product_model';
 import { config } from '../config';
 import { productUrl } from '../url';

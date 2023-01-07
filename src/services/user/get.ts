@@ -1,6 +1,6 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { NavigateFunction } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { User } from '../../model/user_model';
 import { config, token } from '../config';
 import { userUrl } from '../url';
@@ -60,8 +60,7 @@ export const getProductById: (id: string) => Promise<User> = async (id: string) 
 };
 
 export const getCurrentUser = async (navigation: NavigateFunction) => {
-  const cookies = new Cookies();
-  const token = cookies.get('accessToken');
+  const token = Cookies.get('accessToken');
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };

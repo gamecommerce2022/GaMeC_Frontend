@@ -5,10 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import appIcon from '../../../assets/images/app_icon.png';
 
 import CustomTextField from '../component/custom_text';
-import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgressIndicator } from '../../../utils/circular_progress_indicator';
 import UserUtils from '../../../utils/user_utils';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
   useEffect(() => {
@@ -22,7 +22,6 @@ const LoginPage = () => {
     getCurrentUser();
   }, []);
 
-  const cookies = new Cookies();
   const navigate = useNavigate();
   const [currentEmail, setCurrentEmail] = useState<string>('');
   const [currentPassword, setCurrentPassword] = useState<string>('');
@@ -52,7 +51,7 @@ const LoginPage = () => {
 
         const user = res.data.data.user;
         const accessToken = res.data.accessToken;
-        cookies.set('accessToken', accessToken);
+        Cookies.set('accessToken', accessToken);
         toast.success(res.data.message, { theme: 'dark' });
         if (user.role === 'admin') {
           navigate('/admin');

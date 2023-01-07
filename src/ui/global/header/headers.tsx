@@ -4,24 +4,26 @@ import { Bars3Icon, XMarkIcon, HeartIcon, ShoppingCartIcon } from '@heroicons/re
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from '../../../model/user_model';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import { config } from '../../../services/config';
 import appIcon from '../../../assets/images/app_icon.png';
+import Cookies from 'js-cookie';
 
 export const Headers = () => {
   const [openNav, setOpenNav] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState<User>();
-  const [accessToken, setAccessToken] = useState(null);
-  useLayoutEffect(() => {
+  const [accessToken, setAccessToken] = useState('');
+  useEffect(() => {
     window.addEventListener('resize', () => window.innerWidth >= 960 && setOpenNav(false));
-    setAccessToken(new Cookies().get('accessToken'));
+    setAccessToken(Cookies.get('accessToken') ?? '');
     console.log(accessToken);
 
     const getCurrentUser = async () => {
       const result = await axios.post(
         `http://localhost:5000/api/user/get-current-user`,
         {},
-        config,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
       );
       const userInJson = result.data.user;
       console.log(userInJson);

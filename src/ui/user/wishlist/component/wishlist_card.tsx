@@ -49,7 +49,7 @@ export const WishlistCard = ({
             type="button"
             className="w-full px-4 py-2 mt-2 text-xs border-t border-gray-700  hover:bg-primary-600 group-hover:bg-primary rounded"
             onClick={() => {
-              updateUserProduct({ produtId: id, status: 'IN_CART', navigation });
+              updateUserProduct({ productId: id, status: 'IN_CART', navigation });
             }}
           >
             Add to cart
@@ -60,7 +60,7 @@ export const WishlistCard = ({
         type="button"
         className="absolute top-0 right-0 z-10 bg-transparent"
         onClick={() => {
-          updateUserProduct({ produtId: id, status: 'REMOVED_FROM_WISHLIST', navigation });
+          updateUserProduct({ productId: id, status: 'REMOVED_FROM_WISHLIST', navigation });
         }}
       >
         <XMarkIcon className="w-8 h-8 p-2 text-red-500 bg-transparent hover:text-red-200 " />
