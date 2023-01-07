@@ -18,8 +18,8 @@ export const UserHistoryPage = () => {
     setBills(response);
   }
   async function getTotalPages(email: string) {
-    const response = await CheckoutUtils.getAllCheckoutSessions(email, 0, 1000, 1);
-    setTotalPage(response.length / 5);
+    const totalPage = await CheckoutUtils.getTotalPage(email, 5);
+    setTotalPage(totalPage);
   }
   useEffect(() => {
     const getBill = async () => {
@@ -44,13 +44,19 @@ export const UserHistoryPage = () => {
     );
   }
   return (
-    <div className="flex flex-col mx-12 mt-12 lg:mx-40 md:mx-20">
+    <div className="flex flex-col my-5 bg-black">
       <div className="text-white text-2xl mt-16">PURCHASE HISTORY</div>
       <TableComponent
         key="table-component-key"
         headerList={['ID', 'DATE', 'TOTAL', 'PAYMENT STATUS']}
         bodyList={bills.map((bill, index) => {
-          return <BillItemComponent bill={bill} index={index + 1} key={`${index}-${bill.id}`} />;
+          return (
+            <BillItemComponent
+              bill={bill}
+              index={currentPage * 5 + index + 1}
+              key={`${index}-${bill.id}`}
+            />
+          );
         })}
       />
 
@@ -60,7 +66,7 @@ export const UserHistoryPage = () => {
         pageRangeDisplayed={5}
         onChange={(selected) => {
           console.log(selected);
-
+          setCurrentPage(selected.selected);
           searchText(currentUser?.email || '', selected.selected, 5, 1);
         }}
       />

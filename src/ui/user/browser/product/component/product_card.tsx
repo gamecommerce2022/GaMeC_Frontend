@@ -48,7 +48,7 @@ export const ProductCard = ({ product , isWishlist, isInCart}: IProductCardProps
             type="button"
             onClick={() => {
               updateUserProduct({
-                produtId: product.id!,
+                productId: product.id!,
                 status: 'IN_CART',
                 navigation: navigate,
               });
@@ -62,7 +62,7 @@ export const ProductCard = ({ product , isWishlist, isInCart}: IProductCardProps
             type="button"
             onClick={() => {
               updateUserProduct({
-                produtId: product.id!,
+                productId: product.id!,
                 status: 'IN_CART',
                 navigation: navigate,
               });
@@ -84,7 +84,7 @@ export const ProductCard = ({ product , isWishlist, isInCart}: IProductCardProps
             type="button"
             onClick={() => {
               updateUserProduct({
-                produtId: product.id!,
+                productId: product.id!,
                 status: 'IN_WISHLIST',
                 navigation: navigate,
               });

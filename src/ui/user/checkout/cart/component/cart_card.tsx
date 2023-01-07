@@ -31,7 +31,7 @@ export const CartCard = ({ product, classes, navigation }: ICartCardProps) => {
           className="absolute top-0 right-0 ml-auto bg-transparent"
           aria-label="close"
           onClick={(e) => {
-            updateUserProduct({ produtId: product.id!, status: 'REMOVED_FROM_CART', navigation });
+            updateUserProduct({ productId: product.id!, status: 'REMOVED_FROM_CART', navigation });
             e.stopPropagation();
           }}
         >

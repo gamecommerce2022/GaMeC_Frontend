@@ -1,12 +1,20 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { User } from '../model/user_model';
 import { config } from '../services/config';
 
 export default class UserUtils {
   static getUserRole = async () => {
+    const accessToken = Cookies.get('accessToken');
     let user: any = null;
     await axios
-      .post(`${process.env.REACT_APP_API_URL}/api/user/get-current-user`, {}, config)
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/user/get-current-user`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        },
+      )
       .then((response) => {
         console.log(response.data);
 

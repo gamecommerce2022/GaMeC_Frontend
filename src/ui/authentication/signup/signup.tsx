@@ -5,9 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import CustomTextField from '../component/custom_text';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
-import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgressIndicator } from '../../../utils/circular_progress_indicator';
+import Cookies from 'js-cookie';
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -19,14 +19,20 @@ const SignUpPage = () => {
   const [isAgreed, setIsAgreed] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signUp = async () => {
-    if(firstName === '' || lastName === '' || displayName === '' || email === '' || password === ''){
-      toast.error("Please fill all information below", { theme: 'dark' });
-      return
+    if (
+      firstName === '' ||
+      lastName === '' ||
+      displayName === '' ||
+      email === '' ||
+      password === ''
+    ) {
+      toast.error('Please fill all information below', { theme: 'dark' });
+      return;
     }
     let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-    if(!regex.test(email)){
-      toast.error("Invalid Email", { theme: 'dark' });
-      return
+    if (!regex.test(email)) {
+      toast.error('Invalid Email', { theme: 'dark' });
+      return;
     }
 
     setIsLoading(true);
@@ -43,7 +49,7 @@ const SignUpPage = () => {
         toast.success(res.data.message, { theme: 'dark' });
 
         const accessToken = res.data.accessToken;
-        new Cookies().set('accessToken', accessToken);
+        Cookies.set('accessToken', accessToken);
         setIsLoading(false);
         navigate('/');
       })

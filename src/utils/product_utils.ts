@@ -90,4 +90,19 @@ export class ProductUtils {
     }
     return products;
   };
+  public static getFeatureAndRecommendedProduct = async () => {
+    const products: Product[] = [];
+    const productsId = [
+      '6392057d22bd4d6b50d86263',
+      '6392057d22bd4d6b50d8625a',
+      '6392057d22bd4d6b50d8625d',
+      '6392057d22bd4d6b50d8625e',
+      '6392057d22bd4d6b50d8625f',
+    ];
+    for (const productId of productsId) {
+      const product = await this.getProductById(productId);
+      products.push(product);
+    }
+    return products;
+  };
 }

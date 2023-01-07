@@ -1,8 +1,8 @@
-import Cookies from "universal-cookie";
+import Cookies from 'js-cookie';
 
-const cookies = new Cookies()
-export const token = cookies.get('accessToken')
+export const token = Cookies.get('accessToken');
+
+const getToken = () => Cookies.get('accessToken');
 export const config = {
-    headers: { Authorization: `Bearer ${token}` }
+  headers: { Authorization: `Bearer ${getToken()}` },
 };
-

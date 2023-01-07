@@ -37,6 +37,7 @@ export const UserInfoPage = () => {
 
   async function logOut() {
     UserService.logOut();
+    navigate('/user');
   }
 
   return (
@@ -108,7 +109,7 @@ export const UserInfoPage = () => {
           className="bg-red-500 active:bg-red-700"
           onClick={async () => {
             await logOut();
-            navigate('/signin', { replace: true });
+            navigate('/', { replace: true });
           }}
         />
       </div>

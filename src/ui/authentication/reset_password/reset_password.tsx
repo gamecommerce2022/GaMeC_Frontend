@@ -5,13 +5,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import appIcon from '../../../assets/images/app_icon.png';
 
 import CustomTextField from '../component/custom_text';
-import Cookies from 'universal-cookie';
 import { useNavigate, useParams } from 'react-router-dom';
 import { CircularProgressIndicator } from '../../../utils/circular_progress_indicator';
 import { useSearchParams } from 'react-router-dom';
 import queryString from 'query-string';
 const ResetPasswordPage = () => {
-  const cookies = new Cookies();
   const navigate = useNavigate();
   const [newPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');

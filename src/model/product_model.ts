@@ -12,7 +12,7 @@ export type Product = {
   shortDescription?: string;
   note?: string;
   tags?: string[];
-  imageList?: string[];
+  imageList: string[];
   videoList?: string[];
   description: string;
   countBuy: number;

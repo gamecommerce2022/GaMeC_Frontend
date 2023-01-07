@@ -1,10 +1,9 @@
 import axios from 'axios';
-import Cookies from 'universal-cookie';
+import Cookies from 'js-cookie';
 import { config } from '../config';
 
 export const logOut = async () => {
-  const cookies = new Cookies();
-  cookies.remove('accessToken');
+  Cookies.remove('accessToken');
 };
 
 export const updateUser = async (firstName: string, lastName: string, displayName: string) => {

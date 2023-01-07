@@ -5,10 +5,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import appIcon from '../../../assets/images/app_icon.png';
 
 import CustomTextField from '../component/custom_text';
-import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 import { CircularProgressIndicator } from '../../../utils/circular_progress_indicator';
 import UserUtils from '../../../utils/user_utils';
+import Cookies from 'js-cookie';
 
 const LoginPage = () => {
   useEffect(() => {
@@ -22,21 +22,20 @@ const LoginPage = () => {
     getCurrentUser();
   }, []);
 
-  const cookies = new Cookies();
   const navigate = useNavigate();
   const [currentEmail, setCurrentEmail] = useState<string>('');
   const [currentPassword, setCurrentPassword] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const signIn = async () => {
-    if(currentPassword === '' || currentEmail === ''){
+    if (currentPassword === '' || currentEmail === '') {
       toast.error("Email or Password can't not empty.", { theme: 'dark' });
-      return
+      return;
     }
     let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
-    if(!regex.test(currentEmail)){
-      toast.error("Invalid Email", { theme: 'dark' });
-      return
+    if (!regex.test(currentEmail)) {
+      toast.error('Invalid Email', { theme: 'dark' });
+      return;
     }
 
     console.log('signing in...');
@@ -52,8 +51,8 @@ const LoginPage = () => {
 
         const user = res.data.data.user;
         const accessToken = res.data.accessToken;
+        Cookies.set('accessToken', accessToken);
         toast.success(res.data.message, { theme: 'dark' });
-        cookies.set('accessToken', accessToken);
         if (user.role === 'admin') {
           navigate('/admin');
         } else {
