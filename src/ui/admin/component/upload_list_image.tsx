@@ -5,17 +5,17 @@ export interface UploadImageListProp {
   onImages?: (images: string[]) => void;
 }
 
-export const ImageCard = (props: { image: string; multiple?: boolean | null }) => {
+export const ImageCard = (props: { image: string; multiple?: boolean | null , onClick: React.MouseEventHandler<HTMLImageElement> | undefined}) => {
   if (props.multiple === false) {
     return (
       <div className="h-[480px] p-2 flex items-center content-between gap-y-2">
-        <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
+        <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" onClick={props.onClick}/>
       </div>
     );
   }
   return (
     <div className="h-[160px] p-2 flex items-center content-between gap-y-2">
-      <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded" />
+      <img src={props.image} alt={props.image} className="w-full h-full object-fill rounded"   onClick={props.onClick}/>
     </div>
   );
 };
@@ -23,7 +23,39 @@ export const ImageCard = (props: { image: string; multiple?: boolean | null }) =
 export const UploadCard = (props: {
   onChange: (file: FileList | null) => void;
   multiple?: boolean;
+  onChild?: boolean;
 }) => {
+  if(props.onChild === true){
+    return (
+      <label htmlFor='file-upload-child' className="h-[160px] w-[160px] p-2 flex items-center content-between gap-y-2 cursor-pointer">
+       <input
+        id="file-upload-child"
+        name="file-upload-child"
+        type="file"
+        className="sr-only"
+        accept="image/png, image/jpeg"
+        onChange={(event) => {
+          props.onChange(event.target.files);
+        }}
+        multiple={props.multiple || true}
+      />
+      <svg
+        className="mx-auto h-[40px] w-[40px] text-gray-400"
+        stroke="currentColor"
+        fill="none"
+        viewBox="0 0 48 48"
+        aria-hidden="true"
+      >
+        <path
+          d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </label>
+    )
+  }
   return (
     <label htmlFor="file-upload" className="w-[80%] h-[80%] space-y-1 text-center cursor-pointer">
       <input
@@ -76,9 +108,6 @@ export const UploadListImageComponent: React.FC<UploadImageListProp> = (
                   ? 'flex items-center justify-center'
                   : 'grid lg:grid-cols-5 md:grid-cols-3 gap-1'
               } `}
-              onClick={() => {
-                props.onImages!([]);
-              }}
             >
               {props.images.length === 0 ? (
                 <UploadCard
@@ -98,10 +127,23 @@ export const UploadListImageComponent: React.FC<UploadImageListProp> = (
                 />
               ) : (
                 props.images.map((item) => {
-                  return <ImageCard image={item} multiple={props.multiple} />;
+                  return <ImageCard image={item} multiple={props.multiple} onClick={() => {           
+                    let strFile = props.images;
+                    strFile = strFile.filter((value) => {
+                      return value !== item})
+                    props.onImages!(strFile)
+                  }} />;
                 })
               )}
-            </div>
+               {props.images.length > 0 && props.multiple !== false  ? <UploadCard onChange={(files) =>{                               
+              let strFiles = props.images
+                if (files) {
+                  let strImg: string = URL.createObjectURL(files[0]);
+                  strFiles.push(strImg);                 
+                }
+                props.onImages!(strFiles)
+            }} multiple={false} onChild={true}/> : null}
+            </div>           
           </div>
         </div>
       </div>

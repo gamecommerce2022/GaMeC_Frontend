@@ -47,7 +47,7 @@ export const ProductTableComponent = () => {
   }
 
   function getMaxPage(perPage?: number, query?: string) {
-    ProductService.getTotalPage(perPage || 30, query).then((response) => {
+    ProductService.getTotalPage(perPage || 30, query).then((response) => {   
       setTotalPage(response);
     });
   }
@@ -195,7 +195,7 @@ export const ProductTableComponent = () => {
       {/** Table */}
       <TableComponent
         key="table-component-key"
-        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'DISCOUNT', 'PRICE','COUNT SOLD', '']}
+        headerList={['ID', 'TITLE', 'PLATFORM', 'IMAGE', 'DISCOUNT', 'PRICE', '']}
         bodyList={products.map((product, index) => {
           return (
             <ProductItemComponent
