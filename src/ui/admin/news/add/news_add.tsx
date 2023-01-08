@@ -10,6 +10,7 @@ import { News } from '../../../../model/news_model';
 export const NewsAddComponent: React.FC = () => {
   const [title, setTitle] = useState('');
   const [type, setType] = useState('');
+  const [author, setAuthor] = useState('Unknown');
   const [shortDescription, setShortDescription] = useState('');
   const [listImage, setListImage] = useState<string[]>([]);
   const [description, setDescription] = useState<string>();
@@ -57,11 +58,11 @@ export const NewsAddComponent: React.FC = () => {
       let news: News = {
         title: title,
         category: type,
-        author: '',
+        author: author,
         date: Date.now().toString(),
         description: descriptions,
         shortDescription: shortDescription,
-        mainImage: '',
+        mainImage: resImages[0],
       };
 
       let response = await NewsService.add(news);
@@ -107,6 +108,13 @@ export const NewsAddComponent: React.FC = () => {
               styleProps="w-full"
             />
             <InputComponent
+              title="Tác giả"
+              placeHolder="Tác giả...."
+              value={author}
+              onChange={setAuthor}
+              styleProps="w-full"
+            />
+            <InputComponent
               title="Miêu tả ngắn"
               placeHolder="Miêu tả...."
               value={shortDescription}
@@ -120,7 +128,7 @@ export const NewsAddComponent: React.FC = () => {
         <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
           <h3 className="text-lg font-medium leading-6 text-gray-900">Danh sách hình ảnh</h3>
           <h4 className="text-sm text-red-500 italic">
-            *Cần có ít nhất 1 ảnh làm ảnh đại diện sản phẩm
+            *Cần có ít nhất 1 ảnh làm ảnh đại diện tin tức
           </h4>
           <UploadListImageComponent
             images={listImage}

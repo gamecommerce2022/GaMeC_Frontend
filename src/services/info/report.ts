@@ -23,7 +23,7 @@ export const get = async (perPage: number, page: number) => {
 export const getLength = async (perPage: number) => {
     let response: any = await axios.get(`${reportUrl}/getLength`);
     let total = response.data.length / perPage
-    return Math.round(total as number)    
+    return total;  
 }
 
 export const create = async (userName: string,  description: string,  email: string, phoneNumber?: string, address?:string ) => {

@@ -74,13 +74,27 @@ export const ProductAddComponent: React.FC = () => {
     }
 
     if (errorCount === 0) {
+      setErrorDefaultPrice('')
+      setErrorDiscount('')
+      setErrorPlatform('')
+      setErrorType('')
+      setErrorShortDescription('')
+      setErrorTitle('')
+      setErrorTotal('')
       let resImages = [];
       for (let i = 0; i < listImage.length; i++) {
         if (listImage[i].includes('game-ecomemerce.appspot.com')) {
           resImages.push(listImage[i]);
         } else {
           const image = await uploadImage({ image: listImage[i] });
-          resImages.push(image);
+          if(image){
+resImages.push(image);
+          }
+          else {
+            console.log('upload image fail')
+            return
+          }
+          
         }
       }
       let game: Product = {
@@ -128,7 +142,7 @@ export const ProductAddComponent: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-x-2">
             <div className="grid md:grid-rows-4 gap-y-3">
               <InputComponent
-                title="Tên sản phẩm"
+                title="Tên sản phẩm *"
                 placeHolder="Pokemon"
                 value={title}
                 error={errorTitle}
@@ -137,7 +151,7 @@ export const ProductAddComponent: React.FC = () => {
               />
               <div className="grid lg:grid-cols-2 gap-x-4">
                 <InputComponent
-                  title="Hệ điều hành"
+                  title="Hệ điều hành *"
                   placeHolder="Nintendo Switch"
                   value={platform}
                   error={errorPlatform}
@@ -154,7 +168,7 @@ export const ProductAddComponent: React.FC = () => {
               </div>
               <div className="grid lg:grid-cols-2 gap-x-4">
                 <InputComponent
-                  title="Giá mặc định"
+                  title="Giá mặc định *"
                   placeHolder="10000000"
                   value={price.toString()}
                   error={errorDefaultPrice}
@@ -170,7 +184,7 @@ export const ProductAddComponent: React.FC = () => {
                 />
               </div>
               <InputComponent
-                title="Miêu tả ngắn gọn"
+                title="Miêu tả ngắn gọn *"
                 placeHolder="Một trò chơi thư giản với gia đình"
                 value={shortDescription}
                 onChange={setShortDescription}
@@ -181,7 +195,7 @@ export const ProductAddComponent: React.FC = () => {
             <div className="grid md:grid-rows-4 gap-y-3">
               <div className="grid lg:grid-cols-2 gap-x-4">
                 <InputComponent
-                  title="Thể loại"
+                  title="Thể loại *"
                   placeHolder="Phiêu lưu,Hành động"
                   value={type.join(',')}
                   error={errorType}
@@ -198,7 +212,7 @@ export const ProductAddComponent: React.FC = () => {
               </div>
               <div className="grid lg:grid-cols-2 gap-x-4">
                 <InputComponent
-                  title="Số lượng sản phẩm"
+                  title="Số lượng sản phẩm *"
                   placeHolder="10"
                   value={total.toString()}
                   error={errorTotal}
@@ -215,7 +229,7 @@ export const ProductAddComponent: React.FC = () => {
               </div>
               <div className="grid lg:grid-cols-2 gap-x-4">
                 <InputComponent
-                  title="Giảm giá"
+                  title="Giảm giá *"
                   placeHolder="0.5"
                   value={discount.toString()}
                   onChange={(value) => setDiscount(value)}
@@ -283,7 +297,7 @@ export const ProductAddComponent: React.FC = () => {
           className="py-2.5 px-5 m-2 w-1/4 text-base font-medium text-white bg-blue-700 rounded-lg border drop-shadow-sm hover:bg-blue-800 focus:ring-0 focus:bg-white focus:text-blue-700 focus:border-none focus:z-10 focus:drop-shadow-lg"
           onClick={async () => {
             let res = await addProduct();
-            if (res !== null) {
+            if (res !== undefined && res !== null) {
               navigate(-1);
             } else {
               console.log('Add Product Failed');

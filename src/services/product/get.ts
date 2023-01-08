@@ -62,10 +62,17 @@ export const getTotalPage: (perPage: number, query?: string) => Promise<number> 
   if (query !== undefined) {
     queryText = `?q=${query}`;
   }
-
-  let response: any = await axios.get(`${productUrl}/length${queryText}`);
-  total = response.data.length / perPage;
-  return total;
+  let response: any = await axios.get(`${productUrl}/length${queryText}`)
+  .catch(function(error) {
+    return 0;
+  });
+  if(response.data) {
+    total = response.data.length / perPage;
+    return total;
+  } else {
+    return 0
+  }
+ 
 };
 
 export const getProductById: (id: string) => Promise<Product> = async (id: string) => {
