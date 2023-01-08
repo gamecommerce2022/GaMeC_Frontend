@@ -19,7 +19,7 @@ export const NewsItemComponent: React.FC<{ index: number; news: News }> = (props
       </th>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.title}</td>
       <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.author}</td>
-      <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.date}</td>
+      <td className="py-4 px-6 font-medium text-gray-900 ">{props.news.date.substring(0, 10)}</td>
       <td className="py-4 px-6">
         <div className="flex flex-row h-full items-center justify-around">
           <PencilIcon

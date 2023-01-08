@@ -12,6 +12,7 @@ export const NewsEditComponent: React.FC = () => {
   const { newsId } = useParams<{ newsId: string }>();
   const [title, setTitle] = useState<string>('');
   const [type, setType] = useState<string>('');
+  const [author, setAuthor] = useState<string>('');
   const [shortDescription, setShortDescription] = useState<string>('');
   const [listImage, setListImage] = useState<string[]>([]);
   const [description, setDescription] = useState<string>('');
@@ -33,6 +34,7 @@ export const NewsEditComponent: React.FC = () => {
         setShortDescription(response.shortDescription);
         setListImage(images);
         setDescription(descriptions);
+        setAuthor(response.author ?? 'Unknown');
         setLoading(false);
       });
     } catch (error) {
@@ -78,6 +80,7 @@ export const NewsEditComponent: React.FC = () => {
         title: title,
         category: type,
         date: Date.now().toString(),
+        author: author,
         description: descriptions,
         shortDescription: shortDescription,
         mainImage: resImages[0],
@@ -126,6 +129,13 @@ export const NewsEditComponent: React.FC = () => {
               styleProps="w-full"
             />
             <InputComponent
+              title="Tác giả"
+              placeHolder="Tác giả...."
+              value={author}
+              onChange={setAuthor}
+              styleProps="w-full"
+            />
+            <InputComponent
               title="Miêu tả ngắn"
               placeHolder="Miêu tả...."
               value={shortDescription}
@@ -139,7 +149,7 @@ export const NewsEditComponent: React.FC = () => {
         <div className="mx-10 mt-4 md:mx-20 shadow-lg rounded-lg p-8">
           <h3 className="text-lg font-medium leading-6 text-gray-900">Danh sách hình ảnh</h3>
           <h4 className="text-sm text-red-500 italic">
-            *Cần có ít nhất 1 ảnh làm ảnh đại diện sản phẩm
+            *Cần có ít nhất 1 ảnh làm ảnh đại diện tin tức
           </h4>
           <UploadListImageComponent
             images={listImage}

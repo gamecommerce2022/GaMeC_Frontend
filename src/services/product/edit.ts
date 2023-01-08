@@ -18,7 +18,7 @@ export const editGame: (game: Product) => Promise<boolean> = async (game: Produc
   }
 };
 
-export const editImage: (props: { image: File }) => Promise<any> = async (props: {
+export const  editImage: (props: { image: File }) => Promise<any> = async (props: {
   image: File;
 }) => {
   var bodyFormData = new FormData();
