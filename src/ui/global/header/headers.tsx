@@ -7,6 +7,8 @@ import axios from 'axios';
 import { config } from '../../../services/config';
 import appIcon from '../../../assets/images/app_icon.png';
 import Cookies from 'js-cookie';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCartShopping, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 export const Headers = () => {
   const [openNav, setOpenNav] = useState<boolean>(false);
@@ -43,123 +45,71 @@ export const Headers = () => {
   }, [accessToken]);
 
   const navigate = useNavigate();
-  const navList = (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Link to="/user" className="flex items-center text-white text-sm p-1">
-        Home
-      </Link>
-      <Link to="/user/browser" className="flex items-center text-white text-sm p-1">
-        Browser
-      </Link>
-      <Link to="/user/news" className="flex items-center text-white text-sm p-1">
-        Blogs
-      </Link>
-      <Link to="/user/contact" className="flex items-center text-white text-sm p-1">
-        Contact
-      </Link>
-    </ul>
-  );
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl py-1 px-4 lg:px-8 bg-black">
-      <div className="container mx-auto flex items-center justify-between text-white">
-        <Typography
-          as="a"
-          href="/user"
-          variant="small"
-          className="cursor-pointer font-normal flex flex-row items-center justify-center"
-        >
-          <img src={appIcon} className="w-10 h-10" alt="app icon" />
-        </Typography>
-        <div className="hidden lg:block">{navList}</div>
-        <div className="flex flex-row justify-evenly items-center">
-          {/**Wishlist */}
-          <IconButton variant="outlined" size="sm" className="hidden lg:inline-block mx-2">
-            <Link to="wishlist">
-              <HeartIcon className="text-blue-400 w-4 h-4" />
-            </Link>
-          </IconButton>
-
-          {/** Shopping Cart */}
-          <IconButton
-            variant="outlined"
-            size="sm"
-            color="red"
-            className="hidden lg:inline-block mx-2"
-          >
-            <Link to="cart">
-              <ShoppingCartIcon className="text-red-400 w-4 h-4" />
-            </Link>
-          </IconButton>
-
-          {/** Avatar User or Login Button */}
-          {!currentUser ? (
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block mx-2"
-              onClick={() => navigate('/signin')}
-            >
-              <span>Sign in</span>
-            </Button>
-          ) : (
-            <Link to="info">
-              <Typography variant="small" className="text-white">
-                {currentUser.displayName}
-              </Typography>
-            </Link>
-          )}
-        </div>
-
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
-        </IconButton>
-      </div>
-
-      {/*Mobile Nav */}
-      <MobileNav open={openNav}>
-        {navList}
-        <Button
-          variant="gradient"
-          size="sm"
-          fullWidth
-          className="mb-2"
-          onClick={() => navigate('/wishlist')}
-        >
-          <span>Wishlist</span>
-        </Button>
-        <Button
-          variant="gradient"
-          size="sm"
-          fullWidth
-          className="mb-2"
-          onClick={() => navigate('/cart')}
-        >
-          <span>Cart</span>
-        </Button>
-        {/** Avatar User or Login Button */}
-        {!currentUser ? (
-          <Button
-            variant="gradient"
-            size="sm"
-            className="hidden lg:inline-block mx-2"
-            onClick={() => navigate('/signin')}
-          >
-            <span>Sign in</span>
-          </Button>
-        ) : (
-          <Link to="info">
-            <Typography variant="small" className="text-white">
-              {currentUser.displayName}
-            </Typography>
+    <div className="bg-gray-800">
+      <div className="border py-3 px-6">
+        <div className="flex justify-between">
+          <Link to="/user" className="flex items-center">
+            <img src={appIcon} width={20} height={20} alt="App icon" />
+            <span className="ml-2 font-semibold text-white">GaMeC</span>
+            <span className="ml-2 text-white">By Gamer for Gamer</span>
           </Link>
-        )}
-      </MobileNav>
-    </Navbar>
+
+          <div className="ml-2 flex">
+            <a
+              href="/user/browser"
+              className="flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4"
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} color="white" />
+              <span className="text-sm font-medium text-white">Browse</span>
+            </a>
+
+            <a
+              href="/user/wishlist"
+              className="flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 text-red-500"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span className="text-sm font-medium text-white">Wishlist</span>
+            </a>
+
+            <a
+              href="/user/cart"
+              className="flex cursor-pointer items-center gap-x-1 rounded-md py-2 px-4 "
+            >
+              <div className="relative">
+                <FontAwesomeIcon icon={faCartShopping} color="#90EE90" />
+              </div>
+              <span className="text-sm font-medium text-white">Cart</span>
+            </a>
+            {!currentUser ? (
+              <div
+                onClick={() => navigate('/signin')}
+                className="ml-2 flex cursor-pointer brightness-90 hover:brightness-100 items-center gap-x-1 rounded-md border py-2 px-4 bg-blue-500 border-none"
+              >
+                <span className="text-sm font-medium text-white">Sign in</span>
+              </div>
+            ) : (
+              <a href="/user/info">
+                <Typography variant="small" className="text-white">
+                  {currentUser.displayName}
+                </Typography>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
